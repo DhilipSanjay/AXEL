@@ -50,41 +50,42 @@
 Polls go here
 </div>
 
-<div class="label">News</div>
-<hr width="95%">
-<div id="news">
+<div class="label">Announcements</div>
+<hr width="97.5%">
+<div id="announcements">
 
-<div class="newsholder">
-    <div class="imgholder">
-</div>
-<div class="newsinfo"><p>Content goes here</p></div>
-
+<div class="announcementsholder">
+    <div class="imgholder"></div>
+<div class="announcementsinfo"><p>Content goes here</p></div>
 </div>
 
-<div class="newsholder">
-    <div class="imgholder">
-</div>
-<div class="newsinfo"><p>Content goes here</p></div>
-
+<div class="announcementsholder">
+    <div class="imgholder"></div>
+<div class="announcementsinfo"><p>Content goes here</p></div>
 </div>
 
-<div class="newsholder">
-    <div class="imgholder">
-</div>
-<div class="newsinfo"><p>Content goes here</p></div>
-
+<div class="announcementsholder">
+    <div class="imgholder"></div>
+<div class="announcementsinfo"><p>Content goes here</p></div>
 </div>
 
-<div class="newsholder">
-    <div class="imgholder">
-    </div>
-<div class="newsinfo"><p>Content goes here</p></div>
+<div class="announcementsholder">
+    <div class="imgholder"></div>
+<div class="announcementsinfo"><p>Content goes here</p></div>
 </div>
+
 
 </div>
 
+<div id="footer">
+&#x00A9 Axel 2020 All copyrights reserved
 </div>
-<script>
+
+</div>
+
+
+
+<script type="text/javascript">
 
 function opensidebar()
 { 
