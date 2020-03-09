@@ -3,7 +3,7 @@
     --background:white; /* not used for now*/
     --text:black;
     --font:'Nunito Sans', sans-serif;
-    --buttoncol:#85C1E9;
+    --buttoncol:#76D7C4;
 }
 
 html
@@ -27,6 +27,71 @@ hr
     margin-bottom:30px;
     margin-left:4.75%;
     margin-top:0;
+}
+
+#overlay
+{
+    position: fixed;
+    height:100%;
+    opacity:0;
+    width:100%;
+    top:0;
+    background-color: black;
+    z-index:-1;
+}
+
+#menu
+{
+    position: fixed;
+    top:0;
+    right:0;
+    background-color:var(--buttoncol);
+    height:100%;
+    width:0;
+    z-index:3;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content: center;
+    transition: width 0.25s ease-in-out;
+    overflow:hidden;
+}
+
+#menu #close
+{
+    cursor:pointer;
+    position: absolute;
+    right:20px;
+    top:20px;
+    height:40px;
+    width:40px;
+}
+
+#menu a
+{
+    text-decoration:none;
+    font-size:1.5rem;
+    font-weight: 300;
+    margin-bottom:15px;
+    text-overflow:ellipsis;
+    color:white;
+    overflow:hidden;
+    width:50%;
+    text-align: center;
+    white-space: nowrap;
+    transition: color 0.2s ease-in-out;
+}
+
+#menu a:hover
+{
+    color:#148F77;
+}
+
+#menu #active
+{
+    cursor:default;
+    color:#148F77;
+    font-style:italic;
 }
 
 
@@ -66,6 +131,7 @@ hr
     position: absolute;
     margin-top:12px;
     cursor: pointer;
+    z-index:1;
     right:20px;
 }
 
@@ -77,6 +143,7 @@ hr
     margin-top:23px;
     cursor:pointer;
     right:85px;
+    z-index:1;
 }
 
 
@@ -256,11 +323,11 @@ hr
 {
     font-size:1.2rem;
     display:flex;
-    align-items:flex-start;
+    align-items: center;
     justify-content:space-around;
     flex-wrap:wrap;
     color:var(--text);
-    height:500px;
+    height:fit-content;
     width:90%;
     /*border:2px solid black;*/
     margin-bottom:2.5%;
@@ -272,8 +339,8 @@ hr
     display:flex;
     align-items: center;
     justify-content: flex-start;
-    width:49%;
-    height:48%;
+    width:48%;
+    height:200px;
     margin-bottom:15px;
     -webkit-box-shadow: 0 3px 8px -2px #c0c0c0;
     -moz-box-shadow: 0 3px 8px -2px #c0c0c0;
@@ -287,12 +354,23 @@ hr
     justify-content:center;
     object-fit: cover;
     overflow:hidden;
-    width:40%;
+    width:250px;
     height:100%;
-    /*background-color: #c0c0c0;*/
-    background-image: url(defaultimgholder.png);
-    background-size: contain;
-    background-position: center;
+    background-color: #c0c0c0;
+}
+ 
+@media only screen and (min-width:768px) and (max-width:950px)
+{
+    #others #news .newsholder .imgholder
+    {
+        width:160px;
+    }   
+
+    #others #news .newsholder
+    {
+        height:160px;
+        font-size:1rem;
+    }
 }
 
 #others #news .newsholder .imgholder img
@@ -333,7 +411,7 @@ hr
 #others #news .newsholder
 {
     width:100%;
-    height:30%;
+    height:150px;
 }
 
 #others #news .newsholder .imgholder
@@ -391,12 +469,13 @@ hr
 
 #others #news .newsholder
 {
-    height:42.5%;
+    height:40%;
+    font-size:1rem;
 }
 
 #others #news .newsholder .imgholder
 {
-    width:40%;
+    width:170px;
 }
 
 #others #news .newsholder .newsinfo p

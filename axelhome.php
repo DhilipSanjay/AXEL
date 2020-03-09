@@ -9,12 +9,22 @@
 </head>
 <body>
 
+<div id="overlay" onclick="closesidebar()"></div>
+
+<div id="menu">
+<img id="close" src="close.png" onclick="closesidebar()">
+    <a id="active">Home</a>
+    <a href="about.php">What we do</a>
+    <a href="contact.php">Get in touch</a>
+    <a href="login.php">Login</a>
+</div>
+
 <div id="home">
 
 <img id="logo" src="logo.png" height="47px" width="45px">
 <div id="title">AXEL</div>
 <img id="user" src="user.png">
-<img id="listicon" src="list.png">
+<img id="listicon" onclick="opensidebar();" src="list.png" alt="picture">
 
 <div id="maininfo">
     <div id="content">
@@ -74,5 +84,30 @@ Polls go here
 </div>
 
 </div>
+<script>
+
+function opensidebar()
+{ 
+    if(document.body.offsetWidth<=798)
+    {
+    document.getElementById("menu").style.width="85%";
+    }
+    
+    else{
+    document.getElementById("menu").style.width="400px";
+    }
+
+    document.getElementById("overlay").style.opacity="0.5";
+    document.getElementById("overlay").style.zIndex="2";  
+
+}
+
+function closesidebar()
+{
+    document.getElementById("menu").style.width="0";
+    document.getElementById("overlay").style.opacity="0";
+    document.getElementById("overlay").style.zIndex="-1";   
+}
+</script>
 </body>
 </html>
