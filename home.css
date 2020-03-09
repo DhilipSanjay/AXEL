@@ -1,0 +1,409 @@
+:root
+{
+    --background:white; /* not used for now*/
+    --text:black;
+    --font:'Nunito Sans', sans-serif;
+    --buttoncol:#85C1E9;
+}
+
+html
+{
+ height:100%;
+ width:100%;
+}
+
+body
+{
+    margin:0;
+    font-family:var(--font);
+    color:var(--text);
+}
+
+hr
+{
+    height:2px;
+    background-color:var(--buttoncol);
+    border:none;
+    margin-bottom:30px;
+    margin-left:4.75%;
+    margin-top:0;
+}
+
+
+#home
+{
+    position: absolute;
+    background-image:linear-gradient(to top, rgba(23, 32, 42, 0.20), rgba(0, 0, 0, 0.80)),url(bg.jpg);
+    background-size: cover;
+    top:0;
+    left:0;
+    right:0;
+    height:100%;
+    color:white;
+}
+
+#home #logo
+{
+    margin-top:15px;
+    margin-left:20px;
+}
+
+#home #title
+{
+    position: absolute;
+    display:inline-block;
+    font-size:1.5rem;
+    font-weight: lighter;
+    letter-spacing: 2px;
+    margin-top:23px;
+    margin-left:10px;
+}
+
+#home #listicon
+{
+    height:45px;
+    width:45px;
+    position: absolute;
+    margin-top:12px;
+    cursor: pointer;
+    right:20px;
+}
+
+#home #user
+{
+    height:23px;
+    width:22px;
+    position: absolute;
+    margin-top:23px;
+    cursor:pointer;
+    right:85px;
+}
+
+
+#home #maininfo
+{
+    position: absolute;
+    display:flex;
+    align-items:center;
+    width:100%;
+    height:100%;
+    bottom:0;
+    overflow:hidden;
+}
+
+#home #maininfo #content
+{
+    font-size:3.5rem;
+    font-style:italic;
+    font-weight:lighter;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content: center;
+    width:100%;
+}
+
+#home #maininfo #content #text
+{
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+#home #maininfo #content #text #evolve
+{
+    display:flex;
+    margin-left:13px;
+    transition:all 0.2s ease-in-out;
+}
+
+#home #maininfo #content #info
+{
+    margin-top:-15px;
+    font-size:1.2rem;
+    max-width:80%;
+    display:flex;
+}
+
+#home #maininfo #content #buttonholder
+{
+    margin:auto;
+    margin-top:40px;
+    width:85%;
+    height:60px;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+}
+
+#home #maininfo #content #buttonholder .button
+{
+    font-style:normal;
+    border:2px solid white;
+    font-size:1.2rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:90%;
+    text-align: center;
+    width:49%;
+    transition:all 0.2s ease-in-out;
+}
+
+
+@media only screen and (max-width: 768px) {
+
+#home
+{
+    background-position: right;
+}
+
+#home #logo
+{
+    margin-left:15px;
+}
+
+#home #listicon
+{
+    margin-top:15px;
+    right:15px;
+}
+
+#home #user
+{
+    margin-top:26px;
+}
+
+
+#home #maininfo #content
+{
+    font-size:2.25rem;
+}
+
+#home #maininfo #content #text #evolve
+{
+    margin-left:10px;
+}
+
+#home #maininfo #content #info
+{
+    font-size:1.1rem;
+    width:75%;
+    text-align: justify;
+}
+
+#home #maininfo #content #buttonholder
+{
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:fit-content;
+    width:75%;
+}
+
+#home #maininfo #content #buttonholder .button
+{
+    font-size:1.1rem;
+    width:100%;
+    margin-bottom:10px;
+    height:50px;
+}
+
+}
+
+#home #maininfo #content #buttonholder .button:hover
+{
+    color:var(--buttoncol);
+    cursor:pointer;
+    border:2px solid var(--buttoncol);
+}
+
+#others
+{
+    position:absolute;
+    top:100%;
+    width:100%;
+    height:fit-content;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#others .label
+{ 
+    align-self: flex-start;
+    display:flex;
+    font-size:2rem;
+    font-weight:200;
+    /*font-style:italic;*/
+    margin-top:40px;
+    margin-bottom:20px;
+    color:var(--text);
+    margin-left:4.75%;
+}
+
+#others .pollstitle
+{
+    margin-left:0;
+    align-self:center;
+}
+
+#others #polls,#others #news
+{
+    font-size:1.2rem;
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-around;
+    flex-wrap:wrap;
+    color:var(--text);
+    height:500px;
+    width:90%;
+    /*border:2px solid black;*/
+    margin-bottom:2.5%;
+}
+
+
+#others #news .newsholder
+{
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+    width:49%;
+    height:48%;
+    margin-bottom:15px;
+    -webkit-box-shadow: 0 3px 8px -2px #c0c0c0;
+    -moz-box-shadow: 0 3px 8px -2px #c0c0c0;
+    box-shadow: 0 3px 8px -2px #c0c0c0;
+    font-weight:400;
+}
+
+#others #news .newsholder .imgholder
+{
+    display:flex;
+    justify-content:center;
+    object-fit: cover;
+    overflow:hidden;
+    width:40%;
+    height:100%;
+    /*background-color: #c0c0c0;*/
+    background-image: url(defaultimgholder.png);
+    background-size: contain;
+    background-position: center;
+}
+
+#others #news .newsholder .imgholder img
+{
+    height:100%;
+}
+
+#others #news .newsholder .newsinfo
+{
+    display:flex;
+    flex-direction:column;
+    justify-content:start;
+    width:60%;
+    height:100%;
+}
+
+#others #news .newsholder .newsinfo p
+{
+    margin-top:20px;
+    margin-left:20px;
+}
+
+
+
+
+@media only screen and (max-width: 768px) {
+
+#others .label
+{
+    font-size:1.7rem;
+}
+
+#others #polls,#others #news
+{
+    font-size:1rem;
+}
+
+#others #news .newsholder
+{
+    width:100%;
+    height:30%;
+}
+
+#others #news .newsholder .imgholder
+{
+    width:40%;
+}
+
+#others #news .newsholder .newsinfo p
+{
+    margin-left:10px;
+    margin-top:10px;
+}
+}
+
+@media only screen and (max-height:480px) and (orientation:landscape)
+{
+
+#home #maininfo #content
+{
+    margin-top:-10px;
+    font-size:2rem;
+}
+
+#home #maininfo #content #info
+{
+    font-size:1rem;
+    width:75%;
+    text-align: justify;
+}
+
+#home #maininfo #content #buttonholder .button
+{
+    font-size:1rem;
+}
+
+#home #maininfo #content #text #evolve
+{
+    margin-left:9px;
+}
+
+#others .label
+{
+    font-size:1.7rem;
+}
+
+#others #polls,#others #news
+{
+    font-size:1rem;
+}
+
+#others #news
+{
+    height:400px;
+}
+
+#others #news .newsholder
+{
+    height:42.5%;
+}
+
+#others #news .newsholder .imgholder
+{
+    width:40%;
+}
+
+#others #news .newsholder .newsinfo p
+{
+    margin-left:10px;
+    margin-top:10px;
+}
+
+
+}
