@@ -6,6 +6,11 @@
     --buttoncol:#76D7C4;
 }
 
+/*body::-webkit-scrollbar //used to hide scrollbar in chrome,safari,opera
+{
+    width:0 !important
+}*/
+
 html
 {
  height:100%;
@@ -354,7 +359,7 @@ hr
     justify-content:center;
     object-fit: cover;
     overflow:hidden;
-    width:250px;
+    width:200px;
     height:100%;
     background-color: #c0c0c0;
 }
@@ -429,12 +434,12 @@ hr
 #others #announcements .announcementsholder
 {
     width:100%;
-    height:125px;
+    height:140px;
 }
 
 #others #announcements .announcementsholder .imgholder
 {
-    width:40%;
+    width:140px;
 }
 
 #others #announcements .announcementsholder .announcementsinfo p
