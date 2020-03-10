@@ -9,4 +9,8 @@ function dehighlightevolve()
     document.getElementById("evolve").style.color="white";
 }
 
+function openlink(url)
+{
+    window.location.href=url;
+}
 

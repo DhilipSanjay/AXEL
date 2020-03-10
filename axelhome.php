@@ -16,14 +16,15 @@
     <a id="active">Home</a>
     <a href="about.php">What we do</a>
     <a href="contact.php">Get in touch</a>
+    <a href="contests.php">Contests</a>
     <a href="login.php">Login</a>
 </div>
 
 <div id="home">
 
-<img id="logo" src="logo.png" height="47px" width="45px">
+<img id="logo" src="logo.png" height="47px" width="45px" alt="logo">
 <div id="title">AXEL</div>
-<img id="user" src="user.png">
+<img onclick="openlink('login.php')" id="user" src="user.png" alt="login">
 <img id="listicon" onclick="opensidebar();" src="list.png" alt="picture">
 
 <div id="maininfo">
@@ -74,8 +75,42 @@ Polls go here
 <div class="announcementsinfo"><p>Content goes here</p></div>
 </div>
 
+</div>
+
+<div class="label">News</div>
+
+<div class="holder">
+
+<div id="news">
+
+<div class="newsholder"><p>Content goes here</p></div>
+<div class="newsholder"><p>Content goes here</p></div>
+<div class="newsholder"><p>Content goes here</p></div>
+<div class="newsholder"><p>Content goes here</p></div>
 
 </div>
+
+</div>
+
+<div class="holder contestsholder">
+
+<div class="label contestlabel">Contests</div>
+<hr width="97.5%" class="contestline">
+<p id="desc">Check out some of the interesting contests hosted by enthusiastic startups!</p>
+
+<div id="contests">
+
+<div class="cholder ch1"><p>Content goes here</p></div>
+<div class="cholder ch1"><p>Content goes here</p></div>
+<div class="cholder ch1"><p>Content goes here</p></div>
+<div class="cholder ch1"><p>Content goes here</p></div>
+
+</div>
+
+</div>
+
+<div id="dummy"></div>
+
 
 <div id="footer">
 &#x00A9 Axel 2020 All copyrights reserved
