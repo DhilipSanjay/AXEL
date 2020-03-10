@@ -349,6 +349,30 @@ hr
     /*border:2px solid black;*/
 }
 
+#others .loadmore
+{
+    background-color:var(--buttoncol);
+    margin:auto;
+    border-radius:8px;
+    text-align: center;
+    width:150px;
+    margin-right:1%;
+    margin-top:1%;
+    padding:15px 15px;
+    color:white;
+    font-size:1.1rem;
+    -webkit-box-shadow: 0 3px 8px -2px #c0c0c0;
+    -moz-box-shadow: 0 3px 8px -2px #c0c0c0;
+    box-shadow: 0 3px 8px -2px #c0c0c0;
+    cursor:pointer;
+}
+
+#others .new
+{
+    -webkit-box-shadow: 0 3px 8px -2px #1C2833;
+    -moz-box-shadow: 0 3px 8px -2px #1C2833;
+    box-shadow: 0 3px 8px -2px #1C2833;
+}
 
 #others #announcements .announcementsholder
 {
@@ -591,6 +615,14 @@ hr
     width:75%;
     margin:auto;
     margin-bottom:20px;
+}
+
+#others .loadmore
+{
+    margin:0;
+    margin-top:1%;
+    justify-self: flex-start;
+    width:100%;
 }
 
 }

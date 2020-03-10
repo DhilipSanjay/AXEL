@@ -75,6 +75,10 @@ Polls go here
 <div class="announcementsinfo"><p>Content goes here</p></div>
 </div>
 
+<div class="loadmore" onclick="openlink('announcements.php')">
+Load More
+</div>
+
 </div>
 
 <div class="label">News</div>
@@ -87,6 +91,10 @@ Polls go here
 <div class="newsholder"><p>Content goes here</p></div>
 <div class="newsholder"><p>Content goes here</p></div>
 <div class="newsholder"><p>Content goes here</p></div>
+
+<div class="loadmore new" onclick="openlink('news.php')">
+Load More
+</div>
 
 </div>
 
@@ -105,7 +113,12 @@ Polls go here
 <div class="cholder ch1"><p>Content goes here</p></div>
 <div class="cholder ch1"><p>Content goes here</p></div>
 
+<div class="loadmore new" onclick="openlink('contests.php')">
+Load More
 </div>
+
+</div>
+
 
 </div>
 
