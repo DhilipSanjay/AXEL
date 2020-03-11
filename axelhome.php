@@ -108,13 +108,20 @@ Load More
 
 <div id="contests">
 
+<div class="box1">
 <div class="cholder ch1"><p>Content goes here</p></div>
 <div class="cholder ch1"><p>Content goes here</p></div>
-<div class="cholder ch1"><p>Content goes here</p></div>
-<div class="cholder ch1"><p>Content goes here</p></div>
+</div>
 
-<div class="loadmore new" onclick="openlink('contests.php')">
+<div class="box1 additional">
+<div class="cholder ch1"><p>Content goes here</p></div>
+<div class="cholder ch1"><p>Content goes here</p></div>
+</div>
+
+<div id="loadmoreflex">
+<div class="loadmore new contestloadmore" onclick="openlink('contests.php')">
 Load More
+</div>
 </div>
 
 </div>

@@ -367,6 +367,12 @@ hr
     cursor:pointer;
 }
 
+#others .contestloadmore
+{
+    margin-top:0;
+    margin-right:0;
+}
+
 #others .new
 {
     -webkit-box-shadow: 0 3px 8px -2px #1C2833;
@@ -443,7 +449,7 @@ hr
 }
 
 
-#others #news,#others #contests
+#others #news
 {
     padding:2% 2%;
     overflow: hidden;
@@ -458,7 +464,19 @@ hr
     /*border:2px solid black;*/
 }
 
-#others #news .newsholder,#others #contests .cholder
+#others #contests
+{
+    padding:2% 2%;
+    font-size:1.2rem;
+    width:90%;
+    display:grid;
+    gap:1.5rem;
+    color:var(--text);
+    overflow: hidden;
+    padding-bottom:50px;
+}
+
+#others #news .newsholder
 {
     background-color:white;
     width:48%;
@@ -476,9 +494,46 @@ hr
     justify-content: flex-start;
 }
 
+
+
+#others #contests .cholder
+{
+    background-color:white;
+    -webkit-box-shadow: 0 3px 8px -2px #1C2833;
+    -moz-box-shadow: 0 3px 8px -2px #1C2833;
+    box-shadow: 0 3px 8px -2px #1C2833;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content: flex-start;
+}
+
+#others #contests .box1
+{
+    width:100%;
+    display: grid;
+    gap:1.5rem;
+    height:fit-content;
+    grid-template-columns: 3fr 4fr;
+}
+
+#others #contests .additional
+{
+    grid-template-columns: 4fr 3fr;
+}
+
 #others #contests .ch1
 {
     height:250px;
+}
+
+#others #contests #loadmoreflex
+{
+    display:flex;
+    width:100%;
+    align-items:center;
+    justify-content: center;
+    height:fit-content;
 }
 
 #others #news .newsholder p,#others #contests .cholder p
@@ -563,7 +618,13 @@ hr
 #others #contests .cholder
 {
     width:100%;
-    height:200px;
+    height:185px;
+}
+
+
+#others #contests .box1,#others #contests .box2
+{
+    grid-template-columns: 1fr;
 }
 
 #others #announcements .announcementsholder .imgholder
@@ -571,7 +632,7 @@ hr
     width:140px;
 }
 
-#others #announcements .announcementsholder .announcementsinfo p,#others #contests .cholder p
+#others #announcements .announcementsholder .announcementsinfo p,#others #contests .cholder p,#others #news .newsholder p
 {
     margin-left:10px;
     margin-top:10px;
@@ -617,14 +678,23 @@ hr
     margin-bottom:20px;
 }
 
+#others #contests,#others #contests .box1
+{
+gap:2%;
+}
+
 #others .loadmore
 {
     margin:0;
     margin-top:1%;
-    justify-self: flex-start;
+    justify-self: center;
     width:100%;
 }
 
+#others #contests #loadmoreflex
+{
+    margin-top:-1%;
+}
 }
 
 @media only screen and (max-height:480px) and (orientation:landscape)
