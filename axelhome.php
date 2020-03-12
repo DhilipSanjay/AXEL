@@ -1,3 +1,19 @@
+<?php
+
+$servername="localhost";
+$database="axel";
+$username="root";
+$password="";
+
+$conn=mysqli_connect($servername,$username,$password,$database);
+
+if(!$conn)
+{
+    header('location:error.php');
+}
+
+?>
+
 <!DOCTYPE html>
 <head>
 <title>Axel - Home</title>
@@ -8,7 +24,6 @@
 <script src="home.js" type="text/javascript"></script>
 </head>
 <body>
-
 <div id="overlay" onclick="closesidebar()"></div>
 
 <div id="menu">
