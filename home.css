@@ -479,6 +479,24 @@ hr
     padding-bottom:50px;
 }
 
+#others #contests .cholder p
+{
+    margin:auto;
+    margin-left:20px;
+    margin-top:-10px;
+    margin-right:20px;
+}
+
+#others #contests .cholder .label
+{
+    margin-left:20px;   
+    margin-top:20px;
+    font-size:1.2rem;
+    font-weight:300; 
+    font-style:italic;
+    color:#76D7C4;   
+}
+
 #others #news .newsholder
 {
     background-color:white;
@@ -510,6 +528,7 @@ hr
     align-items:flex-start;
     justify-content: flex-start;
     margin-top:10px;
+    padding-bottom:20px;
 }
 
 #others #contests .box1
@@ -529,7 +548,7 @@ hr
 
 #others #contests .ch1
 {
-    height:250px;
+    height:fit-content;
 }
 
 #others #contests #loadmoreflex
@@ -541,7 +560,7 @@ hr
     height:fit-content;
 }
 
-#others #news .newsholder p,#others #contests .cholder p
+#others #news .newsholder p
 {
     margin-top:20px;
     margin-left:20px;
@@ -624,8 +643,20 @@ hr
 #others #contests .cholder
 {
     width:100%;
-    height:185px;
+    height:fit-content;
     margin-top:0;
+}
+
+#others #contests .cholder .label
+{
+    font-size:1rem;
+    margin-left:15px;
+}
+
+#others #contests .cholder p
+{
+    margin-left:15px;
+    margin-right:15px;
 }
 
 
@@ -639,7 +670,7 @@ hr
     width:140px;
 }
 
-#others #announcements .announcementsholder .announcementsinfo p,#others #contests .cholder p,#others #news .newsholder p
+#others #announcements .announcementsholder .announcementsinfo p,#others #news .newsholder p
 {
     margin-left:10px;
     margin-top:10px;
