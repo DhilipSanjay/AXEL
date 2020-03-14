@@ -352,6 +352,11 @@ hr
     /*border:2px solid black;*/
 }
 
+#others #announcements
+{
+    align-items:baseline;
+}
+
 #others .loadmore
 {
     background-color: #76D7C4;
