@@ -65,11 +65,30 @@ if(!$conn)
 Polls go here
 </div>
 
+<?php
+$query="SELECT Name, Announcement FROM post inner join users WHERE users.userID=post.PuserID";
+$result=mysqli_query($conn,$query);
+$count=mysqli_num_rows($result);
+?>
+
 <div class="label">Announcements</div>
 <hr width="97.5%">
 <div id="announcements">
 
+<?php while($row=mysqli_fetch_assoc($result))
+{ ?>
+
 <div class="announcementsholder">
+    <!--<div class="imgholder"></div>-->
+<div class="announcementsinfo">
+<span id="idname"><div class="imgholder"><img src="avatar.png"></div><?php echo $row['Name']; ?></span>
+<p><?php echo $row['Announcement']; ?></p>
+</div>
+</div>
+
+<?php } ?>
+
+<!--<div class="announcementsholder">
     <div class="imgholder"></div>
 <div class="announcementsinfo"><p>Content goes here</p></div>
 </div>
@@ -82,12 +101,7 @@ Polls go here
 <div class="announcementsholder">
     <div class="imgholder"></div>
 <div class="announcementsinfo"><p>Content goes here</p></div>
-</div>
-
-<div class="announcementsholder">
-    <div class="imgholder"></div>
-<div class="announcementsinfo"><p>Content goes here</p></div>
-</div>
+</div>-->
 
 <div class="loadmore" onclick="openlink('announcements.php')">
 Load More
