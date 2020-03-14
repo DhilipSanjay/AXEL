@@ -1,6 +1,6 @@
 <?php
 
-$servername="localhost";
+$servername="127.0.0.1";
 $database="axel";
 $username="root";
 $password="";
@@ -171,6 +171,7 @@ if($temp==3){break;}
 </div>
 
 <div class="box1 additional">
+
 <div class="cholder ch1">
 <span class="label"><u>Hosted by:</u></span>
 <p><?php echo $row['Name']; ?></p>
@@ -188,6 +189,7 @@ if($temp==3){break;}
 <span class="label"><u>Description:</u></span>
 <p><?php echo $row['Description']; ?></p>
 </div>
+
 </div>
 
 <div id="loadmoreflex">
