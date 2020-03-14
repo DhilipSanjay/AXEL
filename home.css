@@ -19,6 +19,7 @@ html
 
 body
 {
+    font-family:'Nunito Sans', sans-serif;
     margin:0;
     font-family:var(--font);
     color:var(--text);
@@ -27,6 +28,7 @@ body
 hr
 {
     height:2px;
+    background-color:#76D7C4; /*for fucking internet explorer which does not support css variables*/
     background-color:var(--buttoncol);
     border:none;
     margin-bottom:30px;
@@ -50,6 +52,7 @@ hr
     position: fixed;
     top:0;
     right:0;
+    background-color:#76D7C4;
     background-color:var(--buttoncol);
     height:100%;
     width:0;
@@ -295,9 +298,9 @@ hr
 
 #home #maininfo #content #buttonholder .button:hover
 {
-    color:var(--buttoncol);
+    color:#76D7C4;
     cursor:pointer;
-    border:2px solid var(--buttoncol);
+    border:2px solid #76D7C4;
 }
 
 #others
@@ -351,12 +354,13 @@ hr
 
 #others .loadmore
 {
+    background-color: #76D7C4;
     background-color:var(--buttoncol);
     margin:auto;
     border-radius:8px;
     text-align: center;
     width:150px;
-    margin-right:1%;
+    margin-right:1%;    
     margin-top:1%;
     padding:15px 15px;
     color:white;
@@ -365,6 +369,11 @@ hr
     -moz-box-shadow: 0 3px 8px -2px #c0c0c0;
     box-shadow: 0 3px 8px -2px #c0c0c0;
     cursor:pointer;
+}
+
+#others .contestloadmore
+{
+    margin:10px;
 }
 
 #others .new
@@ -402,9 +411,9 @@ hr
 #others #dummy
 {
     width:100%;
-    height:85px;
-    margin-top:10px;
-    margin-bottom:10px;
+    height:70px;
+    margin-top:2.5%;
+    margin-bottom:0;
 }
 
 #others .holder
@@ -443,7 +452,7 @@ hr
 }
 
 
-#others #news,#others #contests
+#others #news
 {
     padding:2% 2%;
     overflow: hidden;
@@ -458,7 +467,37 @@ hr
     /*border:2px solid black;*/
 }
 
-#others #news .newsholder,#others #contests .cholder
+#others #contests
+{
+    padding:2% 2%;
+    font-size:1.2rem;
+    width:90%;
+    display:grid;
+    gap:1rem;
+    color:var(--text);
+    overflow:hidden;
+    padding-bottom:50px;
+}
+
+#others #contests .cholder p
+{
+    margin:auto;
+    margin-left:20px;
+    margin-top:-10px;
+    margin-right:20px;
+}
+
+#others #contests .cholder .label
+{
+    margin-left:20px;   
+    margin-top:20px;
+    font-size:1.2rem;
+    font-weight:300; 
+    font-style:italic;
+    color:#76D7C4;   
+}
+
+#others #news .newsholder
 {
     background-color:white;
     width:48%;
@@ -476,12 +515,52 @@ hr
     justify-content: flex-start;
 }
 
-#others #contests .ch1
+
+
+#others #contests .cholder
 {
-    height:250px;
+    background-color:white;
+    -webkit-box-shadow: 0 3px 8px -2px #1C2833;
+    -moz-box-shadow: 0 3px 8px -2px #1C2833;
+    box-shadow: 0 3px 8px -2px #1C2833;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content: flex-start;
+    margin-top:10px;
+    padding-bottom:20px;
 }
 
-#others #news .newsholder p,#others #contests .cholder p
+#others #contests .box1
+{
+    width:100%;
+    display: grid;
+    gap:1.5rem;
+    height:fit-content;
+    grid-template-columns: 3fr 4fr;
+
+}
+
+#others #contests .additional
+{
+    grid-template-columns: 4fr 3fr;
+}
+
+#others #contests .ch1
+{
+    height:fit-content;
+}
+
+#others #contests #loadmoreflex
+{
+    display:flex;
+    width:100%;
+    align-items:center;
+    justify-content: center;
+    height:fit-content;
+}
+
+#others #news .newsholder p
 {
     margin-top:20px;
     margin-left:20px;
@@ -526,6 +605,7 @@ hr
 #others #footer
 {
     position: absolute;
+    left:0;
     width: 98%;
     padding-right:2%;
     background-color: black;
@@ -563,7 +643,26 @@ hr
 #others #contests .cholder
 {
     width:100%;
-    height:200px;
+    height:fit-content;
+    margin-top:0;
+}
+
+#others #contests .cholder .label
+{
+    font-size:1rem;
+    margin-left:15px;
+}
+
+#others #contests .cholder p
+{
+    margin-left:15px;
+    margin-right:15px;
+}
+
+
+#others #contests .box1,#others #contests .box2
+{
+    grid-template-columns: 1fr;
 }
 
 #others #announcements .announcementsholder .imgholder
@@ -571,7 +670,7 @@ hr
     width:140px;
 }
 
-#others #announcements .announcementsholder .announcementsinfo p,#others #contests .cholder p
+#others #announcements .announcementsholder .announcementsinfo p,#others #news .newsholder p
 {
     margin-left:10px;
     margin-top:10px;
@@ -617,17 +716,26 @@ hr
     margin-bottom:20px;
 }
 
+#others #contests,#others #contests .box1
+{
+gap:2%;
+}
+
 #others .loadmore
 {
     margin:0;
     margin-top:1%;
-    justify-self: flex-start;
+    justify-self: center;
     width:100%;
 }
 
+#others #contests #loadmoreflex
+{
+    margin-top:-1%;
+}
 }
 
-@media only screen and (max-height:480px) and (orientation:landscape)
+@media only screen and (max-height:200px) and (orientation:landscape)
 {
 
 #home #maininfo #content

@@ -1,3 +1,18 @@
+<?php
+
+$servername="localhost";
+$database="axel";
+$username="root";
+$password="";
+
+$conn=mysqli_connect($servername,$username,$password,$database);
+
+if(!$conn)
+{
+    header('location:error.php');
+}
+?>
+
 <!DOCTYPE html>
 <head>
 <title>Axel - Home</title>
@@ -8,7 +23,6 @@
 <script src="home.js" type="text/javascript"></script>
 </head>
 <body>
-
 <div id="overlay" onclick="closesidebar()"></div>
 
 <div id="menu">
@@ -25,7 +39,7 @@
 <img id="logo" src="logo.png" height="47px" width="45px" alt="logo">
 <div id="title">AXEL</div>
 <img onclick="openlink('login.php')" id="user" src="user.png" alt="login">
-<img id="listicon" onclick="opensidebar();" src="list.png" alt="picture">
+<img id="listicon" onclick="opensidebar();" src="list.PNG" alt="picture">
 
 <div id="maininfo">
     <div id="content">
@@ -106,15 +120,80 @@ Load More
 <hr width="97.5%" class="contestline">
 <p id="desc">Check out some of the interesting contests hosted by enthusiastic startups!</p>
 
+<?php
+$query="SELECT Name,DATE_FORMAT(Heldon,'%d %M %Y') as HeldOn,Description FROM contest inner join users on contest.HostID=users.userID";
+$result=mysqli_query($conn,$query);
+$count=mysqli_num_rows($result);
+$temp=1;
+?>
+
 <div id="contests">
 
-<div class="cholder ch1"><p>Content goes here</p></div>
-<div class="cholder ch1"><p>Content goes here</p></div>
-<div class="cholder ch1"><p>Content goes here</p></div>
-<div class="cholder ch1"><p>Content goes here</p></div>
+<div class="box1">
 
-<div class="loadmore new" onclick="openlink('contests.php')">
+<?php
+while($row=mysqli_fetch_assoc($result)){
+if($temp==1)
+{ 
+?>
+
+<div class="cholder ch1">
+<span class="label"><u>Hosted by:</u></span>
+<p><?php echo $row['Name']; ?></p>
+<span class="label"><u>Date:</u></span>
+<p><?php echo $row['HeldOn']; ?></p>
+<span class="label"><u>Description:</u></span>
+<p><?php echo $row['Description']; ?></p>
+</div>
+
+<?php $temp++;
+}
+
+else
+{ 
+?>
+
+<div class="cholder ch1">
+<span class="label"><u>Hosted by:</u></span>
+<p><?php echo $row['Name']; ?></p>
+<span class="label"><u>Date:</u></span>
+<p><?php echo $row['HeldOn']; ?></p>
+<span class="label"><u>Description:</u></span>
+<p><?php echo $row['Description']; ?></p>
+</div>
+
+<?php $temp++;
+}
+
+if($temp==3){break;}
+}?>
+
+</div>
+
+<div class="box1 additional">
+<div class="cholder ch1">
+<span class="label"><u>Hosted by:</u></span>
+<p><?php echo $row['Name']; ?></p>
+<span class="label"><u>Date:</u></span>
+<p><?php echo $row['HeldOn']; ?></p>
+<span class="label"><u>Description:</u></span>
+<p><?php echo $row['Description']; ?></p>
+</div>
+
+<div class="cholder ch1">
+<span class="label"><u>Hosted by:</u></span>
+<p><?php echo $row['Name']; ?></p>
+<span class="label"><u>Date:</u></span>
+<p><?php echo $row['HeldOn']; ?></p>
+<span class="label"><u>Description:</u></span>
+<p><?php echo $row['Description']; ?></p>
+</div>
+</div>
+
+<div id="loadmoreflex">
+<div class="loadmore new contestloadmore" onclick="openlink('contests.php')">
 Load More
+</div>
 </div>
 
 </div>
