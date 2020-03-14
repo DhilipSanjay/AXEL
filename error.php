@@ -29,7 +29,7 @@ body
 Oops! An <font color="red"><i>error</i></font> occured! Sorry for the inconvenience!
 <br>
 <br>
-<a href="axelhome.php">Go to homepage</a>
+<a href="index.php">Go to homepage</a>
 </center>
 </body>
 </html>
