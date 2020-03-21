@@ -352,6 +352,11 @@ hr
     /*border:2px solid black;*/
 }
 
+#others #announcements
+{
+    align-items:baseline;
+}
+
 #others .loadmore
 {
     background-color: #76D7C4;
@@ -389,7 +394,7 @@ hr
     align-items: center;
     justify-content: flex-start;
     width:48%;
-    height:200px;
+    height:fit-content;
     margin-bottom:15px;
     -webkit-box-shadow: 0 3px 8px -2px #c0c0c0;
     -moz-box-shadow: 0 3px 8px -2px #c0c0c0;
@@ -397,16 +402,66 @@ hr
     font-weight:400;
 }
 
-#others #announcements .announcementsholder .imgholder
+/*#others #announcements .announcementsholder .imgholder img
+{
+    height:100%;
+}*/
+
+#others #announcements .announcementsholder .announcementsinfo
+{
+    display:flex;
+    flex-direction:column;
+    justify-content:start;
+    width:100%;
+    height:100%;
+}
+
+#others #announcements .announcementsholder .announcementsinfo #idname
+{
+    display: flex;
+    flex-direction:row;
+    align-items:center;
+    height:fit-content;
+    margin:20px;
+    margin-bottom:0;
+    width:50%;
+    color:#76D7C4;
+}
+
+#others #announcements .announcementsholder .announcementsinfo #idname .imgholder
+{
+    height:30px;
+    width:30px;
+    margin-right:10px;
+    overflow: hidden;
+    object-fit: scale-down;
+}
+
+
+#others #announcements .announcementsholder .announcementsinfo #idname .imgholder img
+{
+    height:100%;
+    width:100%;
+}
+
+
+#others #announcements .announcementsholder .announcementsinfo p
+{
+    margin:20px;
+    height:fit-content;
+    text-align:justify;
+}
+
+/*#others #announcements .announcementsholder .imgholder
 {
     display:flex;
     justify-content:center;
     object-fit: cover;
     overflow:hidden;
-    width:200px;
+    width:205px;
     height:100%;
     background-color: #c0c0c0;
-}
+}*/
 
 #others #dummy
 {
@@ -435,6 +490,7 @@ hr
     background-image:linear-gradient(to top, rgba(23, 32, 42, 0.20), rgba(0, 0, 0, 0.80)),url(contests.jpg);
     margin-left:0;
     margin-right:2.5%;
+    background-size: cover;
 }
 
 #others .contestsholder #desc
@@ -476,20 +532,22 @@ hr
     gap:1rem;
     color:var(--text);
     overflow:hidden;
-    padding-bottom:50px;
+    /*padding-bottom:10%;*/
 }
 
 #others #contests .cholder p
 {
     margin:auto;
-    margin-left:20px;
+    margin-left:5%;
     margin-top:-10px;
-    margin-right:20px;
+    margin-right:5%;
+    text-align:justify;
+    width:90%;
 }
 
 #others #contests .cholder .label
 {
-    margin-left:20px;   
+    margin-left:5%;   
     margin-top:20px;
     font-size:1.2rem;
     font-weight:300; 
@@ -558,6 +616,7 @@ hr
     align-items:center;
     justify-content: center;
     height:fit-content;
+    margin-bottom:60px;
 }
 
 #others #news .newsholder p
@@ -569,36 +628,15 @@ hr
  
 @media only screen and (min-width:768px) and (max-width:950px)
 {
-    #others #announcements .announcementsholder .imgholder
+    /*#others #announcements .announcementsholder .imgholder
     {
         width:160px;
-    }   
+    }*/  
 
-    #others #announcements .announcementsholder
+    #others #announcements .announcementsholder,#others #contests .cholder p
     {
-        height:160px;
         font-size:1rem;
     }
-}
-
-#others #announcements .announcementsholder .imgholder img
-{
-    height:100%;
-}
-
-#others #announcements .announcementsholder .announcementsinfo
-{
-    display:flex;
-    flex-direction:column;
-    justify-content:start;
-    width:60%;
-    height:100%;
-}
-
-#others #announcements .announcementsholder .announcementsinfo p
-{
-    margin-top:20px;
-    margin-left:20px;
 }
 
 
@@ -637,7 +675,6 @@ hr
 #others #announcements .announcementsholder
 {
     width:100%;
-    height:140px;
 }
 
 #others #contests .cholder
@@ -650,14 +687,13 @@ hr
 #others #contests .cholder .label
 {
     font-size:1rem;
-    margin-left:15px;
 }
 
-#others #contests .cholder p
+/*#others #contests .cholder p
 {
     margin-left:15px;
     margin-right:15px;
-}
+}*/
 
 
 #others #contests .box1,#others #contests .box2
@@ -665,14 +701,14 @@ hr
     grid-template-columns: 1fr;
 }
 
-#others #announcements .announcementsholder .imgholder
+/*#others #announcements .announcementsholder .imgholder
 {
     width:140px;
-}
+}*/
 
 #others #announcements .announcementsholder .announcementsinfo p,#others #news .newsholder p
 {
-    margin-left:10px;
+    margin-left:20px;
     margin-top:10px;
 }
 
@@ -688,6 +724,7 @@ hr
     font-size:1rem;
     width:100%;
     height:160px;
+    margin-top:2.5%;
 }
 
 #others .holder
@@ -724,14 +761,14 @@ gap:2%;
 #others .loadmore
 {
     margin:0;
-    margin-top:1%;
+    margin-top:2.5%;
     justify-self: center;
     width:100%;
 }
 
 #others #contests #loadmoreflex
 {
-    margin-top:-1%;
+    margin-top:-2.5%;
 }
 }
 
@@ -782,10 +819,10 @@ gap:2%;
     font-size:1rem;
 }
 
-#others #announcements .announcementsholder .imgholder
+/*#others #announcements .announcementsholder .imgholder
 {
     width:170px;
-}
+}*/
 
 #others #announcements .announcementsholder .announcementsinfo p
 {
