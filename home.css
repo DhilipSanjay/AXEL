@@ -339,7 +339,7 @@ hr
     align-self:center;
 }
 
-#others #polls,#others #announcements,#others #news
+#others #polls,#others #announcements
 {
     font-size:1.2rem;
     display:flex;
@@ -354,7 +354,8 @@ hr
 
 #others #announcements
 {
-    align-items:baseline;
+    align-items:flex-start;
+    align-items:baseline important;
 }
 
 #others .loadmore
@@ -394,6 +395,7 @@ hr
     align-items: center;
     justify-content: flex-start;
     width:48%;
+    min-height:175px;
     height:fit-content;
     margin-bottom:15px;
     -webkit-box-shadow: 0 3px 8px -2px #c0c0c0;
@@ -514,7 +516,7 @@ hr
     overflow: hidden;
     font-size:1.2rem;
     display:flex;
-    align-items: center;
+    align-items: baseline;
     justify-content:space-around;
     flex-wrap:wrap;
     color:var(--text);
@@ -522,6 +524,8 @@ hr
     width:90%;
     /*border:2px solid black;*/
 }
+
+
 
 #others #contests
 {
@@ -559,7 +563,8 @@ hr
 {
     background-color:white;
     width:48%;
-    height:200px;
+    min-height:325px;
+    height:fit-content;
     margin-left:0.5%;
     margin-right:0.5%;
     margin-bottom:1%;
@@ -571,6 +576,49 @@ hr
     flex-direction:column;
     align-items:flex-start;
     justify-content: flex-start;
+    cursor: pointer;
+}
+
+#others #news .newsholder p
+{
+    margin-left:5%;
+    margin-bottom:0;
+   
+}
+
+#others #news .newsholder .newstitle
+{
+    margin-top:40px;
+    text-decoration: underline;  
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width:90%;
+    height:30px;
+}
+
+#others #news .newsholder .minuteread
+{
+    font-size:1.1rem;
+    margin-top:0;
+    color:var(--buttoncol,#76D7C4);
+}
+
+#others #news .newsholder .line
+{
+    margin-top:10px;
+    margin-left:5%;
+    margin-bottom:20px;
+}
+
+#others #news .newsholder .description
+{
+    margin-top:0;
+    width:90%;
+    text-align:justify;
+    font-style:italic;
+    font-size:1.2rem; 
+    margin-bottom:40px;
 }
 
 
@@ -619,11 +667,7 @@ hr
     margin-bottom:60px;
 }
 
-#others #news .newsholder p
-{
-    margin-top:20px;
-    margin-left:20px;
-}
+
 
  
 @media only screen and (min-width:768px) and (max-width:950px)
@@ -637,6 +681,28 @@ hr
     {
         font-size:1rem;
     }
+
+    #others #news .newsholder .newstitle
+    {
+    white-space: normal;
+    font-size:1.1rem;
+    height:max-content;
+    width:90%;
+    }
+
+    #others #news .newsholder .minuteread
+    {
+        margin-top:5px;
+        font-size:1rem;
+    }
+
+    #others #news .newsholder .description
+    {
+        font-size:1.1rem;
+    }
+
+
+
 }
 
 
@@ -708,9 +774,33 @@ hr
 
 #others #announcements .announcementsholder .announcementsinfo p,#others #news .newsholder p
 {
-    margin-left:20px;
+    margin-left:5%;
     margin-top:10px;
 }
+
+#others #news .newsholder .newstitle
+{
+    margin-top:30px;
+    white-space: normal;
+    font-size:1rem;
+    height:max-content;
+    width:90%;
+}
+
+#others #news .newsholder .minuteread
+{
+    font-size:0.9rem;
+    margin-top:5px;
+    color:var(--buttoncol,#76D7C4);
+}
+
+#others #news .newsholder .description
+{
+    width:90%;
+    font-size:1rem; 
+    margin-bottom:30px;
+}
+
 
 #others #footer
 {
@@ -721,9 +811,9 @@ hr
 
 #others #news .newsholder
 {
+    min-height:fit-content;
     font-size:1rem;
     width:100%;
-    height:160px;
     margin-top:2.5%;
 }
 

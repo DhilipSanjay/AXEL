@@ -1,6 +1,6 @@
 <?php
 
-$servername="127.0.0.1";
+$servername="localhost";
 $database="axel";
 $username="root";
 $password="";
@@ -9,7 +9,8 @@ $conn=mysqli_connect($servername,$username,$password,$database);
 
 if(!$conn)
 {
-    header('location:error.php');
+    die("Connection error: " . mysqli_connect_errno());
+    /*header('location:error.php');*/
 }
 ?>
 
@@ -111,14 +112,31 @@ Load More
 
 <div class="label">News</div>
 
+<?php
+$query="SELECT title,minuteread,description,url FROM news ORDER BY createdtime desc LIMIT 4"; /*only first 4 rows will be selected*/
+$result=mysqli_query($conn,$query);
+?>
+
 <div class="holder">
 
 <div id="news">
 
+<?php
+while($row=mysqli_fetch_assoc($result)){
+?>
+
+<div class="newsholder" onclick="gotourl('<?php echo $row['url']?>')">
+<p class="newstitle"><?php echo $row['title']?></p>
+<p class="minuteread"><?php echo $row['minuteread']?> minute read</p>
+<hr class="line" width="90%">
+<p class="description"><?php echo $row['description'].".."?></p>
+</div>
+
+<?php } ?>
+
+<!--<div class="newsholder"><p>Content goes here</p></div>
 <div class="newsholder"><p>Content goes here</p></div>
-<div class="newsholder"><p>Content goes here</p></div>
-<div class="newsholder"><p>Content goes here</p></div>
-<div class="newsholder"><p>Content goes here</p></div>
+<div class="newsholder"><p>Content goes here</p></div>-->
 
 <div class="loadmore new" onclick="openlink('news.php')">
 Load More
@@ -251,6 +269,11 @@ function closesidebar()
     document.getElementById("menu").style.width="0";
     document.getElementById("overlay").style.opacity="0";
     document.getElementById("overlay").style.zIndex="-1";   
+}
+
+function gotourl(url)
+{
+    window.open(url, "_blank");
 }
 </script>
 </body>
