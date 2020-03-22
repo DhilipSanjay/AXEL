@@ -490,7 +490,7 @@ hr
     background-image:linear-gradient(to top, rgba(23, 32, 42, 0.20), rgba(0, 0, 0, 0.80)),url(contests.jpg);
     margin-left:0;
     margin-right:2.5%;
-    background-size: cover;
+    background-size:cover;
 }
 
 #others .contestsholder #desc
