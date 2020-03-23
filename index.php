@@ -67,7 +67,7 @@ Polls go here
 </div>
 
 <?php
-$query="SELECT Name, Announcement FROM post inner join users WHERE users.userID=post.PuserID";
+$query="SELECT Name, Announcement FROM post inner join users WHERE users.userID=post.PuserID ORDER BY createdtime DESC LIMIT 4";
 $result=mysqli_query($conn,$query);
 $count=mysqli_num_rows($result);
 ?>
@@ -135,7 +135,7 @@ Load More
 <p id="desc">Check out some of the interesting contests hosted by enthusiastic startups!</p>
 
 <?php
-$query="SELECT Name,DATE_FORMAT(Heldon,'%d %M %Y') as HeldOn,Description FROM contest inner join users on contest.HostID=users.userID";
+$query="SELECT Name,DATE_FORMAT(Heldon,'%d %M %Y') as HeldOn,Heldon as condate,Description FROM contest inner join users on contest.HostID=users.userID order by condate limit 4";
 $result=mysqli_query($conn,$query);
 $count=mysqli_num_rows($result);
 $temp=1;
@@ -147,8 +147,6 @@ $temp=1;
 
 <?php
 while($row=mysqli_fetch_assoc($result)){
-if($temp==1)
-{ 
 ?>
 
 <div class="cholder ch1">
@@ -160,54 +158,24 @@ if($temp==1)
 <p><?php echo $row['Description']; ?></p>
 </div>
 
-<?php $temp++;
-}
+<?php 
+$temp++;
 
-else
-{ 
+if($temp==3){
 ?>
 
-<div class="cholder ch1">
-<span class="label"><u>Hosted by:</u></span>
-<p><?php echo $row['Name']; ?></p>
-<span class="label"><u>Date:</u></span>
-<p><?php echo $row['HeldOn']; ?></p>
-<span class="label"><u>Description:</u></span>
-<p><?php echo $row['Description']; ?></p>
 </div>
-
-<?php $temp++;
-}
-
-if($temp==3){break;}
-}?>
-
-</div>
-
 <div class="box1 additional">
 
-<div class="cholder ch1">
-<span class="label"><u>Hosted by:</u></span>
-<p><?php echo $row['Name']; ?></p>
-<span class="label"><u>Date:</u></span>
-<p><?php echo $row['HeldOn']; ?></p>
-<span class="label"><u>Description:</u></span>
-<p><?php echo $row['Description']; ?></p>
-</div>
-
-<div class="cholder ch1">
-<span class="label"><u>Hosted by:</u></span>
-<p><?php echo $row['Name']; ?></p>
-<span class="label"><u>Date:</u></span>
-<p><?php echo $row['HeldOn']; ?></p>
-<span class="label"><u>Description:</u></span>
-<p><?php echo $row['Description']; ?></p>
-</div>
+<?php
+}
+}
+?>
 
 </div>
 
 <div id="loadmoreflex">
-<div class="loadmore new contestloadmore" onclick="openlink('contests.php')">
+<div class="loadmore contestloadmore" onclick="openlink('contests.php')">
 Load More
 </div>
 </div>
