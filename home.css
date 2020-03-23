@@ -492,7 +492,7 @@ hr
     background-image:linear-gradient(to top, rgba(23, 32, 42, 0.20), rgba(0, 0, 0, 0.80)),url(contests.jpg);
     margin-left:0;
     margin-right:2.5%;
-    background-size: cover;
+    background-size:cover;
 }
 
 #others .contestsholder #desc
@@ -590,17 +590,18 @@ hr
 {
     margin-top:40px;
     text-decoration: underline;  
-    overflow: hidden;
+    /*overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: nowrap;*/
     width:90%;
-    height:30px;
+    /*height:30px;*/
+    height:max-content;
 }
 
 #others #news .newsholder .minuteread
 {
     font-size:1.1rem;
-    margin-top:0;
+    margin-top:5px;
     color:var(--buttoncol,#76D7C4);
 }
 
@@ -684,15 +685,15 @@ hr
 
     #others #news .newsholder .newstitle
     {
-    white-space: normal;
     font-size:1.1rem;
-    height:max-content;
-    width:90%;
+    /*white-space: normal;
+    height:fit-content;
+    width:90%;*/
     }
 
     #others #news .newsholder .minuteread
     {
-        margin-top:5px;
+        /*margin-top:5px;*/
         font-size:1rem;
     }
 
@@ -781,16 +782,16 @@ hr
 #others #news .newsholder .newstitle
 {
     margin-top:30px;
-    white-space: normal;
     font-size:1rem;
-    height:max-content;
+    /*white-space: normal;
+    height:max-content;*/
     width:90%;
 }
 
 #others #news .newsholder .minuteread
 {
     font-size:0.9rem;
-    margin-top:5px;
+    /*margin-top:5px;*/
     color:var(--buttoncol,#76D7C4);
 }
 
@@ -862,7 +863,7 @@ gap:2%;
 }
 }
 
-@media only screen and (max-height:200px) and (orientation:landscape)
+@media only screen and (max-height:500px) and (orientation:landscape)
 {
 
 #home #maininfo #content
@@ -900,12 +901,12 @@ gap:2%;
 
 #others #announcements
 {
-    height:400px;
+    height:fit-content;
 }
 
 #others #announcements .announcementsholder
 {
-    height:40%;
+    min-height:fit-content;
     font-size:1rem;
 }
 
@@ -916,7 +917,7 @@ gap:2%;
 
 #others #announcements .announcementsholder .announcementsinfo p
 {
-    margin-left:10px;
+    margin-left:20px;
     margin-top:10px;
 }
 
