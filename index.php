@@ -89,21 +89,6 @@ $count=mysqli_num_rows($result);
 
 <?php } ?>
 
-<!--<div class="announcementsholder">
-    <div class="imgholder"></div>
-<div class="announcementsinfo"><p>Content goes here</p></div>
-</div>
-
-<div class="announcementsholder">
-    <div class="imgholder"></div>
-<div class="announcementsinfo"><p>Content goes here</p></div>
-</div>
-
-<div class="announcementsholder">
-    <div class="imgholder"></div>
-<div class="announcementsinfo"><p>Content goes here</p></div>
-</div>-->
-
 <div class="loadmore" onclick="openlink('announcements.php')">
 Load More
 </div>
@@ -134,9 +119,6 @@ while($row=mysqli_fetch_assoc($result)){
 
 <?php } ?>
 
-<!--<div class="newsholder"><p>Content goes here</p></div>
-<div class="newsholder"><p>Content goes here</p></div>
-<div class="newsholder"><p>Content goes here</p></div>-->
 
 <div class="loadmore new" onclick="openlink('news.php')">
 Load More

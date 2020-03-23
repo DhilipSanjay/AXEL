@@ -517,7 +517,7 @@ hr
     font-size:1.2rem;
     display:flex;
     align-items: baseline;
-    justify-content:space-around;
+    justify-content:space-between;
     flex-wrap:wrap;
     color:var(--text);
     height:fit-content;
