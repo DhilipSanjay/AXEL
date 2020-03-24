@@ -90,6 +90,7 @@ $temp++;
 ?>
 
 <div class="polloption">
+
 <?php echo $row["choice"]?>
 
 <div class="countbox">
@@ -100,6 +101,9 @@ $temp++;
 
 <?php } ?>
 
+<div id="signin">
+<a href="login.php">Sign in</a>&nbspto select your choice.
+</div>
 </div>
 
 <?php
