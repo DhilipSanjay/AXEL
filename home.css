@@ -222,7 +222,7 @@ hr
     display:flex;
     align-items:center;
     justify-content:center;
-    height:90%;
+    min-height:90%;
     text-align: center;
     width:49%;
     transition:all 0.2s ease-in-out;
@@ -268,6 +268,7 @@ hr
     font-size:1.1rem;
     width:75%;
     text-align: justify;
+    margin-bottom:10px;
 }
 
 #others .contestsholder #desc
@@ -290,7 +291,8 @@ hr
 {
     font-size:1.1rem;
     width:100%;
-    margin-bottom:10px;
+    margin-top:10px;
+    margin-bottom:0;
     height:50px;
 }
 
@@ -836,9 +838,17 @@ hr
 
 #others #contests .cholder
 {
+    margin-top:0;
     width:100%;
     height:fit-content;
-    margin-top:0;
+}
+
+#others .loadmore
+{
+    margin:0;
+    margin-top:10px;
+    justify-self: center;
+    width:100%;
 }
 
 #others #contests .cholder .label
@@ -853,17 +863,23 @@ hr
 }*/
 
 
-#others #contests .box1,#others #contests .box2
+#others #contests .box1
 {
     grid-template-columns: 1fr;
 }
 
-/*#others #announcements .announcementsholder .imgholder
+#others #news .newsholder .line
 {
-    width:140px;
-}*/
+    margin-left:5%;
+}
 
-#others #announcements .announcementsholder .announcementsinfo p,#others #news .newsholder p
+#others #announcements .announcementsholder .announcementsinfo p
+{
+    margin-left:20px;
+    margin-top:10px;
+}
+
+#others #news .newsholder p
 {
     margin-left:5%;
     margin-top:10px;
@@ -873,6 +889,7 @@ hr
 {
     margin-top:30px;
     font-size:1rem;
+    margin-left:5%;
     /*white-space: normal;
     height:max-content;*/
     width:90%;
@@ -881,6 +898,7 @@ hr
 #others #news .newsholder .minuteread
 {
     font-size:0.9rem;
+    margin-left:5%;
     /*margin-top:5px;*/
     color:var(--buttoncol,#76D7C4);
 }
@@ -936,20 +954,7 @@ hr
 
 #others #contests,#others #contests .box1
 {
-gap:2%;
-}
-
-#others .loadmore
-{
-    margin:0;
-    margin-top:2.5%;
-    justify-self: center;
-    width:100%;
-}
-
-#others #contests #loadmoreflex
-{
-    margin-top:-2.5%;
+gap:10px;
 }
 }
 
