@@ -1,6 +1,6 @@
 <?php
 
-$servername="127.0.0.1";
+$servername="localhost";
 $database="axel";
 $username="root";
 $password="";
@@ -9,7 +9,8 @@ $conn=mysqli_connect($servername,$username,$password,$database);
 
 if(!$conn)
 {
-    header('location:error.php');
+    die("Connection error: " . mysqli_connect_errno());
+    /*header('location:error.php');*/
 }
 ?>
 
@@ -60,15 +61,54 @@ if(!$conn)
 
 <div id="others">
 
+<?php
+$query="select Name as hostname,description,choice,count(voterid) as votecount from polloption natural join poll natural join vote inner join users where UserID=pollhostID group by pollid,choiceid having pollid=(select pollid from poll order by heldon desc limit 1)";
+$result=mysqli_query($conn,$query);
+$temp=1;
+?>
+
 <div class="label pollstitle">Poll of the day</div>
+
 <div id="polls">
-Polls go here
+
+<?php
+while($row=mysqli_fetch_assoc($result))
+{
+
+if($temp==1)
+{
+?>
+
+<div class="createdby">
+Poll hosted by <a href="#"><?php echo $row["hostname"]; ?></a>
 </div>
 
 <?php
-$query="SELECT Name, Announcement FROM post inner join users WHERE users.userID=post.PuserID";
+echo $row["description"];
+$temp++;
+}
+?>
+
+<div class="polloption">
+
+<?php echo $row["choice"]?>
+
+<div class="countbox">
+<?php echo $row["votecount"]?>
+</div>
+
+</div>
+
+<?php } ?>
+
+<div id="signin">
+<a href="login.php">Sign in</a>&nbspto select your choice.
+</div>
+</div>
+
+<?php
+$query="SELECT Name, Announcement FROM post inner join users WHERE users.userID=post.PuserID ORDER BY createdtime DESC LIMIT 4";
 $result=mysqli_query($conn,$query);
-$count=mysqli_num_rows($result);
 ?>
 
 <div class="label">Announcements</div>
@@ -88,21 +128,6 @@ $count=mysqli_num_rows($result);
 
 <?php } ?>
 
-<!--<div class="announcementsholder">
-    <div class="imgholder"></div>
-<div class="announcementsinfo"><p>Content goes here</p></div>
-</div>
-
-<div class="announcementsholder">
-    <div class="imgholder"></div>
-<div class="announcementsinfo"><p>Content goes here</p></div>
-</div>
-
-<div class="announcementsholder">
-    <div class="imgholder"></div>
-<div class="announcementsinfo"><p>Content goes here</p></div>
-</div>-->
-
 <div class="loadmore" onclick="openlink('announcements.php')">
 Load More
 </div>
@@ -111,14 +136,28 @@ Load More
 
 <div class="label">News</div>
 
+<?php
+$query="SELECT title,minuteread,description,url FROM news ORDER BY createdtime desc LIMIT 4"; /*only first 4 rows will be selected*/
+$result=mysqli_query($conn,$query);
+?>
+
 <div class="holder">
 
 <div id="news">
 
-<div class="newsholder"><p>Content goes here</p></div>
-<div class="newsholder"><p>Content goes here</p></div>
-<div class="newsholder"><p>Content goes here</p></div>
-<div class="newsholder"><p>Content goes here</p></div>
+<?php
+while($row=mysqli_fetch_assoc($result)){
+?>
+
+<div class="newsholder" onclick="gotourl('<?php echo $row['url']?>')">
+<p class="newstitle"><?php echo $row['title']?></p>
+<p class="minuteread"><?php echo $row['minuteread']?> minute read</p>
+<hr class="line" width="90%">
+<p class="description"><?php echo $row['description'].".."?></p>
+</div>
+
+<?php } ?>
+
 
 <div class="loadmore new" onclick="openlink('news.php')">
 Load More
@@ -135,9 +174,8 @@ Load More
 <p id="desc">Check out some of the interesting contests hosted by enthusiastic startups!</p>
 
 <?php
-$query="SELECT Name,DATE_FORMAT(Heldon,'%d %M %Y') as HeldOn,Description FROM contest inner join users on contest.HostID=users.userID";
+$query="SELECT Name,DATE_FORMAT(Heldon,'%d %M %Y') as HeldOn,Heldon as condate,Description FROM contest inner join users on contest.HostID=users.userID order by condate limit 4";
 $result=mysqli_query($conn,$query);
-$count=mysqli_num_rows($result);
 $temp=1;
 ?>
 
@@ -147,8 +185,6 @@ $temp=1;
 
 <?php
 while($row=mysqli_fetch_assoc($result)){
-if($temp==1)
-{ 
 ?>
 
 <div class="cholder ch1">
@@ -160,54 +196,24 @@ if($temp==1)
 <p><?php echo $row['Description']; ?></p>
 </div>
 
-<?php $temp++;
-}
+<?php 
+$temp++;
 
-else
-{ 
+if($temp==3){
 ?>
 
-<div class="cholder ch1">
-<span class="label"><u>Hosted by:</u></span>
-<p><?php echo $row['Name']; ?></p>
-<span class="label"><u>Date:</u></span>
-<p><?php echo $row['HeldOn']; ?></p>
-<span class="label"><u>Description:</u></span>
-<p><?php echo $row['Description']; ?></p>
 </div>
-
-<?php $temp++;
-}
-
-if($temp==3){break;}
-}?>
-
-</div>
-
 <div class="box1 additional">
 
-<div class="cholder ch1">
-<span class="label"><u>Hosted by:</u></span>
-<p><?php echo $row['Name']; ?></p>
-<span class="label"><u>Date:</u></span>
-<p><?php echo $row['HeldOn']; ?></p>
-<span class="label"><u>Description:</u></span>
-<p><?php echo $row['Description']; ?></p>
-</div>
-
-<div class="cholder ch1">
-<span class="label"><u>Hosted by:</u></span>
-<p><?php echo $row['Name']; ?></p>
-<span class="label"><u>Date:</u></span>
-<p><?php echo $row['HeldOn']; ?></p>
-<span class="label"><u>Description:</u></span>
-<p><?php echo $row['Description']; ?></p>
-</div>
+<?php
+}
+}
+?>
 
 </div>
 
 <div id="loadmoreflex">
-<div class="loadmore new contestloadmore" onclick="openlink('contests.php')">
+<div class="loadmore contestloadmore" onclick="openlink('contests.php')">
 Load More
 </div>
 </div>
@@ -251,6 +257,11 @@ function closesidebar()
     document.getElementById("menu").style.width="0";
     document.getElementById("overlay").style.opacity="0";
     document.getElementById("overlay").style.zIndex="-1";   
+}
+
+function gotourl(url)
+{
+    window.open(url, "_blank");
 }
 </script>
 </body>
