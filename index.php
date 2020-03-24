@@ -62,12 +62,13 @@ if(!$conn)
 <div id="others">
 
 <?php
-$query="select description,choice,count(voterid) as votecount from polloption natural join poll natural join vote group by pollid,choiceid having pollid=(select pollid from poll order by heldon desc limit 1)";
+$query="select Name as hostname,description,choice,count(voterid) as votecount from polloption natural join poll natural join vote inner join users where UserID=pollhostID group by pollid,choiceid having pollid=(select pollid from poll order by heldon desc limit 1)";
 $result=mysqli_query($conn,$query);
 $temp=1;
 ?>
 
 <div class="label pollstitle">Poll of the day</div>
+
 <div id="polls">
 
 <?php
@@ -76,6 +77,13 @@ while($row=mysqli_fetch_assoc($result))
 
 if($temp==1)
 {
+?>
+
+<div class="createdby">
+Poll hosted by <a href="#"><?php echo $row["hostname"]; ?></a>
+</div>
+
+<?php
 echo $row["description"];
 $temp++;
 }
@@ -83,9 +91,11 @@ $temp++;
 
 <div class="polloption">
 <?php echo $row["choice"]?>
+
 <div class="countbox">
 <?php echo $row["votecount"]?>
 </div>
+
 </div>
 
 <?php } ?>

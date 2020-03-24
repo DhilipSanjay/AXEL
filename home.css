@@ -348,8 +348,62 @@ hr
     color:var(--text);
     height:fit-content;
     width:90%;
-    /*background-color:yellow;*/
-    /*border:2px solid black;*/
+}
+
+
+#others #polls
+{
+    flex-direction: column;
+    margin:40px 0 40px 0;
+    font-weight: 300;
+    font-style:italic;
+    font-size:1.5rem;
+    align-items: center;
+    justify-content:center;
+}
+
+#others #announcements
+{
+    justify-content:space-around;
+    font-size:1.2rem;
+    align-items:baseline important;
+}
+
+#others #polls .createdby
+{
+    width:fit-content;
+    height:fit-content;
+    font-size:1.2rem;
+    font-style:normal;
+    font-weight:400;
+    margin-bottom:40px;
+}
+
+#others #polls .createdby a,#others #polls .createdby a:visited
+{
+    color:#76D7C4;
+}
+
+#others #polls .createdby::before
+{
+    display: inline-block;
+    margin: 0px 10px 5px 0px;
+    height: 2px;
+    content: " ";
+    text-shadow: none;
+    background-color: #76D7C4;
+    width:25px;
+}
+
+#others #polls .createdby::after
+{
+    display: inline-block;
+    margin: 0px 0px 5px 10px;
+    height: 2px;
+    content: " ";
+    text-shadow: none;
+    background-color: #76D7C4;
+    width:25px;
 }
 
 #others #polls .polloption::before
@@ -395,24 +449,6 @@ hr
     max-width: 50px;
     text-align:center;
     border-radius:5px;
-}
-
-#others #polls
-{
-    margin:40px 0 40px 0;
-    font-weight: 300;
-    font-style:italic;
-    font-size:1.5rem;
-    align-items: center;
-    justify-content:center;
-}
-
-#others #announcements
-{
-    /*align-items:flex-start;*/
-    justify-content:space-around;
-    font-size:1.2rem;
-    align-items:baseline important;
 }
 
 #others .loadmore
@@ -803,6 +839,11 @@ hr
 #others .label
 {
     font-size:1.7rem;
+}
+
+#others #polls .createdby
+{
+    font-size:1.1rem;
 }
 
 #others #announcements,#others #contests
