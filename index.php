@@ -61,15 +61,40 @@ if(!$conn)
 
 <div id="others">
 
+<?php
+$query="select description,choice,count(voterid) as votecount from polloption natural join poll natural join vote group by pollid,choiceid having pollid=(select pollid from poll order by heldon desc limit 1)";
+$result=mysqli_query($conn,$query);
+$temp=1;
+?>
+
 <div class="label pollstitle">Poll of the day</div>
 <div id="polls">
-Polls go here
+
+<?php
+while($row=mysqli_fetch_assoc($result))
+{
+
+if($temp==1)
+{
+echo $row["description"];
+$temp++;
+}
+?>
+
+<div class="polloption">
+<?php echo $row["choice"]?>
+<div class="countbox">
+<?php echo $row["votecount"]?>
+</div>
+</div>
+
+<?php } ?>
+
 </div>
 
 <?php
 $query="SELECT Name, Announcement FROM post inner join users WHERE users.userID=post.PuserID ORDER BY createdtime DESC LIMIT 4";
 $result=mysqli_query($conn,$query);
-$count=mysqli_num_rows($result);
 ?>
 
 <div class="label">Announcements</div>
@@ -137,7 +162,6 @@ Load More
 <?php
 $query="SELECT Name,DATE_FORMAT(Heldon,'%d %M %Y') as HeldOn,Heldon as condate,Description FROM contest inner join users on contest.HostID=users.userID order by condate limit 4";
 $result=mysqli_query($conn,$query);
-$count=mysqli_num_rows($result);
 $temp=1;
 ?>
 

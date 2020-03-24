@@ -341,20 +341,75 @@ hr
 
 #others #polls,#others #announcements
 {
-    font-size:1.2rem;
     display:flex;
-    align-items: center;
-    justify-content:space-around;
     flex-wrap:wrap;
     color:var(--text);
     height:fit-content;
     width:90%;
+    /*background-color:yellow;*/
     /*border:2px solid black;*/
+}
+
+#others #polls .polloption::before
+{
+    content:" ";
+    margin-left:15px;
+}
+
+#others #polls .polloption
+{
+    display:flex;
+    align-items:center;
+    cursor:default;
+    border:2px solid var(--buttoncol);
+    border:2px solid #76D7C4;
+    font-weight: 400;
+    font-style:normal;
+    font-size:1.2rem;
+    height:fit-content;
+    width:80%;
+    padding:10px 0;    
+    margin-top:15px;
+    border-radius:5px;
+}
+
+
+#others #polls .polloption .countbox 
+{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background-color:var(--buttoncol);
+    background-color:#76D7C4;
+    color:white;
+    min-width:25px;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    white-space:nowrap;
+    height:35px;
+    padding:0 5px;
+    margin:auto;
+    margin-right:10px;
+    max-width: 50px;
+    text-align:center;
+    border-radius:5px;
+}
+
+#others #polls
+{
+    margin:40px 0 40px 0;
+    font-weight: 300;
+    font-style:italic;
+    font-size:1.5rem;
+    align-items: center;
+    justify-content:center;
 }
 
 #others #announcements
 {
     /*align-items:flex-start;*/
+    justify-content:space-around;
+    font-size:1.2rem;
     align-items:baseline important;
 }
 
@@ -379,7 +434,8 @@ hr
 
 #others .contestloadmore
 {
-    margin:10px;
+    /*margin:10px;*/
+    margin-bottom:10px;
     -webkit-box-shadow: 0 3px 8px -2px #1C2833;
     -moz-box-shadow: 0 3px 8px -2px #1C2833;
     box-shadow: 0 3px 8px -2px #1C2833;
@@ -431,7 +487,7 @@ hr
     align-items:center;
     height:fit-content;
     margin:20px;
-    margin-top:25px;
+    /*margin-top:25px;*/
     margin-bottom:0;
     width:50%;
     color:#76D7C4;
@@ -688,7 +744,7 @@ hr
 
     #others #announcements .announcementsholder,#others #contests .cholder p
     {
-        font-size:1rem;
+        font-size:1.1rem;
     }
 
     #others #news .newsholder .newstitle
@@ -705,9 +761,14 @@ hr
         font-size:1rem;
     }
 
-    #others #news .newsholder .description
+    #others #news .newsholder .description,#others #polls .polloption
     {
         font-size:1.1rem;
+    }
+
+    #others #polls
+    {
+        font-size:1.3rem;
     }
 
 
@@ -742,20 +803,35 @@ hr
     font-size:1.7rem;
 }
 
-#others #polls,#others #announcements,#others #contests
+#others #announcements,#others #contests
 {
+    font-size:1rem;
+}
+
+#others #polls
+{
+    margin:30px 0 20px 0;
+    font-size:1.1rem;
+    text-align: justify;
+}
+
+#others #polls .polloption
+{
+    width:100%;
     font-size:1rem;
 }
 
 #others #announcements .announcementsholder
 {
+    margin-bottom:15px;
     min-height:fit-content;
     width:100%;
 }
 
-#others #announcements .announcementsholder .announcementsinfo #idname
+#others #news .newsholder
 {
-    margin-top:20px;
+    margin-top:5px;
+    margin-bottom:5px;
 }
 
 #others #contests .cholder
@@ -886,11 +962,6 @@ gap:2%;
     font-size:2rem;
 }
 
-#others #announcements .announcementsholder .announcementsinfo #idname
-{
-    margin-top:20px;
-}
-
 #home #maininfo #content #info
 {
     font-size:1rem;
@@ -915,7 +986,16 @@ gap:2%;
 
 #others #contests .cholder .label,#others #announcements .announcementsholder,#others #contests .cholder p,#others .loadmore,#others .contestloadmore,#others #news .newsholder .newstitle,#others #news .newsholder .description
 {
-    font-size:1.1rem;
+    font-size:1rem;
+}
+
+#others #polls
+{
+font-size:1.3rem;
+}
+
+#others #polls .polloption{
+    font-size:1rem;
 }
 
 #others #news .newsholder .minuteread
@@ -937,7 +1017,7 @@ gap:2%;
 #others #announcements .announcementsholder .announcementsinfo p
 {
     margin-left:20px;
-    margin-top:10px;
+    margin-top:20px;
 }
 
 }
