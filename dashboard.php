@@ -20,7 +20,15 @@
 
 <div id="dashboard">
 <div id="sidenavbar">
-    This is the sidenavbar
+    <!--<div id="dummy"></div>-->
+    <a id="active">Dashboard</a>
+    <a href="#">My Profile</a>
+    <a href="#">Explore</a>
+    <a href="#">Connect</a>
+    <a href="#">News</a>
+    <a href="#">Polls</a>
+    <a href="#">Contests</a>
+    <!--<div id="dummy"></div>-->
 </div>
 
 <div id="maindash">

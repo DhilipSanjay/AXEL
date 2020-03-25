@@ -37,13 +37,48 @@
 {
     background-color:#76D7C4;
     display:flex;
+    flex-direction: column;
     align-items:center;
-    justify-content: center;
-    margin:10px;
+    justify-content:center;
+    margin-top:10px;
     margin-left:0;
     color:white;
     width:20%;
 }
+
+/*#dashboard #sidenavbar #dummy
+{
+    margin-top:50px;
+    margin-bottom:50px;
+}*/
+
+#dashboard #sidenavbar a
+{
+    text-decoration:none;
+    font-size:1.4rem;
+    font-weight: 300;
+    margin-bottom:15px;
+    text-overflow:ellipsis;
+    color:white;
+    overflow:hidden;
+    width:50%;
+    text-align: center;
+    white-space: nowrap;
+    transition: color 0.2s ease-in-out;
+}
+
+#dashboard #sidenavbar a:hover
+{
+    color:#148F77;
+}
+
+#dashboard #sidenavbar #active
+{
+    cursor:default;
+    color:#148F77;
+    font-style:italic;
+}
+
 
 
 #dashboard #maindash
