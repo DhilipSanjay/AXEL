@@ -1,21 +1,8 @@
-<?php
-
-$servername="localhost";
-$database="axel";
-$username="root";
-$password="";
-
-$conn=mysqli_connect($servername,$username,$password,$database);
-
-if(!$conn)
-{
-    die("Connection error: " . mysqli_connect_errno());
-    /*header('location:error.php');*/
-}
-?>
+<?php include("dbconnect.php") ?>
 
 <!DOCTYPE html>
 <head>
+<meta charset="utf-8">
 <title>Axel - Home</title>
 <link rel="stylesheet" href="home.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
@@ -51,8 +38,8 @@ if(!$conn)
         </div>
 
         <div id="buttonholder">
-        <div class="button" onmouseover="highlightevolve()" onmouseout="dehighlightevolve()">I am a startup</div>
-        <div class="button" onmouseover="highlightevolve()" onmouseout="dehighlightevolve()">I am a mentor</div>
+        <div class="button" onmouseover="highlightevolve()" onmouseout="dehighlightevolve()" onclick="openlink('login.php')">I am a startup</div>
+        <div class="button" onmouseover="highlightevolve()" onmouseout="dehighlightevolve()" onclick="openlink('login.php')">I am a mentor</div>
         </div>
 
     </div>
@@ -102,12 +89,12 @@ $temp++;
 <?php } ?>
 
 <div id="signin">
-<a href="login.php">Sign in</a>&nbspto select your choice.
+Want to cast your opinion in the poll?&nbsp<a href="login.php">Sign in</a>&nbspnow!
 </div>
 </div>
 
 <?php
-$query="SELECT Name, Announcement FROM post inner join users WHERE users.userID=post.PuserID ORDER BY createdtime DESC LIMIT 4";
+$query="SELECT Name, DATE_FORMAT(createdtime,'%d %M %Y') as createdtime, Announcement FROM post inner join users WHERE users.userID=post.PuserID ORDER BY createdtime DESC LIMIT 4";
 $result=mysqli_query($conn,$query);
 ?>
 
@@ -122,6 +109,7 @@ $result=mysqli_query($conn,$query);
     <!--<div class="imgholder"></div>-->
 <div class="announcementsinfo">
 <span id="idname"><div class="imgholder"><img src="avatar.png"></div><?php echo $row['Name']; ?></span>
+<span id="createdtime"><?php echo $row['createdtime']; ?></span>
 <p><?php echo $row['Announcement']; ?></p>
 </div>
 </div>
