@@ -99,7 +99,9 @@ input[type=text]
     justify-content: center;
     margin-top:70px;
     width:100%;
-    height:1000px;
+    /*height:1000px;*/
+    height:fit-content;
+    height:-moz-fit-content;
 }
 
 #dashboard #sidenavbar
@@ -132,7 +134,7 @@ input[type=text]
     text-overflow:ellipsis;
     color:white;
     overflow:hidden;
-    width:50%;
+    width:fit-content;
     text-align: center;
     white-space: nowrap;
     transition: color 0.2s ease-in-out;
@@ -156,20 +158,32 @@ input[type=text]
 {
     display:flex;
     align-items:center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
     flex-wrap:wrap;
     margin:10px;
-    margin-top:30px;
     margin-right:5.5%;
     width:52.5%;
-    min-height:500px;
     height:fit-content;
+    height:-moz-fit-content;
     /*background-color:aqua;*/
+}
+
+#dashboard #noposts {
+    font-size:1.2rem;
+    display:flex;
+    flex-direction:row;
+    margin-top:20px;
+}
+
+#dashboard #noposts a,#dashboard #noposts a:visited
+{
+    color:#76D7C4;
 }
 
 #dashboard #maindash #welcomeuser
 {
+    margin-top:25px;
     border:2px solid #76D7C4;
     text-align: center;
     font-style:italic;
@@ -265,7 +279,56 @@ input[type=text]
     right:0;
     background-color:#E5E7E9;
     display:flex;
+    flex-direction: column;
     align-items:center;
-    justify-content: center;
+    justify-content:flex-start;
     width:25%;
 }
+
+#dashboard #otherarea #label 
+{
+    margin:20px;
+    font-size:1.2rem;
+}
+
+#dashboard #otherarea .reqbox
+{
+    margin-bottom:15px;
+    display:flex;
+    flex-direction:column;
+    font-size:1rem;
+    border:2px solid #76D7C4;
+    padding:10px 10px;
+    height:fit-content;
+    width:85%;
+}
+
+#dashboard #otherarea .reqbox .content 
+{
+    display:flex;
+    flex-direction:column;
+    height:fit-content;
+}
+
+#dashboard #otherarea .reqbox .content a
+{
+    height:fit-content;
+}
+
+#dashboard #otherarea .reqbox .content a,#dashboard #otherarea .reqbox .content a:visited
+{
+    color:#76D7C4;
+}
+
+#dashboard #otherarea .reqbox .acceptbutton
+{
+    color:white;
+    align-self:flex-start;
+    width:100%;
+    margin-top:10px;
+    background-color:#76D7C4;
+    text-align:center;  
+    padding:8px 0px;
+    cursor:pointer;
+}
+

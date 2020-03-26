@@ -85,7 +85,7 @@ hr
     text-overflow:ellipsis;
     color:white;
     overflow:hidden;
-    width:50%;
+    width:fit-content;
     text-align: center;
     white-space: nowrap;
     transition: color 0.2s ease-in-out;
@@ -318,7 +318,7 @@ hr
     justify-content: center;
 }
 
-#others .label
+#others .label,#maindash .label
 { 
     align-self: flex-start;
     display:flex;
@@ -513,7 +513,7 @@ hr
     min-height:225px;
     height:fit-content;
     margin-bottom:25px;
-    -webkit-box-shadow: 0 3px 8px -2px #c0c0c0;
+    -webkit-box-menuhadow: 0 3px 8px -2px #c0c0c0;
     -moz-box-shadow: 0 3px 8px -2px #c0c0c0;
     box-shadow: 0 3px 8px -2px #c0c0c0;
     font-weight:400;

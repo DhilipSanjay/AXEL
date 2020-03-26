@@ -2,7 +2,7 @@
 
 include("dbconnect.php");
 
-$userid=2; //this is the userid of the user currently logged in
+$userid=3; //this is the userid of the user currently logged in
 $query="select Name from users where userid=$userid";
 $result=mysqli_query($conn,$query);
 $resultforusername=mysqli_fetch_assoc($result);
@@ -55,15 +55,29 @@ $resultforusername=mysqli_fetch_assoc($result);
 </div>
 
 <?php
-$query="select Name, DATE_FORMAT(createdtime,'%d %M %Y') as createdtime, Announcement FROM post inner join users WHERE users.userID=post.PuserID and PuserID in (select AcceptorID from enlighten where requestorid=2) order by createdtime desc";
+$query="select Name, DATE_FORMAT(createdtime,'%d %M %Y') as createdtime, Announcement FROM post inner join users WHERE users.userID=post.PuserID and PuserID in (select AcceptorID from enlighten where requestorid=$userid and status='accepted') order by createdtime desc";
 $result=mysqli_query($conn,$query);
+$count=mysqli_num_rows($result);
 ?>
 
 <div id="maindash">
 
     <div id="welcomeuser">Welcome <?php echo $resultforusername["Name"] ?></div>
     <!--No posts to show-->
-    <?php while($row=mysqli_fetch_assoc($result))
+
+    <div class="label">Announcements</div>
+    <hr width="95%">
+
+    <?php 
+    if($count==0)
+    {
+    ?>
+
+        <div id="noposts">No posts to show!&nbsp<a href="#">Click here</a>&nbspto explore startups and mentors!</div>
+
+    <?php
+    }
+    while($row=mysqli_fetch_assoc($result))
     { ?>
 
     <div class="announcementsholder">
@@ -80,8 +94,26 @@ $result=mysqli_query($conn,$query);
 
 </div>
 
+<?php
+$query="select requestorid,Name from enlighten inner join users where userID=requestorID and acceptorid=$userid and status='pending'";
+$result=mysqli_query($conn,$query);
+?>
+
 <div id="otherarea">
-    This is the extra area
+
+<span id="label">REQUESTS</span>
+
+<?php
+while($row=mysqli_fetch_assoc($result))
+{ ?>
+
+<div class="reqbox">
+<div class="content"><a href="#"><?php echo $row["Name"] ?></a> <?php echo $row["Name"] ?> wants to be enlightened by you</div>
+<div class="acceptbutton" onclick='accept(<?php echo $row["requestorid"].",".$userid ?>,event)'>Accept</div>
+</div>
+
+<?php } ?>
+
 </div>
 
 
