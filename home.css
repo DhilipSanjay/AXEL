@@ -23,6 +23,7 @@ body
     margin:0;
     font-family:var(--font);
     color:var(--text);
+    scroll-behavior: smooth;
 }
 
 hr

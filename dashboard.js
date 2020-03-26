@@ -2,7 +2,7 @@ var newheight=window.innerHeight-90;
 document.getElementById("sidenavbar").style.height=newheight+"px";
 document.getElementById("otherarea").style.height=newheight+"px";
 
-window.onscroll = function(){
+/*window.onscroll = function(){
 
     if(window.scrollY>=0)
     {
@@ -10,4 +10,4 @@ window.onscroll = function(){
     document.getElementById("sidenavbar").style.marginTop=topmargin+"px";
     document.getElementById("otherarea").style.marginTop=topmargin+"px";
     }
-}
+}*/

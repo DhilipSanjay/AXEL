@@ -1,4 +1,12 @@
-<?php include("dbconnect.php") ?>
+<?php 
+
+include("dbconnect.php");
+
+$userid=2; //this is the userid of the user currently logged in
+$query="select Name from users where userid=$userid";
+$result=mysqli_query($conn,$query);
+$resultforusername=mysqli_fetch_assoc($result);
+?>
 
 <!DOCTYPE html>
 <head>
@@ -14,8 +22,23 @@
 <body>
 
 <div id="header"> <!--fixed header-->
+
+<div id="logoholder">
 <img id="logo" src="logo.png" height="42px" width="41px" alt="logo">
 <div id="title">AXEL</div>
+</div>
+
+<div id="otherholder">
+<input id="searchbar" type="text" placeholder="Search for startups,mentors and people" spellcheck="false">
+<img src="search.png" id="searchicon" alt="search">
+
+<div id="userdetails">
+    <img id="noti" src="notification.png">
+    <img id="userdp" src="avatar.png">
+</div>
+
+</div>
+
 </div>
 
 <div id="dashboard">
@@ -31,8 +54,30 @@
     <!--<div id="dummy"></div>-->
 </div>
 
+<?php
+$query="select Name, DATE_FORMAT(createdtime,'%d %M %Y') as createdtime, Announcement FROM post inner join users WHERE users.userID=post.PuserID and PuserID in (select AcceptorID from enlighten where requestorid=2) order by createdtime desc";
+$result=mysqli_query($conn,$query);
+?>
+
 <div id="maindash">
-    This is the main page
+
+    <div id="welcomeuser">Welcome <?php echo $resultforusername["Name"] ?></div>
+    <!--No posts to show-->
+    <?php while($row=mysqli_fetch_assoc($result))
+    { ?>
+
+    <div class="announcementsholder">
+
+    <div class="announcementsinfo">
+    <span id="idname"><div class="imgholder"><img src="avatar.png"></div><?php echo $row['Name']; ?></span>
+    <span id="createdtime"><?php echo $row['createdtime']; ?></span>
+    <p><?php echo $row['Announcement']; ?></p>
+    </div>
+
+    </div>
+
+    <?php } ?>
+
 </div>
 
 <div id="otherarea">
