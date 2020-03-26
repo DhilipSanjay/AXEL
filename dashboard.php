@@ -112,11 +112,6 @@ while($row=mysqli_fetch_assoc($result))
 <div class="acceptbutton" onclick='accept(<?php echo $row["requestorid"].",".$userid ?>,event)'>Accept</div>
 </div>
 
-<div class="reqbox">
-<div class="content"><a href="#"><?php echo $row["Name"] ?></a> <?php echo $row["Name"] ?> wants to be enlightened by you</div>
-<div class="acceptbutton" onclick='accept(<?php echo $row["requestorid"].",".$userid ?>,event)'>Accept</div>
-</div>
-
 <?php } ?>
 
 </div>
