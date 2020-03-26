@@ -162,7 +162,7 @@ input[type=text]
     flex-direction: column;
     flex-wrap:wrap;
     margin:10px;
-    margin-right:5.5%;
+    margin-right:6%;
     width:52.5%;
     height:fit-content;
     height:-moz-fit-content;
@@ -275,7 +275,7 @@ input[type=text]
 {
     position:fixed;
     margin:10px;
-    margin-right:0;
+    margin-right:10px;
     right:0;
     background-color:#E5E7E9;
     display:flex;
@@ -283,6 +283,8 @@ input[type=text]
     align-items:center;
     justify-content:flex-start;
     width:25%;
+    overflow:scroll;
+    overflow-x:hidden;
 }
 
 #dashboard #otherarea #label 
