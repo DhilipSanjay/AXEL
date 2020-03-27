@@ -2,10 +2,14 @@
 
 include("dbconnect.php");
 
-$userid=3; //this is the userid of the user currently logged in
+$userid=$_REQUEST["userid"]; //this is the userid of the user currently logged in
 $query="select Name from users where userid=$userid";
 $result=mysqli_query($conn,$query);
 $resultforusername=mysqli_fetch_assoc($result);
+
+$query="select userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%W, %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 20";
+$result=mysqli_query($conn,$query);
+$count=mysqli_num_rows($result);
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +23,60 @@ $resultforusername=mysqli_fetch_assoc($result);
 <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i&display=swap" rel="stylesheet">
 </head>
 
+<script type="text/javascript">
+var isopen=0;
+
+function opennotiholder()
+{
+  if(isopen==0)
+  {
+    document.getElementById("notiholder").style.visibility="visible";
+    document.getElementById("notiholder").style.height="400px";
+    document.getElementById("notiholder").style.opacity="1";
+    /*document.getElementById("round").style.visibility="hidden";*/
+    isopen=1;
+  }
+
+  else
+  {
+    document.getElementById("notiholder").style.visibility="hidden";
+    document.getElementById("notiholder").style.height="0";
+    document.getElementById("notiholder").style.opacity="0.5";
+    isopen=0;
+  }
+}
+</script>
+
 <body>
+
+
+
+<div id="notiholder">
+
+<?php 
+if($count==0)
+{
+?>
+<div id="nonoti" style="margin-top:20px">No notifications!</div>
+<?php
+}
+else
+{
+while($row=mysqli_fetch_assoc($result))
+{ ?>
+
+<div class="notibox">
+
+You were enlightened by <?php echo $row["Name"]."!" ?>
+<div class="notitime"><?php echo $row["time"] ?></div>
+
+</div>
+
+<?php 
+}
+} ?>
+</div>
+
 
 <div id="header"> <!--fixed header-->
 
@@ -33,7 +90,7 @@ $resultforusername=mysqli_fetch_assoc($result);
 <img src="search.png" id="searchicon" alt="search">
 
 <div id="userdetails">
-    <img id="noti" src="notification.png">
+    <img id="noti" src="notification.png" onclick="opennotiholder()"><div id="round"></div>
     <img id="userdp" src="avatar.png">
 </div>
 
@@ -73,7 +130,7 @@ $count=mysqli_num_rows($result);
     {
     ?>
 
-        <div id="noposts">No posts to show!&nbsp<a href="#">Click here</a>&nbspto explore startups and mentors!</div>
+        <div id="noposts">No announcements to show!&nbsp<a href="#">Click here</a>&nbspto explore startups and mentors!</div>
 
     <?php
     }
@@ -97,31 +154,43 @@ $count=mysqli_num_rows($result);
 <?php
 $query="select requestorid,Name from enlighten inner join users where userID=requestorID and acceptorid=$userid and status='pending'";
 $result=mysqli_query($conn,$query);
+$count=mysqli_num_rows($result);
 ?>
 
 <div id="otherarea">
 
 <span id="label">REQUESTS</span>
 
+<?php 
+if($count==0)
+{
+?>
+
+<div id="noreq" style="margin-top:20px">No requests!</div>
+
 <?php
+}
+else
+{
 while($row=mysqli_fetch_assoc($result))
-{ ?>
+{ 
+?>
 
 <div class="reqbox">
 <div class="content"><a href="#"><?php echo $row["Name"] ?></a> <?php echo $row["Name"] ?> wants to be enlightened by you</div>
 <div class="acceptbutton" onclick='accept(<?php echo $row["requestorid"].",".$userid ?>,event)'>Accept</div>
 </div>
 
-<?php } ?>
+<?php } 
+}?>
 
 </div>
 
 
 </div>
-
-
 
 </body>
 
 <script src="dashboard.js" type="text/javascript"></script>
+
 </html>

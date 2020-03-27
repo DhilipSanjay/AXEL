@@ -1,3 +1,64 @@
+hr
+{
+    height:1.5px;
+    background-color:#76D7C4; /*for fucking internet explorer which does not support css variables*/
+    border:none;
+    margin:auto;
+    margin-bottom:30px;
+    margin-left:2.5%;
+    margin-top:0;
+}
+
+#notiholder
+{
+    position:fixed;
+    right:75px;
+    top:75px;
+    height:0;
+    background-color:#F2F3F4;
+    width:400px;
+    z-index:2;
+    overflow:scroll;
+    overflow-x:hidden;
+    visibility:hidden;
+    opacity:0.5;
+    transition:all 0.2s ease;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    -webkit-box-shadow: 0 3px 8px -2px #1C2833;
+    -moz-box-shadow: 0 3px 8px -2px #1C2833;
+    box-shadow: 0 3px 8px -2px #1C2833;
+    padding:5px 0;
+}
+
+#notiholder .notibox
+{
+    width:85%;
+    background-color: #CACFD2;
+    color:black;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:5px;
+    font-size:1rem;
+}
+
+#notiholder .notibox .notitime
+{
+    color:white;
+    font-size:0.9rem;
+    margin-top:5px;
+    margin-bottom:0;
+    display:table;
+    height:fit-content;
+    width:fit-content;
+    width: -moz-fit-content;
+    white-space:nowrap;
+    background-color:#76D7C4;
+    padding:5px 5px;
+    border-radius:5px;
+}
+
 #header
 {
     position:fixed;
@@ -9,6 +70,7 @@
     right:0;
     height:70px;
     color:white;
+    z-index:1;
 }
 
 #header #logoholder 
@@ -57,11 +119,11 @@ input[type=text]
     margin-left:12.5%;
 }
 
-#header #otherholder  #searchicon
+#header #otherholder #searchicon
 {
-    height:23px;
-    width:24px;
-    padding:6.5px;  
+    padding:5.5px;
+    height:25px;
+    width:25px;
     background-color:#76D7C4;
 }
 
@@ -83,6 +145,20 @@ input[type=text]
     height:36px;
     width:36px;
     cursor:pointer;
+}
+
+#header #otherholder #userdetails #round
+{
+    visibility:hidden;
+    position:absolute;
+    height:8px;
+    width:8px;
+    z-index:2;
+    top:20px;
+    right:90px;
+    background-color:white;
+    color:black;
+    border-radius: 50%;
 }
 
 #header #otherholder #userdetails #userdp
@@ -282,10 +358,29 @@ input[type=text]
     flex-direction: column;
     align-items:center;
     justify-content:flex-start;
-    width:25%;
+    width:24.5%;
     overflow:scroll;
     overflow-x:hidden;
 }
+
+#otherarea::-webkit-scrollbar,#notiholder::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  /* Track */
+  #otherarea::-webkit-scrollbar-track, #notiholder::-webkit-scrollbar-track {
+    background:#E5E7E9;
+  }
+  
+  /* Handle */
+  #otherarea::-webkit-scrollbar-thumb, #notiholder::-webkit-scrollbar-thumb {
+    background:#BDC3C7;
+  }
+  
+  /* Handle on hover */
+  #otherarea::-webkit-scrollbar-thumb:hover, #notiholder::-webkit-scrollbar-thumb:hover{
+    background: #BDC3C7;
+  }
 
 #dashboard #otherarea #label 
 {
@@ -304,6 +399,7 @@ input[type=text]
     height:fit-content;
     width:85%;
 }
+
 
 #dashboard #otherarea .reqbox .content 
 {

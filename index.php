@@ -26,7 +26,7 @@
 
 <img id="logo" src="logo.png" height="47px" width="45px" alt="logo">
 <div id="title">AXEL</div>
-<img onclick="openlink('dashboard.php')" id="user" src="user.png" alt="login">
+<img onclick="openlink('dashboard.php?userid=4')" id="user" src="user.png" alt="login">
 <img id="listicon" onclick="opensidebar();" src="list.PNG" alt="picture">
 
 <div id="maininfo">
