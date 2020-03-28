@@ -1,0 +1,68 @@
+
+body{
+    font-family: 'Nunito Sans';
+}
+.searchbox
+{
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    background-color: #2f3640;
+    height: 40px;
+    border-radius: 40px;
+    padding: 10px;
+}
+/*
+.searchbtn:hover > #searchtext
+{
+    width: 330px;
+    padding: 0 6px;
+}*/
+.searchbtn{
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #2f3640; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+}
+.searchbox:hover > .searchbtn{
+    background: #76D7C4;
+}
+#searchtext{
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: white;
+    font-size: 16px;
+    transition: 0.6s;
+    line-height: 40px;
+    width: 330px;
+}
+
+.searchlist{
+    position: relative;
+    top: 50%;
+    bottom: 50%;
+}
+.profile
+{
+   display: inline-block;
+   padding: 10px;
+}
+.uname{
+    font-style: bolder;
+}
+.utype
+{
+    color: gray;
+    font-style: italic;
+}
+.DP{
+    width: 35px;
+}

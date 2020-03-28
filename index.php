@@ -35,8 +35,8 @@ if(!$conn)
 </div>
 
 <div id="home">
-
-<img id="logo" src="logo.png" height="47px" width="45px" alt="logo">
+<a href="/">
+<img id="logo" src="logo.png" height="47px" width="45px" alt="logo"></a>
 <div id="title">AXEL</div>
 <img onclick="openlink('login.php')" id="user" src="user.png" alt="login">
 <img id="listicon" onclick="opensidebar();" src="list.PNG" alt="picture">
