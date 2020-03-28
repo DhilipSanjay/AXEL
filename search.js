@@ -1,4 +1,3 @@
-//Jquery
 $(document).ready(function()
 {
     $('#searchtext').keyup(function()
@@ -15,21 +14,17 @@ $(document).ready(function()
                     $('.searchlist').fadeIn();
                     $('.searchlist').html(data);
                 }
-                
             });
         }
         else
         {
             $('.searchlist').fadeOut();
         }
-    });
-    
+    });    
 });
 
 function selectuser(username)
     {
-        console.log(username);
         $('#searchtext').val(username);
         $('.searchlist').fadeOut();
     }
-

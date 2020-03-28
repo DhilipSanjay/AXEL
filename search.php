@@ -27,6 +27,7 @@
                 $output .= '<img class="DP" src= "'.$row["DP"] . '" alt="defaultimgholder.png">';
                 $output .= '<span class="profile"><div class = "uname">' .$username.'</div>';
                 $output .= '<div class="utype">' .$row["userType"].'</div></span>';
+
             }
         }
         else
@@ -34,6 +35,5 @@
             $output .= '<div>No results found</div>';
         }
         echo $output;
-        }
-    
+        }  
 ?>
