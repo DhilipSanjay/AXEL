@@ -39,6 +39,26 @@ function accept(reqid,accid,event)
     
 }
 
+function fillrequests(userid)
+{
+  var reqfillobj=createreqobj();
+
+  reqfillobj.onreadystatechange = function() {
+
+    if (this.readyState == 4 && this.status == 200) {
+     document.getElementById("otherarea").innerHTML=this.responseText;
+    }
+
+  };
+
+  var parameters="userid="+userid;
+
+  reqfillobj.open("POST", "requests.php", true);
+  reqfillobj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  reqfillobj.send(parameters);
+
+}
+
 function applaud(userid,postid,postuserid,event){
   /*alert(userid+"and"+postid+"and"+postuserid);*/
   var src=event.target.src;

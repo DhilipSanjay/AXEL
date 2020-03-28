@@ -81,7 +81,7 @@ function checkifapplauded(userid,postid,postuserid,count)
   }
 </script>
 
-<body>
+<body onload=fillrequests(<?php echo $userid?>)>
 
 <div id="notiholder">
 
@@ -185,41 +185,7 @@ $temp=0;
 
 </div>
 
-<?php
-$query="select requestorid,Name,statuschangetime from enlighten inner join users where userID=requestorID and acceptorid=$userid and status='pending' order by statuschangetime desc limit 40"; //a limit has been set as to how many requests has to be shown (40 requests only)
-$result=mysqli_query($conn,$query);
-$count=mysqli_num_rows($result);
-?>
-
 <div id="otherarea">
-
-<span id="label">REQUESTS</span>
-
-<?php 
-if($count==0)
-{
-?>
-
-<div id="noreq" style="margin-top:20px">No requests!</div>
-
-<?php
-}
-else
-{
-while($row=mysqli_fetch_assoc($result))
-{ 
-?>
-
-<div class="reqbox">
-<div class="content"><a href="#"><?php echo "Request from ".$row["Name"] ?></a> <?php echo $row["Name"] ?> wants to be enlightened by you!</div>
-<div class="acceptbutton" onclick='accept(<?php echo $row["requestorid"].",".$userid ?>,event)'>Accept</div>
-</div>
-
-<?php } 
-}?>
-
-</div>
-
 
 </div>
 
