@@ -7,16 +7,16 @@ $query="select Name from users where userid=$userid";
 $result=mysqli_query($conn,$query);
 $resultforusername=mysqli_fetch_assoc($result);
 
-$query="select userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%W, %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 20";
+$query="select userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
 $result=mysqli_query($conn,$query);
 $count=mysqli_num_rows($result);
 ?>
 
 <!DOCTYPE html>
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8"> 
 <title>Axel - Dashboard</title>
-<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="home.css"> 
 <link rel="stylesheet" href="dashboard.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <link rel="icon" href="logo.png">
@@ -24,7 +24,21 @@ $count=mysqli_num_rows($result);
 </head>
 
 <script type="text/javascript">
+
 var isopen=0;
+
+function createreqobj() {
+    var xhttp;
+    if (window.XMLHttpRequest) {
+      // code for modern browsers
+      xhttp = new XMLHttpRequest();
+      } else {
+      // code for IE6, IE5
+      xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    return xhttp;
+}
 
 function opennotiholder()
 {
@@ -45,11 +59,29 @@ function opennotiholder()
     isopen=0;
   }
 }
+
+function checkifapplauded(userid,postid,postuserid,count)
+{
+  var checkapplaudobj=createreqobj();
+  
+  checkapplaudobj.onreadystatechange = function() {
+
+  if (this.readyState == 4 && this.status == 200 && this.responseText==="Already applauded") {
+     document.getElementsByClassName("clap")[count].src="clapping_enabled.svg";
+  }
+/*alert(userid+"and"+postid+"and"+postuserid+"and"+this.responseText);*/
+  };
+
+  var url="checkifapplauded.php?userid="+userid+"&postid="+postid+"&postuserid="+postuserid;
+
+  /*alert(url);*/
+
+  checkapplaudobj.open("GET", url, true);
+  checkapplaudobj.send();
+  }
 </script>
 
 <body>
-
-
 
 <div id="notiholder">
 
@@ -112,9 +144,10 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 </div>
 
 <?php
-$query="select Name, DATE_FORMAT(createdtime,'%d %M %Y') as createdtime, Announcement FROM post inner join users WHERE users.userID=post.PuserID and PuserID in (select AcceptorID from enlighten where requestorid=$userid and status='accepted') order by createdtime desc";
+$query="select puserid,postid,Name, DATE_FORMAT(createdtime,'%d %M %Y | %h:%i %p') as createdtime, Announcement FROM post inner join users WHERE users.userID=post.PuserID and PuserID in (select AcceptorID from enlighten where requestorid=$userid and status='accepted') order by createdtime desc";
 $result=mysqli_query($conn,$query);
 $count=mysqli_num_rows($result);
+$temp=0;
 ?>
 
 <div id="maindash">
@@ -136,23 +169,24 @@ $count=mysqli_num_rows($result);
     }
     while($row=mysqli_fetch_assoc($result))
     { ?>
-
     <div class="announcementsholder">
 
     <div class="announcementsinfo">
-    <span id="idname"><div class="imgholder"><img src="avatar.png"></div><?php echo $row['Name']; ?></span>
+    <span id="idname"><div class="imgholder"><img src="avatar.png"></div><?php echo $row['Name']; ?><img class="clap" src="clapping.svg" onload="checkifapplauded(<?php echo $userid.','.$row['postid'].','.$row['puserid'].','.$temp ?>)" onclick="applaud(<?php echo $userid.','.$row['postid'].','.$row['puserid'] ?>,event)"  height="25px" width="25px"></span>
     <span id="createdtime"><?php echo $row['createdtime']; ?></span>
     <p><?php echo $row['Announcement']; ?></p>
     </div>
 
     </div>
 
-    <?php } ?>
+    <?php
+    $temp++; 
+    } ?>
 
 </div>
 
 <?php
-$query="select requestorid,Name from enlighten inner join users where userID=requestorID and acceptorid=$userid and status='pending'";
+$query="select requestorid,Name,statuschangetime from enlighten inner join users where userID=requestorID and acceptorid=$userid and status='pending' order by statuschangetime desc limit 40"; //a limit has been set as to how many requests has to be shown (40 requests only)
 $result=mysqli_query($conn,$query);
 $count=mysqli_num_rows($result);
 ?>
@@ -177,7 +211,7 @@ while($row=mysqli_fetch_assoc($result))
 ?>
 
 <div class="reqbox">
-<div class="content"><a href="#"><?php echo $row["Name"] ?></a> <?php echo $row["Name"] ?> wants to be enlightened by you</div>
+<div class="content"><a href="#"><?php echo "Request from ".$row["Name"] ?></a> <?php echo $row["Name"] ?> wants to be enlightened by you!</div>
 <div class="acceptbutton" onclick='accept(<?php echo $row["requestorid"].",".$userid ?>,event)'>Accept</div>
 </div>
 

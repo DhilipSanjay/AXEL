@@ -9,6 +9,14 @@ hr
     margin-top:0;
 }
 
+#maindash .announcementsholder .announcementsinfo #idname .clap  
+{
+    margin:auto;
+    margin-top:5px;
+    margin-right:0;
+    cursor:pointer;
+}
+
 #notiholder
 {
     position:fixed;
@@ -302,7 +310,7 @@ input[type=text]
     height:fit-content;
     margin:20px;
     margin-bottom:0;
-    width:50%;
+    max-width:95%;
     color:#76D7C4;
 }
 
