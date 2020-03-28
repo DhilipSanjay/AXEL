@@ -23,6 +23,7 @@ body
     margin:0;
     font-family:var(--font);
     color:var(--text);
+    scroll-behavior: smooth;
 }
 
 hr
@@ -84,7 +85,7 @@ hr
     text-overflow:ellipsis;
     color:white;
     overflow:hidden;
-    width:50%;
+    width:fit-content;
     text-align: center;
     white-space: nowrap;
     transition: color 0.2s ease-in-out;
@@ -317,11 +318,11 @@ hr
     justify-content: center;
 }
 
-#others .label
+#others .label,#maindash .label
 { 
     align-self: flex-start;
     display:flex;
-    font-size:2rem;
+    font-size:1.8rem;
     font-weight:200;
     /*font-style:italic;*/
     margin-top:40px;
@@ -452,7 +453,8 @@ hr
     margin-top:30px;
     display:flex;
     align-items:center;
-    justify-content:flex-start;
+    flex-wrap:wrap;
+    justify-content:center;
     font-style:normal;
     font-weight:400;
     font-size:1.2rem; 
@@ -508,10 +510,10 @@ hr
     align-items: flex-start;
     justify-content: center;
     width:48%;
-    min-height:175px;
+    min-height:225px;
     height:fit-content;
     margin-bottom:25px;
-    -webkit-box-shadow: 0 3px 8px -2px #c0c0c0;
+    -webkit-box-menuhadow: 0 3px 8px -2px #c0c0c0;
     -moz-box-shadow: 0 3px 8px -2px #c0c0c0;
     box-shadow: 0 3px 8px -2px #c0c0c0;
     font-weight:400;
@@ -538,10 +540,25 @@ hr
     align-items:center;
     height:fit-content;
     margin:20px;
-    /*margin-top:25px;*/
     margin-bottom:0;
     width:50%;
     color:#76D7C4;
+}
+
+#others #announcements .announcementsholder .announcementsinfo #createdtime
+{
+    font-size:0.9rem;
+    margin:20px;
+    margin-top:10px;
+    margin-bottom:0;
+    display:table;
+    width:fit-content;
+    width: -moz-fit-content;
+    white-space:nowrap;
+    background-color:#76D7C4;
+    color:white;
+    padding:5px 5px;
+    border-radius:5px;
 }
 
 #others #announcements .announcementsholder .announcementsinfo #idname .imgholder
@@ -583,9 +600,11 @@ hr
 #others #dummy
 {
     width:100%;
-    height:70px;
-    margin-top:50px;
+    height:73px;
+    margin-top:0px;
+    background-color:#76D7C4;
     margin-bottom:0;
+    z-index:-5;
 }
 
 #others .holder
@@ -771,6 +790,7 @@ hr
 #others #contests .ch1
 {
     height:fit-content;
+    height:-moz-fit-content;
 }
 
 #others #contests #loadmoreflex
@@ -882,6 +902,11 @@ hr
     margin-bottom:15px;
     min-height:fit-content;
     width:100%;
+}
+
+#others #announcements .announcementsholder .announcementsinfo #createdtime
+{
+    font-size:0.8rem;
 }
 
 #others #news .newsholder
