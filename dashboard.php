@@ -91,12 +91,11 @@ function checkapplaudcount(postid,count)
   }
   };
 
-  var url="checkapplaudcount.php?postid="+postid;
+  var url="checkapplaudcount.php?postid="+postid+"&datetime="+Date();
 
   checkapplaudcount.open("GET", url, true);
   checkapplaudcount.send();
 }
-
 
 </script>
 

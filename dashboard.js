@@ -112,7 +112,7 @@ function fillmentorreq(userid)
   mentorreqfillobj.open("GET", url, true);
   mentorreqfillobj.send();
 }
-
+  
 function applaud(userid,postid,postuserid,count,event)
 {
   var src=event.target.src;
@@ -129,7 +129,7 @@ function applaud(userid,postid,postuserid,count,event)
 
   };
 
-  var url="applaud.php?userid="+userid+"&postid="+postid+"&postuserid="+postuserid+"&todo=insertapplaud";
+  var url="applaud.php?userid="+userid+"&postid="+postid+"&postuserid="+postuserid+"&todo=insertapplaud&datetime="+Date();
 
     applaudobj.open("GET", url, true);
     applaudobj.send();
@@ -146,14 +146,9 @@ function applaud(userid,postid,postuserid,count,event)
   
     };
   
-    var url="applaud.php?userid="+userid+"&postid="+postid+"&postuserid="+postuserid+"&todo=deleteapplaud";
+    var url="applaud.php?userid="+userid+"&postid="+postid+"&postuserid="+postuserid+"&todo=deleteapplaud&datetime="+Date();
   
       applaudobj.open("GET", url, true);
       applaudobj.send();
   }
-
-  
-
-
 }
-  
