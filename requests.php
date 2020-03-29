@@ -1,8 +1,8 @@
 <?php
 
 include("dbconnect.php");
-$userid=$_POST["userid"];
-$reqtype=$_POST["reqtype"];
+$userid=$_GET["userid"];
+$reqtype=$_GET["reqtype"];
 
 
 if($reqtype=="enlightenreq")
@@ -21,7 +21,6 @@ $output .= '<div id="noreq" style="margin-top:20px">No requests!</div>';
 
 else
 {
-/*$output .= '<span id="label">REQUESTS</span>';*/
 
 while($row=mysqli_fetch_assoc($result))
 { 

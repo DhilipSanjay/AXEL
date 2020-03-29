@@ -3,9 +3,11 @@
 include("dbconnect.php");
 
 $userid=$_REQUEST["userid"]; //this is the userid of the user currently logged in
-$query="select Name from users where userid=$userid";
+$username="Username"; //$_REQUEST["username"] - this is the username of the user currently logged in
+
+/*$query="select Name from users where userid=$userid";
 $result=mysqli_query($conn,$query);
-$resultforusername=mysqli_fetch_assoc($result);
+$resultforusername=mysqli_fetch_assoc($result);*/
 
 $query="select userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
 $result=mysqli_query($conn,$query);
@@ -69,16 +71,33 @@ function checkifapplauded(userid,postid,postuserid,count)
   if (this.readyState == 4 && this.status == 200 && this.responseText==="Already applauded") {
      document.getElementsByClassName("clap")[count].src="clapping_enabled.svg";
   }
-/*alert(userid+"and"+postid+"and"+postuserid+"and"+this.responseText);*/
   };
 
   var url="checkifapplauded.php?userid="+userid+"&postid="+postid+"&postuserid="+postuserid;
-
-  /*alert(url);*/
-
   checkapplaudobj.open("GET", url, true);
   checkapplaudobj.send();
+
+  checkapplaudcount(postid,count);
+}
+
+function checkapplaudcount(postid,count)
+{
+  var checkapplaudcount=createreqobj();
+  
+  checkapplaudcount.onreadystatechange = function() {
+
+  if (this.readyState == 4 && this.status == 200) {
+     document.getElementsByClassName("countbox")[count].innerHTML=this.responseText;
   }
+  };
+
+  var url="checkapplaudcount.php?postid="+postid;
+
+  checkapplaudcount.open("GET", url, true);
+  checkapplaudcount.send();
+}
+
+
 </script>
 
 <body onload=fillrequests(<?php echo $userid?>)>
@@ -152,7 +171,7 @@ $temp=0;
 
 <div id="maindash">
 
-    <div id="welcomeuser">Welcome <?php echo $resultforusername["Name"] ?></div>
+    <div id="welcomeuser">Welcome <?php echo $username ?></div>
     <!--No posts to show-->
 
     <div class="label">Announcements</div>
@@ -172,7 +191,14 @@ $temp=0;
     <div class="announcementsholder">
 
     <div class="announcementsinfo">
-    <span id="idname"><div class="imgholder"><img src="avatar.png"></div><?php echo $row['Name']; ?><img class="clap" src="clapping.svg" onload="checkifapplauded(<?php echo $userid.','.$row['postid'].','.$row['puserid'].','.$temp ?>)" onclick="applaud(<?php echo $userid.','.$row['postid'].','.$row['puserid'] ?>,event)"  height="25px" width="25px"></span>
+
+    <span id="idname">
+    <div class="imgholder"><img src="avatar.png"></div>
+    <?php echo $row['Name']; ?>
+    <div class="countbox"></div>
+    <img class="clap" src="clapping.svg" onload="checkifapplauded(<?php echo $userid.','.$row['postid'].','.$row['puserid'].','.$temp ?>)" onclick="applaud(<?php echo $userid.','.$row['postid'].','.$row['puserid'] ?>,event)"  height="25px" width="25px">
+    </span>
+
     <span id="createdtime"><?php echo $row['createdtime']; ?></span>
     <p><?php echo $row['Announcement']; ?></p>
     </div>

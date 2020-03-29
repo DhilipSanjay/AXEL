@@ -30,11 +30,10 @@ function accept(reqid,accid,event)
 
       };
 
-    var parameters="requestid="+reqid+"&acceptorid="+accid+"&accept=enlightenment";
+    var url="accept.php?requestid="+reqid+"&acceptorid="+accid+"&accept=enlightenment";
 
-    reqobj.open("POST", "accept.php", true);
-    reqobj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    reqobj.send(parameters);
+    reqobj.open("GET", url, true);
+    reqobj.send();
     }
     
 }
@@ -46,8 +45,6 @@ function acceptasmentor(mentorid,accid,event)
     {
     var mentorreqobj=createreqobj();
 
-    /*alert(reqid+","+accid);*/
-
     mentorreqobj.onreadystatechange = function() {
 
         if (this.readyState == 4 && this.status == 200) {
@@ -57,11 +54,10 @@ function acceptasmentor(mentorid,accid,event)
 
       };
 
-    var parameters="mentorid="+mentorid+"&acceptorid="+accid+"&accept=mentorship";
+    var url="accept.php?mentorid="+mentorid+"&acceptorid="+accid+"&accept=mentorship";
 
-    mentorreqobj.open("POST", "accept.php", true);
-    mentorreqobj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    mentorreqobj.send(parameters);
+    mentorreqobj.open("GET", url, true);
+    mentorreqobj.send();
     }
     
 }
@@ -91,11 +87,10 @@ function fillrequests(userid)
 
   };
 
-  var parameters="userid="+userid+"&reqtype=enlightenreq";
+  var url="requests.php?userid="+userid+"&reqtype=enlightenreq";
 
-  reqfillobj.open("POST", "requests.php", true);
-  reqfillobj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  reqfillobj.send(parameters);
+  reqfillobj.open("GET", url, true);
+  reqfillobj.send();
 
 }
 
@@ -124,15 +119,14 @@ function fillmentorreq(userid)
 
   };
 
-  var parameters="userid="+userid+"&reqtype=mentorreq";
+  var url="requests.php?userid="+userid+"&reqtype=mentorreq";
 
-  mentorreqfillobj.open("POST", "requests.php", true);
-  mentorreqfillobj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  mentorreqfillobj.send(parameters);
+  mentorreqfillobj.open("GET", url, true);
+  mentorreqfillobj.send();
 }
 
-function applaud(userid,postid,postuserid,event){
-  /*alert(userid+"and"+postid+"and"+postuserid);*/
+function applaud(userid,postid,postuserid,event)
+{
   var src=event.target.src;
   var applaudobj=createreqobj(); //ajax object for applaud
 
@@ -146,11 +140,10 @@ function applaud(userid,postid,postuserid,event){
 
   };
 
-  var parameters="userid="+userid+"&postid="+postid+"&postuserid="+postuserid+"&todo=insertapplaud";
+  var url="applaud.php?userid="+userid+"&postid="+postid+"&postuserid="+postuserid+"&todo=insertapplaud";
 
-    applaudobj.open("POST", "applaud.php", true);
-    applaudobj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    applaudobj.send(parameters);
+    applaudobj.open("GET", url, true);
+    applaudobj.send();
   }
 
   else
@@ -163,11 +156,10 @@ function applaud(userid,postid,postuserid,event){
   
     };
   
-    var parameters="userid="+userid+"&postid="+postid+"&postuserid="+postuserid+"&todo=deleteapplaud";
+    var url="applaud.php?userid="+userid+"&postid="+postid+"&postuserid="+postuserid+"&todo=deleteapplaud";
   
-      applaudobj.open("POST", "applaud.php", true);
-      applaudobj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      applaudobj.send(parameters);
+      applaudobj.open("GET", url, true);
+      applaudobj.send();
   }
 
 

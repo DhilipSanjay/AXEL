@@ -9,11 +9,23 @@ hr
     margin-top:0;
 }
 
+#maindash .announcementsholder .announcementsinfo #idname .countbox
+{
+    position:relative;
+    width:fit-content;
+    height:100%;
+    padding:0 5px;
+    border-radius:2px;
+    margin:auto;
+    margin-right:0;
+    color:black;
+}
+
 #maindash .announcementsholder .announcementsinfo #idname .clap  
 {
     margin:auto;
-    margin-top:5px;
     margin-right:0;
+    margin-left:5px;
     cursor:pointer;
 }
 
