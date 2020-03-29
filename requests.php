@@ -29,9 +29,9 @@ $output .= '<div class="reqbox"><div class="content"><a href="#">'.'Request from
 
 }
 
-$output .= "</div>";
-
 }
+
+$output .= "</div>";
 
 echo $output;
 }
@@ -61,9 +61,9 @@ $output .= '<div class="reqbox"><div class="content"><a href="#">'.'Request from
 
 }
 
-$output .= "</div>";
-
 }
+
+$output .= "</div>";
 
 echo $output;
 

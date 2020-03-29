@@ -23,7 +23,6 @@ $count=mysqli_num_rows($result);
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <link rel="icon" href="logo.png">
 <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i&display=swap" rel="stylesheet">
-</head>
 
 <script type="text/javascript">
 
@@ -98,6 +97,8 @@ function checkapplaudcount(postid,count)
 }
 
 </script>
+</head>
+
 
 <body onload=fillrequests(<?php echo $userid?>)>
 
@@ -125,6 +126,7 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 <?php 
 }
 } ?>
+
 </div>
 
 
@@ -136,11 +138,12 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 </div>
 
 <div id="otherholder">
+
 <input id="searchbar" type="text" placeholder="Search for startups,mentors and people" spellcheck="false">
 <img src="search.png" id="searchicon" alt="search">
 
 <div id="userdetails">
-    <img id="noti" src="notification.png" onclick="opennotiholder()"><div id="round"></div>
+    <img id="noti" src="notification.png" onclick="opennotiholder()"> <!--<div id="round"></div>-->
     <img id="userdp" src="avatar.png">
 </div>
 
@@ -149,6 +152,7 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 </div>
 
 <div id="dashboard">
+
 <div id="sidenavbar">
     <!--<div id="dummy"></div>-->
     <a id="active">Dashboard</a>
@@ -185,9 +189,14 @@ $temp=0;
 
     <?php
     }
+    ?>
+
+    <div class="announcementsholder">
+
+    <?php
     while($row=mysqli_fetch_assoc($result))
     { ?>
-    <div class="announcementsholder">
+    
 
     <div class="announcementsinfo">
 
@@ -195,23 +204,23 @@ $temp=0;
     <div class="imgholder"><img src="avatar.png"></div>
     <?php echo $row['Name']; ?>
     <div class="countbox"></div>
-
-    <?php echo '<script type="text/javascript">checkifapplauded('.$userid.','.$row['postid'].','.$row['puserid'].','.$temp.')</script>';?>
-
     <img class="clap" src="clapping.svg" onclick="applaud(<?php echo $userid.','.$row['postid'].','.$row['puserid'].','.$temp ?>,event)"  height="25px" width="25px">
     </span>
 
+    <?php echo '<script type="text/javascript">checkifapplauded('.$userid.','.$row['postid'].','.$row['puserid'].','.$temp.')</script>';?>
+
     <span id="createdtime"><?php echo $row['createdtime']; ?></span>
     <p><?php echo $row['Announcement']; ?></p>
-    </div>
-
     </div>
 
     <?php
     $temp++; 
     } ?>
 
+  </div>
+
 </div>
+
 
 <div id="otherarea">
 
@@ -226,13 +235,14 @@ $temp=0;
 </div>
 
 <div id="mentorreqholder">
-  THis is the mentor box
 </div>
 
 </div>
 
-</body>
+</div>
+
 
 <script src="dashboard.js" type="text/javascript"></script>
 
+</body>
 </html>

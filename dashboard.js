@@ -65,7 +65,6 @@ function fillrequests(userid)
 
   document.getElementById("mentorreqholder").style.height="0";
   document.getElementById("mentorreqholder").style.visibility="hidden";
-  
 
   reqfillobj.onreadystatechange = function() {
 
@@ -97,7 +96,6 @@ function fillmentorreq(userid)
 
   document.getElementById("enlightenholder").style.height="0";
   document.getElementById("enlightenholder").style.visibility="hidden";
-  
 
   mentorreqfillobj.onreadystatechange = function() {
 
