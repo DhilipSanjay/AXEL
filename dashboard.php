@@ -63,9 +63,9 @@ function opennotiholder()
 }
 
 function checkifapplauded(userid,postid,postuserid,count)
-{
-  var checkapplaudobj=createreqobj();
-  
+{  
+  var checkapplaudobj=createreqobj(); //ajax object to check whether an announcement has been applauded or not
+
   checkapplaudobj.onreadystatechange = function() {
 
   if (this.readyState == 4 && this.status == 200 && this.responseText==="Already applauded") {
@@ -196,7 +196,10 @@ $temp=0;
     <div class="imgholder"><img src="avatar.png"></div>
     <?php echo $row['Name']; ?>
     <div class="countbox"></div>
-    <img class="clap" src="clapping.svg" onload="checkifapplauded(<?php echo $userid.','.$row['postid'].','.$row['puserid'].','.$temp ?>)" onclick="applaud(<?php echo $userid.','.$row['postid'].','.$row['puserid'] ?>,event)"  height="25px" width="25px">
+
+    <?php echo '<script type="text/javascript">checkifapplauded('.$userid.','.$row['postid'].','.$row['puserid'].','.$temp.')</script>';?>
+
+    <img class="clap" src="clapping.svg" onclick="applaud(<?php echo $userid.','.$row['postid'].','.$row['puserid'].','.$temp ?>,event)"  height="25px" width="25px">
     </span>
 
     <span id="createdtime"><?php echo $row['createdtime']; ?></span>

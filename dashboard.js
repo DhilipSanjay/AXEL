@@ -2,24 +2,12 @@ var newheight=window.innerHeight-90;
 document.getElementById("sidenavbar").style.height=newheight+"px";
 document.getElementById("otherarea").style.height=newheight+"px";
 
-/*window.onscroll = function(){
-
-    if(window.scrollY>=0)
-    {
-    topmargin=window.scrollY+10;
-    document.getElementById("sidenavbar").style.marginTop=topmargin+"px";
-    document.getElementById("otherarea").style.marginTop=topmargin+"px";
-    }
-}*/
-
 function accept(reqid,accid,event)
 {
 
     if(event.target.innerHTML!="Accepted")
     {
     var reqobj=createreqobj();
-
-    /*alert(reqid+","+accid);*/
 
     reqobj.onreadystatechange = function() {
 
@@ -125,7 +113,7 @@ function fillmentorreq(userid)
   mentorreqfillobj.send();
 }
 
-function applaud(userid,postid,postuserid,event)
+function applaud(userid,postid,postuserid,count,event)
 {
   var src=event.target.src;
   var applaudobj=createreqobj(); //ajax object for applaud
@@ -136,6 +124,7 @@ function applaud(userid,postid,postuserid,event)
 
     if (this.readyState == 4 && this.status == 200) {
       event.target.src="clapping_enabled.svg";
+      checkapplaudcount(postid,count);
     }
 
   };
@@ -152,6 +141,7 @@ function applaud(userid,postid,postuserid,event)
 
       if (this.readyState == 4 && this.status == 200) {
         event.target.src="clapping.svg";
+        checkapplaudcount(postid,count);
       }
   
     };
@@ -161,6 +151,8 @@ function applaud(userid,postid,postuserid,event)
       applaudobj.open("GET", url, true);
       applaudobj.send();
   }
+
+  
 
 
 }
