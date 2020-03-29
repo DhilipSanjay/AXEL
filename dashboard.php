@@ -187,6 +187,20 @@ $temp=0;
 
 <div id="otherarea">
 
+<span id="label">REQUESTS</span>
+
+<div id="enlightenormentor">
+<div id="enlightenbox">Enlighten</div>
+<div id="mentorbox">Mentor</div>
+</div>
+
+<div id="enlightenholder">
+</div>
+
+<div id="mentorreqholder">
+  THis is the mentor box
+</div>
+
 </div>
 
 </body>

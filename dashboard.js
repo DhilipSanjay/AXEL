@@ -30,11 +30,38 @@ function accept(reqid,accid,event)
 
       };
 
-    var parameters="requestid="+reqid+"&acceptorid="+accid;
+    var parameters="requestid="+reqid+"&acceptorid="+accid+"&accept=enlightenment";
 
-    reqobj.open("POST", "acceptenlightenment.php", true);
+    reqobj.open("POST", "accept.php", true);
     reqobj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     reqobj.send(parameters);
+    }
+    
+}
+
+
+function acceptasmentor(mentorid,accid,event)
+{
+    if(event.target.innerHTML!="Accepted as mentor")
+    {
+    var mentorreqobj=createreqobj();
+
+    /*alert(reqid+","+accid);*/
+
+    mentorreqobj.onreadystatechange = function() {
+
+        if (this.readyState == 4 && this.status == 200) {
+          event.target.style.backgroundColor ="#c0c0c0";
+          event.target.innerHTML="Accepted as mentor";
+        }
+
+      };
+
+    var parameters="mentorid="+mentorid+"&acceptorid="+accid+"&accept=mentorship";
+
+    mentorreqobj.open("POST", "accept.php", true);
+    mentorreqobj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    mentorreqobj.send(parameters);
     }
     
 }
@@ -43,20 +70,65 @@ function fillrequests(userid)
 {
   var reqfillobj=createreqobj();
 
+  document.getElementById("enlightenbox").style.borderBottom="2px solid #76D7C4";
+  document.getElementById("mentorbox").style.borderBottom="2px solid #E5E7E9";
+
+  document.getElementById("mentorbox").setAttribute("onclick","fillmentorreq("+userid+")");
+  document.getElementById("enlightenbox").removeAttribute("onclick");
+
+  document.getElementById("enlightenholder").style.height="82.5%";
+  document.getElementById("enlightenholder").style.visibility="visible";
+
+  document.getElementById("mentorreqholder").style.height="0";
+  document.getElementById("mentorreqholder").style.visibility="hidden";
+  
+
   reqfillobj.onreadystatechange = function() {
 
     if (this.readyState == 4 && this.status == 200) {
-     document.getElementById("otherarea").innerHTML=this.responseText;
+     document.getElementById("enlightenholder").innerHTML=this.responseText;
     }
 
   };
 
-  var parameters="userid="+userid;
+  var parameters="userid="+userid+"&reqtype=enlightenreq";
 
   reqfillobj.open("POST", "requests.php", true);
   reqfillobj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   reqfillobj.send(parameters);
 
+}
+
+function fillmentorreq(userid)
+{
+  var mentorreqfillobj=createreqobj();
+
+  document.getElementById("enlightenbox").style.borderBottom="2px solid #E5E7E9";
+  document.getElementById("mentorbox").style.borderBottom="2px solid #76D7C4";
+
+  document.getElementById("enlightenbox").setAttribute("onclick","fillrequests("+userid+")");
+  document.getElementById("mentorbox").removeAttribute("onclick");
+
+  document.getElementById("mentorreqholder").style.height="82.5%";
+  document.getElementById("mentorreqholder").style.visibility="visible";
+
+  document.getElementById("enlightenholder").style.height="0";
+  document.getElementById("enlightenholder").style.visibility="hidden";
+  
+
+  mentorreqfillobj.onreadystatechange = function() {
+
+    if (this.readyState == 4 && this.status == 200) {
+     document.getElementById("mentorreqholder").innerHTML=this.responseText;
+    }
+
+  };
+
+  var parameters="userid="+userid+"&reqtype=mentorreq";
+
+  mentorreqfillobj.open("POST", "requests.php", true);
+  mentorreqfillobj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  mentorreqfillobj.send(parameters);
 }
 
 function applaud(userid,postid,postuserid,event){

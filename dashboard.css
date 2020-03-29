@@ -367,28 +367,66 @@ input[type=text]
     align-items:center;
     justify-content:flex-start;
     width:24.5%;
-    overflow:scroll;
-    overflow-x:hidden;
 }
 
-#otherarea::-webkit-scrollbar,#notiholder::-webkit-scrollbar {
+#dashboard #otherarea #enlightenormentor
+{
+    width:100%;
+    height:fit-content;
+    display:flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    margin-bottom:5px;
+}
+
+#dashboard #otherarea #enlightenbox,#dashboard #otherarea #mentorbox
+{
+    width:50%;
+    padding:10px 0;
+    text-align:center;
+    border-bottom:2px solid #E5E7E9;
+    cursor:pointer;
+}
+
+#enlightenholder::-webkit-scrollbar,#notiholder::-webkit-scrollbar,#mentorreqholder::-webkit-scrollbar {
     width: 8px;
   }
   
   /* Track */
-  #otherarea::-webkit-scrollbar-track, #notiholder::-webkit-scrollbar-track {
-    background:#E5E7E9;
+  #enlightenholder::-webkit-scrollbar-track, #notiholder::-webkit-scrollbar-track,#mentorreqholder::-webkit-scrollbar-track {
+    background:#CACFD2;
+    /*background:yellow;*/
   }
   
   /* Handle */
-  #otherarea::-webkit-scrollbar-thumb, #notiholder::-webkit-scrollbar-thumb {
-    background:#BDC3C7;
+  #enlightenholder::-webkit-scrollbar-thumb, #notiholder::-webkit-scrollbar-thumb,#mentorreqholder::-webkit-scrollbar-thumb {
+    background:#566573;
   }
   
   /* Handle on hover */
-  #otherarea::-webkit-scrollbar-thumb:hover, #notiholder::-webkit-scrollbar-thumb:hover{
-    background: #BDC3C7;
+  #enlightenholder::-webkit-scrollbar-thumb:hover, #notiholder::-webkit-scrollbar-thumb:hover,#mentorreqholder::-webkit-scrollbar-thumb:hover{
+    background: #566573;
   }
+
+#dashboard #otherarea #enlightenholder,
+#dashboard #otherarea #mentorreqholder
+{
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:flex-start;
+    margin-top:10px;
+    min-width:95%;
+    max-width:95%;
+    /*height:82.5%;*/
+    overflow:scroll;
+    overflow-x:hidden;
+}
+
+#dashboard #otherarea #mentorreqholder
+{
+    margin-top:0px;
+}
 
 #dashboard #otherarea #label 
 {
@@ -396,7 +434,7 @@ input[type=text]
     font-size:1.2rem;
 }
 
-#dashboard #otherarea .reqbox
+#dashboard #otherarea #enlightenholder .reqbox,#dashboard #otherarea #mentorreqholder .reqbox
 {
     margin-bottom:15px;
     display:flex;
@@ -405,28 +443,30 @@ input[type=text]
     border:2px solid #76D7C4;
     padding:10px 10px;
     height:fit-content;
-    width:85%;
+    width:90%;
 }
 
 
-#dashboard #otherarea .reqbox .content 
+#dashboard #otherarea #enlightenholder .reqbox .content,#dashboard #otherarea #mentorreqholder .reqbox .content
 {
     display:flex;
     flex-direction:column;
     height:fit-content;
 }
 
-#dashboard #otherarea .reqbox .content a
+#dashboard #otherarea #enlightenholder .reqbox .content a,#dashboard #otherarea #mentorreqholder .reqbox .content a
 {
     height:fit-content;
+    color:#76D7C4;
 }
 
-#dashboard #otherarea .reqbox .content a,#dashboard #otherarea .reqbox .content a:visited
+#dashboard #otherarea #enlightenholder .reqbox .content a:visited,
+#dashboard #otherarea #mentorreqholder .reqbox .content a:visited
 {
     color:#76D7C4;
 }
 
-#dashboard #otherarea .reqbox .acceptbutton
+#dashboard #otherarea #enlightenholder .reqbox .acceptbutton,#dashboard #otherarea #mentorreqholder .reqbox .acceptbutton
 {
     color:white;
     align-self:flex-start;
