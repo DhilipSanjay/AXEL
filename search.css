@@ -46,9 +46,16 @@ body{
 }
 
 .searchlist{
-    position: relative;
+    position: absolute;
     top: 50%;
     bottom: 50%;
+    margin-top: 35px;
+    width: 370px;
+}
+.searchlistitem:hover{
+    border: solid;
+    border-color: gray;
+    padding: 5px;
 }
 .profile
 {
@@ -56,7 +63,7 @@ body{
    padding: 10px;
 }
 .uname{
-    font-style: bolder;
+    font-weight: bold;
 }
 .utype
 {
