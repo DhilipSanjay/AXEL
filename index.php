@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <link rel="icon" href="logo.png">
 <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 <script src="home.js" type="text/javascript"></script>
 </head>
 <body>
@@ -18,7 +19,6 @@
     <a id="active">Home</a>
     <a href="about.php">What we do</a>
     <a href="contact.php">Get in touch</a>
-    <a href="contests.php">Contests</a>
     <a href="login.php">Login</a>
 </div>
 

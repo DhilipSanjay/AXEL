@@ -12,22 +12,24 @@ $(document).ready(function()
                 success:function(data)
                 {
                     $('.searchlist').fadeIn();
+                    $('.searchlist').css("visibility","visible");
+                    $('#overlay').css("opacity","0.5");
+                    $('#overlay').css("z-index","1");
                     $('.searchlist').html(data);
                 }
-               
             });
         }
         else
         {
             $('.searchlist').fadeOut();
+            $('#overlay').css("opacity","0");
+            $('#overlay').css("z-index","-1");
         }
-    });
+    });    
 });
 
-
-
-$(document).on('click','div',function selectuser(username)
-{
-    $('#searchtext').val(username);
-    $('.searchlist').fadeOut();
-});
+function selectuser(username)
+    {
+        $('#searchtext').val(username);
+        $('.searchlist').fadeOut();
+    }

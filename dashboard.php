@@ -23,6 +23,17 @@ $count=mysqli_num_rows($result);
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <link rel="icon" href="logo.png">
 <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- jQuery UI library 
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
+
+<link rel="stylesheet" href = "search.css"> 
+<script src="search.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 
@@ -102,6 +113,8 @@ function checkapplaudcount(postid,count)
 
 <body onload=fillrequests(<?php echo $userid?>)>
 
+<div id="overlay" onclick="closesearch()"></div>
+
 <div id="notiholder">
 
 <?php 
@@ -139,8 +152,16 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 
 <div id="otherholder">
 
-<input id="searchbar" type="text" placeholder="Search for startups,mentors and people" spellcheck="false">
-<img src="search.png" id="searchicon" alt="search">
+<!--<input id="searchbar" type="text" placeholder="Search for startups,mentors and people" spellcheck="false">
+<img src="search.png" id="searchicon" alt="search">-->
+
+<div class="searchbox">
+            <input id="searchtext" type="text" autocomplete="off" spellCheck="false" placeholder="Search for startups,mentors and people">
+            <a class="searchbtn" href="#">
+            <img id="searchicon" src="search.png" alt="defaultimgholder.png"></a>
+            <div class="searchlist">  
+            </div>
+</div>
 
 <div id="userdetails">
     <img id="noti" src="notification.png" onclick="opennotiholder()"> <!--<div id="round"></div>-->
@@ -240,6 +261,17 @@ $temp=0;
 </div>
 
 </div>
+
+<script type="text/javascript">
+
+function closesearch()
+{
+    document.getElementById("overlay").style.opacity="0";
+    document.getElementById("overlay").style.zIndex="-1"; 
+    $('.searchlist').fadeOut();  
+}
+
+</script>
 
 
 <script src="dashboard.js" type="text/javascript"></script>

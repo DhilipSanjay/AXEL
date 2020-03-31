@@ -415,7 +415,7 @@ hr
     cursor:default;
     border:2px solid var(--buttoncol);
     border:2px solid #76D7C4;
-    font-weight: 400;
+    font-family:'Roboto', sans-serif;
     font-style:normal;
     font-size:1.2rem;
     height:fit-content;
@@ -531,6 +531,7 @@ hr
     justify-content:flex-start;
     width:100%;
     height:100%;
+    font-family:'Roboto', sans-serif;
 }
 
 #others #announcements .announcementsholder .announcementsinfo #idname
@@ -584,6 +585,7 @@ hr
     width:fit-content; 
     height:fit-content;
     text-align:justify;
+    line-height:30px;
 }
 
 /*#others #announcements .announcementsholder .imgholder
@@ -689,12 +691,12 @@ hr
     margin-top:20px;
     font-size:1.2rem;
     font-weight:300; 
-    font-style:italic;
     color:#76D7C4;   
 }
 
 #others #news .newsholder
 {
+    font-family:'Roboto', sans-serif;
     background-color:white;
     width:48%;
     min-height:325px;
@@ -734,8 +736,8 @@ hr
 
 #others #news .newsholder .minuteread
 {
-    font-size:1.1rem;
-    margin-top:5px;
+    font-size:1rem;
+    margin-top:10px;
     color:var(--buttoncol,#76D7C4);
 }
 
@@ -751,15 +753,17 @@ hr
     margin-top:0;
     width:90%;
     text-align:justify;
-    font-style:italic;
     font-size:1.2rem; 
     margin-bottom:40px;
+    line-height:30px;
 }
 
 
 
 #others #contests .cholder
 {
+    font-family:'Roboto', sans-serif;
+    line-height:30px;
     background-color:white;
     -webkit-box-shadow: 0 3px 8px -2px #1C2833;
     -moz-box-shadow: 0 3px 8px -2px #1C2833;
@@ -806,21 +810,21 @@ hr
 
 
  
-@media only screen and (min-width:768px) and (max-width:950px)
+@media only screen and (min-width:851px) and (max-width:1000px)
 {
     /*#others #announcements .announcementsholder .imgholder
     {
         width:160px;
     }*/  
 
-    #others #announcements .announcementsholder,#others #contests .cholder p
+    #others #announcements .announcementsholder,#others #contests .cholder p,#others #contests .cholder .label
     {
-        font-size:1.1rem;
+        font-size:1rem;
     }
 
     #others #news .newsholder .newstitle
     {
-    font-size:1.1rem;
+    font-size:1rem;
     /*white-space: normal;
     height:fit-content;
     width:90%;*/
@@ -834,12 +838,12 @@ hr
 
     #others #news .newsholder .description,#others #polls .polloption
     {
-        font-size:1.1rem;
+        font-size:1rem;
     }
 
     #others #polls
     {
-        font-size:1.3rem;
+        font-size:1.2rem;
     }
 
 
@@ -867,7 +871,7 @@ hr
 
 
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 850px) {
 
 #others .label
 {
