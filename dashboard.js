@@ -1,5 +1,5 @@
 var newheight=window.innerHeight-90;
-document.getElementById("sidenavbar").style.height=newheight+"px";
+/*document.getElementById("sidenavbar").style.height=newheight+"px";*/
 document.getElementById("otherarea").style.height=newheight+"px";
 
 function accept(reqid,accid,event)

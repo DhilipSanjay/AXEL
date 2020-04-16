@@ -1,6 +1,6 @@
 $(document).ready(function()
 {
-    $('#searchtext').keyup(function()
+    $('#searchtext').on('keyup mousedown',function()
     {
         var query = $(this).val();
         if(query != '')
@@ -11,7 +11,7 @@ $(document).ready(function()
                 data:{query:query},
                 success:function(data)
                 {
-                    $('.searchlist').fadeIn();
+                    /*$('.searchlist').fadeIn();*/
                     $('.searchlist').css("visibility","visible");
                     $('#overlay').css("opacity","0.5");
                     $('#overlay').css("z-index","1");
@@ -21,7 +21,8 @@ $(document).ready(function()
         }
         else
         {
-            $('.searchlist').fadeOut();
+            /*$('.searchlist').fadeOut();*/
+            $('.searchlist').css("visibility","hidden");
             $('#overlay').css("opacity","0");
             $('#overlay').css("z-index","-1");
         }
@@ -31,5 +32,8 @@ $(document).ready(function()
 function selectuser(username)
     {
         $('#searchtext').val(username);
-        $('.searchlist').fadeOut();
+        /*$('.searchlist').fadeOut();*/
+        $('.searchlist').css("visibility","hidden");
+        $('#overlay').css("opacity","0");
+        $('#overlay').css("z-index","-1");
     }
