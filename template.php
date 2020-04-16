@@ -15,11 +15,12 @@ $count=mysqli_num_rows($result);
 ?>
 
 <!DOCTYPE html>
+<html>
 <head>
 <meta charset="utf-8"> 
 <title>Axel - Dashboard</title>
-<link rel="stylesheet" href="home.css"> 
-<link rel="stylesheet" href="dashboard.css">
+<!--<link rel="stylesheet" href="home.css"> -->
+<link rel="stylesheet" href="template.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <link rel="icon" href="logo.png">
 <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i&display=swap" rel="stylesheet">
@@ -38,19 +39,6 @@ $count=mysqli_num_rows($result);
 <script type="text/javascript">
 
 var isopen=0;
-
-function createreqobj() {
-    var xhttp;
-    if (window.XMLHttpRequest) {
-      // code for modern browsers
-      xhttp = new XMLHttpRequest();
-      } else {
-      // code for IE6, IE5
-      xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-
-    return xhttp;
-}
 
 function opennotiholder()
 {
@@ -72,46 +60,11 @@ function opennotiholder()
   }
 }
 
-function checkifapplauded(userid,postid,postuserid,count)
-{  
-  var checkapplaudobj=createreqobj(); //ajax object to check whether an announcement has been applauded or not
-
-  checkapplaudobj.onreadystatechange = function() {
-
-  if (this.readyState == 4 && this.status == 200 && this.responseText==="Already applauded") {
-     document.getElementsByClassName("clap")[count].src="clapping_enabled.svg";
-  }
-  };
-
-  var url="checkifapplauded.php?userid="+userid+"&postid="+postid+"&postuserid="+postuserid;
-  checkapplaudobj.open("GET", url, true);
-  checkapplaudobj.send();
-
-  checkapplaudcount(postid,count);
-}
-
-function checkapplaudcount(postid,count)
-{
-  var checkapplaudcount=createreqobj();
-  
-  checkapplaudcount.onreadystatechange = function() {
-
-  if (this.readyState == 4 && this.status == 200) {
-     document.getElementsByClassName("countbox")[count].innerHTML=this.responseText;
-  }
-  };
-
-  var url="checkapplaudcount.php?postid="+postid+"&datetime="+Date();
-
-  checkapplaudcount.open("GET", url, true);
-  checkapplaudcount.send();
-}
-
 </script>
 </head>
 
 
-<body onload=fillrequests(<?php echo $userid?>)>
+<body>
 
 <div id="overlay" onclick="closesearch()"></div>
 
@@ -176,7 +129,7 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 
 <div id="sidenavbar">
     <!--<div id="dummy"></div>-->
-    <a id="active">Dashboard</a>
+    <a href="dashboard.php?userid=<?php echo $userid ?>">Dashboard</a>
     <a href="#">My Profile</a>
     <a href="#">Explore</a>
     <a href="#">Connect</a>
@@ -193,70 +146,10 @@ $count=mysqli_num_rows($result);
 $temp=0;
 ?>
 
+
 <div id="maindash">
 
-    <div id="welcomeuser">Welcome <?php echo $username ?></div>
-    <!--No posts to show-->
-
-    <div class="label">Announcements</div>
-    <hr width="95%">
-
-    <?php 
-    if($count==0)
-    {
-    ?>
-
-        <div id="noposts">No announcements to show!&nbsp<a href="#">Click here</a>&nbspto explore startups and mentors!</div>
-
-    <?php
-    }
-    ?>
-
-    <div class="announcementsholder">
-
-    <?php
-    while($row=mysqli_fetch_assoc($result))
-    { ?>
-    
-
-    <div class="announcementsinfo">
-
-    <span id="idname">
-    <div class="imgholder"><img src="avatar.png"></div>
-    <?php echo $row['Name']; ?>
-    <div class="countbox"></div>
-    <img class="clap" src="clapping.svg" onclick="applaud(<?php echo $userid.','.$row['postid'].','.$row['puserid'].','.$temp ?>,event)"  height="25px" width="25px">
-    </span>
-
-    <?php echo '<script type="text/javascript">checkifapplauded('.$userid.','.$row['postid'].','.$row['puserid'].','.$temp.')</script>';?>
-
-    <span id="createdtime"><?php echo $row['createdtime']; ?></span>
-    <p><?php echo $row['Announcement']; ?></p>
-    </div>
-
-    <?php
-    $temp++; 
-    } ?>
-
-  </div>
-
-</div>
-
-
-<div id="otherarea">
-
-<span id="label">REQUESTS</span>
-
-<div id="enlightenormentor">
-<div id="enlightenbox">Enlighten</div>
-<div id="mentorbox">Mentor</div>
-</div>
-
-<div id="enlightenholder">
-</div>
-
-<div id="mentorreqholder">
-</div>
+<!--ALL OF YOUR CODE MUST GO HERE-->
 
 </div>
 
@@ -268,11 +161,10 @@ function closesearch()
 {
     document.getElementById("overlay").style.opacity="0";
     document.getElementById("overlay").style.zIndex="-1"; 
-    $('.searchlist').fadeOut();  
+    /*$('.searchlist').fadeOut();*/
+    $('.searchlist').css("visibility","hidden"); 
 }
-
 </script>
-
 
 <script src="dashboard.js" type="text/javascript"></script>
 
