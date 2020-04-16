@@ -12,6 +12,9 @@ $(document).ready(function()
                 success:function(data)
                 {
                     $('.searchlist').fadeIn();
+                    $('.searchlist').css("visibility","visible");
+                    $('#overlay').css("opacity","0.5");
+                    $('#overlay').css("z-index","1");
                     $('.searchlist').html(data);
                 }
             });
@@ -19,6 +22,8 @@ $(document).ready(function()
         else
         {
             $('.searchlist').fadeOut();
+            $('#overlay').css("opacity","0");
+            $('#overlay').css("z-index","-1");
         }
     });    
 });

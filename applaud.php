@@ -2,10 +2,10 @@
 
 include("dbconnect.php");
 
-$userid=$_POST["userid"];
-$postid=$_POST["postid"];
-$postuserid=$_POST["postuserid"];
-$todo=$_POST["todo"];
+$userid=$_GET["userid"];
+$postid=$_GET["postid"];
+$postuserid=$_GET["postuserid"];
+$todo=$_GET["todo"];
 
 if($todo==="insertapplaud")
 {
