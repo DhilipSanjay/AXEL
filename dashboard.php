@@ -199,6 +199,8 @@ $temp=0;
     <div id="welcomeuser">Welcome <?php echo $username ?></div>
     <!--No posts to show-->
 
+    <!--While creating make a new announcement button, check out materialize open source css framework -->
+    
     <div class="label">Announcements</div>
     <hr width="95%">
 
