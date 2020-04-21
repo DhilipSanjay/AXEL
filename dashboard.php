@@ -55,6 +55,11 @@ function createreqobj() {
 
 function opennotiholder()
 {
+  if(reqboxopen==1)
+  {
+    openclosereqbox();
+  }
+  
   if(isopen==0)
   {
     document.getElementById("notiholder").style.visibility="visible";
@@ -165,8 +170,17 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 </div>
 
 <div id="userdetails">
-    <img id="noti" src="notification.png" onclick="opennotiholder()"> <!--<div id="round"></div>-->
-    <img id="userdp" src="avatar.png">
+  <svg onclick="openclosereqbox()" style="cursor:pointer" class="bi bi-person-plus" width="1.7em" height="1.7em" viewBox="0 0 16 16" fill="#76D7C4" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M11 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM1.022 13h9.956a.274.274 0 00.014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 00.022.004zm9.974.056v-.002.002zM6 7a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0zm4.5 0a.5.5 0 01.5.5v2a.5.5 0 01-.5.5h-2a.5.5 0 010-1H13V5.5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+  <path fill-rule="evenodd" d="M13 7.5a.5.5 0 01.5-.5h2a.5.5 0 010 1H14v1.5a.5.5 0 01-1 0v-2z" clip-rule="evenodd"/>
+  </svg>
+
+  <svg  id="noti" onclick="opennotiholder()" class="bi bi-bell" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="#76D7C4" xmlns="http://www.w3.org/2000/svg">
+  <path d="M8 16a2 2 0 002-2H6a2 2 0 002 2z"/>
+  <path fill-rule="evenodd" d="M8 1.918l-.797.161A4.002 4.002 0 004 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 00-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 111.99 0A5.002 5.002 0 0113 6c0 .88.32 4.2 1.22 6z" clip-rule="evenodd"/>
+  </svg>
+
+  <img id="userdp" src="avatar.png">
 </div>
 
 </div>
@@ -245,7 +259,6 @@ $temp=0;
 
 </div>
 
-
 <div id="otherarea">
 
 <span id="label">REQUESTS</span>
@@ -267,12 +280,42 @@ $temp=0;
 
 <script type="text/javascript">
 
+var reqboxopen=0;
+
 function closesearch()
 {
     document.getElementById("overlay").style.opacity="0";
     document.getElementById("overlay").style.zIndex="-1"; 
+    document.getElementById("otherarea").style.width="0";
+    reqboxopen=0;
     /*$('.searchlist').fadeOut();*/
     $('.searchlist').css("visibility","hidden"); 
+}
+
+function openclosereqbox() 
+{
+
+  if(isopen==1)
+  {
+    opennotiholder();
+  }
+ 
+  if(reqboxopen==0)
+  {
+    document.getElementById("overlay").style.opacity="0.5";
+    document.getElementById("overlay").style.zIndex="1"; 
+    document.getElementById("otherarea").style.width="24.5%";
+    reqboxopen=1;
+  }
+
+  else
+  {
+    closesearch();
+    document.getElementById("overlay").style.opacity="0";
+    document.getElementById("overlay").style.zIndex="-1"; 
+    document.getElementById("otherarea").style.width="0";
+    reqboxopen=0;
+  }
 }
 
 </script>

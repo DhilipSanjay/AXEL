@@ -109,7 +109,7 @@ hr
     display:flex;
     align-items:center; 
     justify-content: flex-start;
-    width:20%;
+    width:22.5%;
     height:100%;
 }
 
@@ -132,7 +132,7 @@ input[type=text]
 }
 
 #header #otherholder
-{
+{   
     display:flex;
     align-items:center; 
     justify-content: flex-start;
@@ -172,9 +172,8 @@ input[type=text]
 
 #header #otherholder #userdetails #noti
 {
-    margin-right:20px;
-    height:36px;
-    width:36px;
+    margin-left:25px;
+    margin-right:25px;
     cursor:pointer;
 }
 
@@ -182,8 +181,8 @@ input[type=text]
 {
     visibility:hidden;
     position:absolute;
-    height:8px;
-    width:8px;
+    height:5px;
+    width:5px;
     z-index:2;
     top:20px;
     right:90px;
@@ -225,7 +224,7 @@ input[type=text]
     min-height:100%;
     margin-left:0;
     color:white;
-    width:20%;
+    width:22.5%;
 }
 
 /*#dashboard #sidenavbar #dummy
@@ -270,9 +269,9 @@ input[type=text]
     justify-content: flex-start;
     flex-direction: column;
     flex-wrap:wrap;
-    margin:10px;
-    margin-right:6%;
-    width:52.5%;
+    margin:10px 0px;
+    margin-left:20%;
+    width:65%;
     height:fit-content;
     height:-moz-fit-content;
     /*background-color:aqua;*/
@@ -398,7 +397,10 @@ input[type=text]
     flex-direction: column;
     align-items:center;
     justify-content:flex-start;
-    width:24.5%;
+    width:0;
+    transition: width 0.2s ease-in-out;
+    overflow:hidden;
+    z-index:2;
 }
 
 #dashboard #otherarea #enlightenormentor

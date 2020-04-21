@@ -10,8 +10,8 @@
     background-color:#76D7C4;
     height: 40px;
     border:none;
-    width:42.5%;
-    margin-left:12.5%;
+    width:59%;
+    margin-left:4.5%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -56,10 +56,10 @@
     position: absolute;
     top: 50%;
     bottom: 50%;
-    left:30%;
+    left:25.5%;
     margin-top: 40px;
-    min-width: 35%;
-    max-width: 35%;
+    min-width: 45%;
+    max-width: 45%;
     visibility:hidden;
     z-index:5;
     padding:5px 10px 10px 10px;
