@@ -2,6 +2,16 @@ $(document).ready(function()
 {
     $('#searchtext').on('keyup mousedown',function()
     {
+        if(reqboxopen==1)
+        {
+            openclosereqbox();
+        }
+
+        if(isopen==1)
+        {
+            opennotiholder();
+        }
+       
         var query = $(this).val();
         if(query != '')
         {

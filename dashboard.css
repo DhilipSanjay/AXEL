@@ -9,6 +9,22 @@ hr
     margin-top:0;
 }
 
+#createnewannouncementbox
+{
+    visibility:hidden;
+    position:fixed;
+    margin:100px 12.5%;
+    width:75%;
+    background-color:green;
+    height:60%;
+    color:white;
+}
+
+.fortopbuttons
+{
+    z-index:-1;
+}
+
 #overlay
 {
     position: fixed;
@@ -109,7 +125,7 @@ hr
     display:flex;
     align-items:center; 
     justify-content: flex-start;
-    width:22.5%;
+    min-width:27.5%;
     height:100%;
 }
 
@@ -132,7 +148,7 @@ input[type=text]
 }
 
 #header #otherholder
-{   
+{
     display:flex;
     align-items:center; 
     justify-content: flex-start;
@@ -220,9 +236,7 @@ input[type=text]
     flex-direction: column;
     align-items:center;
     justify-content:center;
-    /*margin-top:10px;*/
     min-height:100%;
-    margin-left:0;
     color:white;
     width:22.5%;
 }
@@ -235,6 +249,8 @@ input[type=text]
 
 #dashboard #sidenavbar a
 {
+    display:flex;
+    align-items:center;
     text-decoration:none;
     font-size:1.4rem;
     font-weight: 300;
@@ -243,7 +259,6 @@ input[type=text]
     color:white;
     overflow:hidden;
     width:fit-content;
-    text-align: center;
     white-space: nowrap;
     transition: color 0.2s ease-in-out;
 }
@@ -292,14 +307,37 @@ input[type=text]
 #dashboard #maindash #welcomeuser
 {
     margin-top:25px;
-    border:2px solid #76D7C4;
+    border-bottom:2px solid #76D7C4;
     text-align: center;
     font-style:italic;
     padding:10px 0px;
     font-size:1.7rem;
-    width:90%;
+    width:50%;
     margin-bottom:25px;
     font-weight: 300;
+}
+
+#dashboard #maindash .topbuttons
+{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:90%;
+    height:fit-content;
+    padding:13px 0;
+    background-color:#76D7C4;
+    border:2px solid #76D7C4;
+    font-size:1.2rem;
+    color:white;
+    text-align:center;
+    cursor:pointer;
+    margin-bottom:15px;
+}
+
+#dashboard #maindash .topcreatecontestbutton
+{
+    background-color:white;
+    color:#76D7C4;
 }
 
 #dashboard #maindash .announcementsholder
@@ -392,13 +430,11 @@ input[type=text]
     margin-right:0;
     right:0;
     background-color:#E5E7E9;
-    height:90%;
     display:flex;
     flex-direction: column;
     align-items:center;
     justify-content:flex-start;
     width:0;
-    transition: width 0.2s ease-in-out;
     overflow:hidden;
     z-index:2;
 }
