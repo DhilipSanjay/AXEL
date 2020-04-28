@@ -21,7 +21,6 @@ function createreqobj() {
 }
 
 var checkapplaudcount=createreqobj();
-var postid=101;
   
 checkapplaudcount.onreadystatechange = function() {
 
@@ -30,7 +29,7 @@ if (this.readyState == 4 && this.status == 200) {
 }
 };
 
-var url="checkapplaudcountdummy.php?postid="+postid+"&datetime="+Date();
+var url="text.txt";
 
 checkapplaudcount.open("GET", url, true);
 checkapplaudcount.send();
