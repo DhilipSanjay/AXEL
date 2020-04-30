@@ -10,8 +10,7 @@
     background-color:#76D7C4;
     height: 40px;
     border:none;
-    width:42.5%;
-    margin-left:12.5%;
+    width:60%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -19,10 +18,8 @@
 
 #header #otherholder .searchbox #searchicon
 {
-    height:30px;
-    width:30px;
-    margin-right:5px;
-    margin-left:5px;
+    margin-right:8px;
+    margin-left:8px;
     margin-top:5px;
 }
 
@@ -55,21 +52,18 @@
 .searchlist{
     position: absolute;
     top: 50%;
-    bottom: 50%;
-    left:30%;
+    left:27.5%;
     margin-top: 40px;
-    min-width: 35%;
-    max-width: 35%;
     visibility:hidden;
+    padding:0 10px;
     z-index:5;
-    padding:5px 10px 10px 10px;
     height:fit-content;
-    max-height:750%;
+    max-height:500%;
     overflow-y:auto;
     background-color:white;
 }
 
-.searchlistitem
+.searchlist .searchlistitem
 {
     cursor: pointer;
     border:2px solid white;
@@ -79,10 +73,10 @@
     /*-webkit-box-shadow: 0 3px 8px -2px #c0c0c0;
     -moz-box-shadow: 0 3px 8px -2px #c0c0c0;
     box-shadow: 0 3px 8px -2px #c0c0c0;*/
-    margin-top:5px;
+    margin:10px 0px;
 }
 
-.searchlistitem:hover{
+.searchlist .searchlistitem:hover{
     border: 2px solid #76D7C4;
 }
 .profile
@@ -91,7 +85,7 @@
    padding: 10px;
 }
 .uname{
-    font-weight: bold;
+    font-weight: 400;
     color:black;
 }
 .utype

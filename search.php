@@ -33,7 +33,7 @@
         }
         else
         {
-            $output .= '<div style="color:black;margin-top:5px">No results found!</div>';
+            $output .= '<div style="color:black;margin:15px 0px">No results found!</div>';
         }
         echo $output;
         }  

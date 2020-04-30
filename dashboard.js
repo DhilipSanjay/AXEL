@@ -1,6 +1,35 @@
 var newheight=window.innerHeight-90;
-document.getElementById("sidenavbar").style.height=newheight+"px";
+/*document.getElementById("sidenavbar").style.height=newheight+"px";*/
 document.getElementById("otherarea").style.height=newheight+"px";
+
+var newannbox=0;
+
+function opennewannouncementbox()
+{
+  if(newannbox===0)
+  {
+    document.getElementsByClassName("fortopbuttons")[0].style.opacity="0.5";
+    document.getElementsByClassName("fortopbuttons")[0].style.zIndex="3";
+    
+    document.getElementById("createnewannouncementbox").style.zIndex="10";
+    document.getElementById("createnewannouncementbox").style.visibility="visible";
+
+    newannbox=1;
+  }
+
+  else
+  {
+    document.getElementsByClassName("fortopbuttons")[0].style.opacity="0";
+    document.getElementsByClassName("fortopbuttons")[0].style.zIndex="-1";
+    
+    document.getElementById("createnewannouncementbox").style.zIndex="-1";
+    document.getElementById("createnewannouncementbox").style.visibility="hidden";
+
+    newannbox=0;
+  }
+   
+
+}
 
 function accept(reqid,accid,event)
 {
