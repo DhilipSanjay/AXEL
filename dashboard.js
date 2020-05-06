@@ -5,6 +5,35 @@ document.getElementById("otherarea").style.height=newheight+"px";
 var createdann=0; //for now no announcement created
 
 var newannbox=0;
+var newcontestbox=0;
+
+function opennewcontestbox(userid)
+{
+  if(newcontestbox===0)
+  {
+    document.getElementsByClassName("fortopbuttons")[0].style.opacity="0.5";
+    document.getElementsByClassName("fortopbuttons")[0].style.zIndex="3";
+    
+    document.getElementById("createnewcontest").style.zIndex="10";
+    document.getElementById("createnewcontest").style.height="85%";
+    document.getElementById("createnewcontest").style.visibility="visible";
+
+    newcontestbox=1;
+  }
+
+  else
+  {
+    document.getElementsByClassName("fortopbuttons")[0].style.opacity="0";
+    document.getElementsByClassName("fortopbuttons")[0].style.zIndex="-1";
+    
+    document.getElementById("createnewcontest").style.height="0";
+    document.getElementById("createnewcontest").style.zIndex="-1";
+    document.getElementById("createnewcontest").style.visibility="hidden";
+
+    newcontestbox=0;
+  }
+
+}
 
 function opennewannouncementbox(userid)
 {
@@ -17,7 +46,7 @@ function opennewannouncementbox(userid)
     document.getElementById("createann").style.color="white";
     document.getElementById("createann").style.cursor="pointer";
     document.getElementById("createann").setAttribute("onclick",parameter);
-    document.getElementById("createann").innerHTML="Create";
+    document.getElementById("createann").innerHTML="Create Announcement";
     document.getElementById("ann").value="";
 
     createdann=0;
@@ -94,6 +123,37 @@ function createann(userid)
   createann.open("POST", "createann.php", true);
   createann.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
   createann.send(param);
+  }
+}
+
+function hostcontest(hostid)
+{
+  var hostcontest=createreqobj();
+
+  hostcontest.onreadystatechange = function() {
+
+    if (this.readyState == 4 && this.status == 200) {
+        
+        alert(this.responseText);
+    } 
+
+  };
+
+  var link = document.getElementById("conlink").value;
+  var date = document.getElementById("datepicker").value;
+  var desc = document.getElementById("contdesc").value;
+
+  if(desc===""||link===""||date==="")
+  {
+    alert("Please fill in all the fields!");
+  }
+
+  else
+  {
+  var param="hostid="+hostid+"&date="+date+"&desc="+desc+"&link="+link;
+  hostcontest.open("POST", "hostcontest.php", true);
+  hostcontest.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+  hostcontest.send(param);
   }
 }
 

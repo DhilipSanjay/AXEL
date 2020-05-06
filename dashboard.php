@@ -29,9 +29,9 @@ $count=mysqli_num_rows($result);
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<!-- jQuery UI library 
+<!-- jQuery UI library -->
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 <link rel="stylesheet" href = "search.css"> 
 <script src="search.js" type="text/javascript"></script>
@@ -113,6 +113,18 @@ function checkapplaudcount(postid,count)
   checkapplaudcount.send();
 }
 
+var today = new Date();
+
+$(function() { 
+	$("#datepicker").datepicker({ 
+    dateFormat: 'dd-mm-yy',
+    changeMonth: true,
+    changeYear: true,
+    minDate: today,
+    maxDate :'+12m'
+	}); 
+}); 
+
 </script>
 </head>
 
@@ -124,15 +136,44 @@ function checkapplaudcount(postid,count)
 
 <div id="createnewannouncementbox">
       <div id="title">Create a new Announcement</div>
-      
+
       <div class="holder">
-      Announcement:
-      <textarea id="ann" maxlength="600" rows="10" style="resize:none" placeholder="Type in your announcement here(max length - 600)" required></textarea>
+      Announcement
+      <textarea id="ann" maxlength="600" rows="10" style="resize:none" placeholder="Type in your announcement here(max length - 600)"></textarea>
       </div>
 
-      <div id="createann" onclick="createann(<?php echo $userid ?>)">Create</div>
+      <div id="createann" onclick="createann(<?php echo $userid ?>)">Create Announcement</div>
       <div id="close" onclick="opennewannouncementbox(<?php echo $userid ?>)">Close</div>
-  </div>
+</div>
+
+
+
+
+<div id="createnewcontest">
+      <div id="title">Host a new Contest</div>
+
+      <div class="holder">
+      Contest link (Ex - Hackerrank, Hackerearth...)
+      <input type="text" id="conlink" placeholder="Contest Link">
+      </div>      
+
+      <div class="holder">
+      Contest date
+      <input type="text" id="datepicker" placeholder="Select contest date">
+      </div>
+
+      
+      <div class="holder">
+      Description
+      <textarea id="contdesc" maxlength="2000" rows="10" style="resize:none" placeholder="Description of the contest(max length - 2000)"></textarea>
+      </div>
+
+      <div id="hostcontest" onclick="hostcontest(<?php echo $userid ?>)">Host contest</div>
+      <div id="close" onclick="opennewcontestbox(<?php echo $userid ?>)">Close</div>
+</div>
+
+
+
 
 <div id="notiholder">
 
@@ -265,7 +306,7 @@ $temp=0;
     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-6a.5.5 0 00-1 0v6a.5.5 0 01-.5.5h-11a.5.5 0 01-.5-.5v-11a.5.5 0 01.5-.5H9a.5.5 0 000-1H2.5A1.5 1.5 0 001 2.5v11z" clip-rule="evenodd"/>
     </svg>
     Create a new announcement</div>
-    <div class="topbuttons topcreatecontestbutton">
+    <div class="topbuttons topcreatecontestbutton" onclick="opennewcontestbox()">
     <svg class="bi bi-award" style="margin-right:10px" width="1.2em" height="1.2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l-1.51-.229L8 1.126l-1.355.702-1.51.229-.684 1.365-1.086 1.072L3.614 6l-.25 1.506 1.087 1.072.684 1.365 1.51.229L8 10.874l1.356-.702 1.509-.229.684-1.365 1.086-1.072L12.387 6l.248-1.506-1.086-1.072-.684-1.365z" clip-rule="evenodd"/>
     <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
