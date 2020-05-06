@@ -123,8 +123,15 @@ function checkapplaudcount(postid,count)
 <div id="overlay" class="fortopbuttons"></div>
 
 <div id="createnewannouncementbox">
-      This is the createannouncementbox oh yeah
-      <button onclick="opennewannouncementbox()">Close</button>
+      <div id="title">Create a new Announcement</div>
+      
+      <div class="holder">
+      Announcement:
+      <textarea id="ann" maxlength="600" rows="10" style="resize:none" placeholder="Type in your announcement here(max length - 600)" required></textarea>
+      </div>
+
+      <div id="createann" onclick="createann(<?php echo $userid ?>)">Create</div>
+      <div id="close" onclick="opennewannouncementbox(<?php echo $userid ?>)">Close</div>
   </div>
 
 <div id="notiholder">

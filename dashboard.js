@@ -2,16 +2,34 @@ var newheight=window.innerHeight-90;
 /*document.getElementById("sidenavbar").style.height=newheight+"px";*/
 document.getElementById("otherarea").style.height=newheight+"px";
 
+var createdann=0; //for now no announcement created
+
 var newannbox=0;
 
-function opennewannouncementbox()
+function opennewannouncementbox(userid)
 {
+  if(createdann===1) //reset the announcement box
+  {
+
+    var parameter = "createann(" + userid + ")";
+
+    document.getElementById("createann").style.backgroundColor="#76D7C4";
+    document.getElementById("createann").style.color="white";
+    document.getElementById("createann").style.cursor="pointer";
+    document.getElementById("createann").setAttribute("onclick",parameter);
+    document.getElementById("createann").innerHTML="Create";
+    document.getElementById("ann").value="";
+
+    createdann=0;
+  }
+
   if(newannbox===0)
   {
     document.getElementsByClassName("fortopbuttons")[0].style.opacity="0.5";
     document.getElementsByClassName("fortopbuttons")[0].style.zIndex="3";
     
     document.getElementById("createnewannouncementbox").style.zIndex="10";
+    document.getElementById("createnewannouncementbox").style.height="70%";
     document.getElementById("createnewannouncementbox").style.visibility="visible";
 
     newannbox=1;
@@ -22,6 +40,7 @@ function opennewannouncementbox()
     document.getElementsByClassName("fortopbuttons")[0].style.opacity="0";
     document.getElementsByClassName("fortopbuttons")[0].style.zIndex="-1";
     
+    document.getElementById("createnewannouncementbox").style.height="0";
     document.getElementById("createnewannouncementbox").style.zIndex="-1";
     document.getElementById("createnewannouncementbox").style.visibility="hidden";
 
@@ -29,6 +48,53 @@ function opennewannouncementbox()
   }
    
 
+}
+
+function createann(userid)
+{
+  var createann=createreqobj();
+
+  createann.onreadystatechange = function() {
+
+    if (this.readyState == 4 && this.status == 200) {
+        //opennewannouncementbox() //for closing the create announcement box
+        if(this.responseText==="error")
+        {
+        document.getElementById("createann").style.backgroundColor="white";
+        document.getElementById("createann").style.color="red";
+        document.getElementById("createann").style.cursor="default";
+        document.getElementById("createann").removeAttribute("onclick");
+        document.getElementById("createann").innerHTML="Some error occured while creating the announcement!";
+        }
+
+        else
+        {
+        document.getElementById("createann").style.backgroundColor="white";
+        document.getElementById("createann").style.color="#76D7C4";
+        document.getElementById("createann").style.cursor="default";
+        document.getElementById("createann").removeAttribute("onclick");
+        document.getElementById("createann").innerHTML="Created successfully!";
+        }
+
+        createdann=1;
+    } 
+
+  };
+
+  var ann = document.getElementById("ann").value;
+
+  if(ann==="")
+  {
+    alert("Announcement cannot be empty!");
+  }
+
+  else
+  {
+  var param="userid="+userid+"&ann="+ann;
+  createann.open("POST", "createann.php", true);
+  createann.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+  createann.send(param);
+  }
 }
 
 function accept(reqid,accid,event)

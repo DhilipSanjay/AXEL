@@ -13,12 +13,68 @@ hr
 {
     visibility:hidden;
     position:fixed;
-    margin:100px 12.5%;
+    margin:0 12.5%;
+    bottom:0;
     width:75%;
-    background-color:green;
-    height:60%;
-    color:white;
+    background-color:white;
+    height:0;
+    color:black;
+    padding:10px 10px;
+    font-size:1.2rem;
+    display:flex;
+    align-items:center;
+    flex-direction: column;
+    overflow-y:auto;
+    transition:height 0.2s ease-in;
 }
+
+#createnewannouncementbox .holder {
+    min-width:60%;
+    max-width:60%;
+    height:fit-content;
+    display:flex;
+    flex-direction: inherit;
+    align-items:flex-start;
+    margin:25px 0px;
+}
+
+#createnewannouncementbox #createann,#createnewannouncementbox #close
+{
+    min-width:60%;
+    max-width:60%;
+    box-sizing: border-box;
+    padding:10px 0px;
+    color:white;
+    text-align:center;
+    border-radius:5px;
+    background-color:#76D7C4;
+    cursor:pointer;
+}
+
+#createnewannouncementbox #close
+{
+    margin-top:10px;
+    background-color:#DC143C;
+}
+
+#createnewannouncementbox .holder #ann
+{
+    font-family:var(--font);
+    box-sizing:border-box;
+    font-size:1.1rem;
+    margin-top:10px;
+    width:100%;
+    padding:5px 5px;
+    border:1px solid black;
+}
+
+#createnewannouncementbox .holder #ann:focus
+{
+    outline:none;
+    border-color:#76D7C4;
+}
+
+
 
 .fortopbuttons
 {
@@ -305,7 +361,7 @@ input[type=text]
     color:#76D7C4;
 }
 
-#dashboard #maindash #welcomeuser
+#dashboard #maindash #welcomeuser,#createnewannouncementbox #title
 {
     margin-top:25px;
     border-bottom:2px solid #76D7C4;
