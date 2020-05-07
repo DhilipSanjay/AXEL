@@ -61,13 +61,11 @@ $output .= '<div class="reqbox"><div class="content"><a href="#">'.'Request from
 
 }
 
-}
-
 $output .= "</div>";
 
+
 echo $output;
-
-
+}
 
 }
 
