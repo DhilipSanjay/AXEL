@@ -1,13 +1,31 @@
-hr
+:root
 {
-    height:1.5px;
-    background-color:#76D7C4; /*for fucking internet explorer which does not support css variables*/
-    border:none;
-    margin:auto;
-    margin-bottom:30px;
-    margin-left:2.5%;
-    margin-top:0;
+    --background:white; /* not used for now*/
+    --text:black;
+    --font:'Nunito Sans', sans-serif;
+    --buttoncol:#76D7C4;
 }
+
+/*body::-webkit-scrollbar //used to hide scrollbar in chrome,safari,opera
+{
+    width:0 !important
+}*/
+
+html
+{
+ height:100%;
+ width:100%;
+}
+
+body
+{
+    font-family:'Nunito Sans', sans-serif;
+    margin:0;
+    font-family:var(--font);
+    color:var(--text);
+    scroll-behavior: smooth;
+}
+
 
 #createnewannouncementbox,#createnewcontest
 {
@@ -359,7 +377,6 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     color:#76D7C4;
 }
 
-
 #dashboard #maindash #welcomeuser,#createnewannouncementbox #title,#createnewcontest #title
 {
     margin-top:25px;
@@ -371,11 +388,6 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     width:50%;
     margin-bottom:25px;
     font-weight: 300;
-}
-
-#dashboard #maindash #welcomeuser
-{
-    border-bottom:1px solid #76D7C4;
 }
 
 #dashboard #maindash .topbuttons
