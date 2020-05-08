@@ -359,6 +359,7 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     color:#76D7C4;
 }
 
+
 #dashboard #maindash #welcomeuser,#createnewannouncementbox #title,#createnewcontest #title
 {
     margin-top:25px;
@@ -370,6 +371,11 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     width:50%;
     margin-bottom:25px;
     font-weight: 300;
+}
+
+#dashboard #maindash #welcomeuser
+{
+    border-bottom:1px solid #76D7C4;
 }
 
 #dashboard #maindash .topbuttons

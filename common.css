@@ -27,17 +27,6 @@ body
 }
 
 
-hr
-{
-    height:1.5px;
-    background-color:#76D7C4; /*for fucking internet explorer which does not support css variables*/
-    border:none;
-    margin:auto;
-    margin-bottom:30px;
-    margin-left:2.5%;
-    margin-top:0;
-}
-
 #createnewannouncementbox,#createnewcontest
 {
     visibility:hidden;

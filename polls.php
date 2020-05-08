@@ -5,10 +5,6 @@ include("dbconnect.php");
 $userid=$_REQUEST["userid"]; //this is the userid of the user currently logged in
 $username="Username"; //$_REQUEST["username"] - this is the username of the user currently logged in
 
-/*$query="select Name from users where userid=$userid";
-$result=mysqli_query($conn,$query);
-$resultforusername=mysqli_fetch_assoc($result);*/
-
 $query="select userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
 $result=mysqli_query($conn,$query);
 $count=mysqli_num_rows($result);
@@ -18,7 +14,7 @@ $count=mysqli_num_rows($result);
 <html>
 <head>
 <meta charset="utf-8"> 
-<title>Axel - Dashboard</title>
+<title>Axel - Polls</title>
 <!--<link rel="stylesheet" href="home.css">-->
 <link rel="stylesheet" href="common.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
@@ -33,6 +29,7 @@ $count=mysqli_num_rows($result);
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
 
+<link rel="stylesheet" href="polls.css">
 <link rel="stylesheet" href = "search.css"> 
 <script src="search.js" type="text/javascript"></script>
 
@@ -59,6 +56,11 @@ function opennotiholder()
     document.getElementById("notiholder").style.opacity="0.5";
     isopen=0;
   }
+}
+
+function gotodash(userid)
+{
+    window.location.href="dashboard.php?userid="+userid;
 }
 
 </script>
@@ -99,9 +101,10 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 
 <div id="header"> <!--fixed header-->
 
+
 <div id="logoholder">
 <img id="logo" src="logo.png" height="42px" width="41px" alt="logo">
-<div id="title">AXEL</div>
+<div id="title" style="cursor:pointer" onclick="gotodash(<?php echo $userid?>)">AXEL</div>
 </div>
 
 <div id="otherholder">
@@ -187,14 +190,82 @@ $temp=0;
 
 
 
+<div class="label pollstitle">Recent polls</div>
 
+<?php
+$mainquery="select pollid from poll order by heldon desc limit 5";
+$mainresult=mysqli_query($conn,$mainquery);
 
-<!--ALL OF YOUR CODE MUST GO HERE-->
+while($row=mysqli_fetch_assoc($mainresult))
+{
+?>
 
+<hr width="100%" style="margin:20px 0px;border:none;height:0.5px;background-color:#76D7C4">
 
+<?php
+//two queries to fetch results for individual poll option count and total count
+$query="select Name as hostname,description,choice,count(voterid) as votecount from polloption natural join poll natural join vote inner join
+ users where UserID=pollhostID group by pollid,choiceid having pollid=".$row["pollid"];
 
+$total="select pollid,count(voterid) as totalcount from vote natural join poll where pollid=".$row["pollid"]; //to get total no of votes for a poll to set percentage
+
+$totalresult=mysqli_query($conn,$total);
+$result=mysqli_query($conn,$query);
+
+$totalnoofvotes=mysqli_fetch_assoc($totalresult);
+
+$temp=1;
+?>
+
+<div id="polls">
+
+<?php
+while($row=mysqli_fetch_assoc($result))
+{
+
+if($temp==1)
+{
+?>
+
+<div class="createdby">
+Poll hosted by <a href="#"><?php echo $row["hostname"]; ?></a>
+</div>
+
+<?php
+echo $row["description"];
+$temp++;
+}
+?>
+
+<div class="polloption">
+
+<?php echo $row["choice"]?>
+
+<div class="countbox">
+<?php echo floor(($row["votecount"]/$totalnoofvotes["totalcount"])*100)."%" ?>
+</div>
 
 </div>
+
+<?php
+}
+?>
+
+</div>
+<?php
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
 
 
 </div>

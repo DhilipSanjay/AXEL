@@ -51,7 +51,12 @@
 
 <?php
 $query="select Name as hostname,description,choice,count(voterid) as votecount from polloption natural join poll natural join vote inner join users where UserID=pollhostID group by pollid,choiceid having pollid=(select pollid from poll order by heldon desc limit 1)";
+$total="select pollid,count(voterid) as totalcount from vote natural join poll group by pollid order by heldon desc limit 1"; //to get total no of votes for a poll to set percentage
+$totalresult=mysqli_query($conn,$total);
 $result=mysqli_query($conn,$query);
+
+$totalnoofvotes=mysqli_fetch_assoc($totalresult);
+
 $temp=1;
 ?>
 
@@ -82,7 +87,7 @@ $temp++;
 <?php echo $row["choice"]?>
 
 <div class="countbox">
-<?php echo $row["votecount"]?>
+<?php echo floor(($row["votecount"]/$totalnoofvotes["totalcount"])*100)."%" ?>
 </div>
 
 </div>
@@ -95,7 +100,7 @@ Want to cast your opinion in the poll?&nbsp<a href="login.php">Sign in</a>&nbspn
 </div>
 
 <?php
-$query="SELECT Name, DATE_FORMAT(createdtime,'%d %M %Y') as createdtime, Announcement FROM post inner join users WHERE users.userID=post.PuserID ORDER BY createdtime DESC LIMIT 4";
+$query="SELECT Name, DATE_FORMAT(createdtime,'%d %M %Y') as newcreatedtime, Announcement FROM post inner join users WHERE users.userID=post.PuserID ORDER BY createdtime DESC LIMIT 4";
 $result=mysqli_query($conn,$query);
 ?>
 
@@ -110,7 +115,7 @@ $result=mysqli_query($conn,$query);
     <!--<div class="imgholder"></div>-->
 <div class="announcementsinfo">
 <span id="idname"><div class="imgholder"><img src="avatar.png"></div><?php echo $row['Name']; ?></span>
-<span id="createdtime"><?php echo $row['createdtime']; ?></span>
+<span id="createdtime"><?php echo $row['newcreatedtime']; ?></span>
 <p><?php echo $row['Announcement']; ?></p>
 </div>
 </div>
