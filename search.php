@@ -1,5 +1,7 @@
 <?php
 
+    ini_set('display_errors', '0'); //to stop showing unnecessary warnings and errors
+
     $servername="127.0.0.1";
     $database="axel";
     $username="root";

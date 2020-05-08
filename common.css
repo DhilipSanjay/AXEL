@@ -1,0 +1,636 @@
+:root
+{
+    --background:white; /* not used for now*/
+    --text:black;
+    --font:'Nunito Sans', sans-serif;
+    --buttoncol:#76D7C4;
+}
+
+/*body::-webkit-scrollbar //used to hide scrollbar in chrome,safari,opera
+{
+    width:0 !important
+}*/
+
+html
+{
+ height:100%;
+ width:100%;
+}
+
+body
+{
+    font-family:'Nunito Sans', sans-serif;
+    margin:0;
+    font-family:var(--font);
+    color:var(--text);
+    scroll-behavior: smooth;
+}
+
+
+hr
+{
+    height:1.5px;
+    background-color:#76D7C4; /*for fucking internet explorer which does not support css variables*/
+    border:none;
+    margin:auto;
+    margin-bottom:30px;
+    margin-left:2.5%;
+    margin-top:0;
+}
+
+#createnewannouncementbox,#createnewcontest
+{
+    visibility:hidden;
+    position:fixed;
+    margin:0 12.5%;
+    bottom:0;
+    width:75%;
+    background-color:white;
+    height:0;
+    color:black;
+    padding:10px 10px;
+    padding-bottom:40px;
+    font-size:1.2rem;
+    display:flex;
+    align-items:center;
+    flex-direction: column;
+    overflow-y:auto;
+    transition:height 0.15s ease-in-out;
+}
+
+.holder {
+    min-width:60%;
+    max-width:60%;
+    height:fit-content;
+    display:flex;
+    flex-direction: inherit;
+    align-items:flex-start;
+    margin:25px 0px;
+}
+
+#createnewannouncementbox #createann,
+#createnewannouncementbox #close,
+#createnewcontest #hostcontest,
+#createnewcontest #close
+{
+    min-width:60%;
+    max-width:60%;
+    box-sizing: border-box;
+    padding:10px 0px;
+    color:white;
+    text-align:center;
+    border-radius:5px;
+    background-color:#76D7C4;
+    cursor:pointer;
+}
+
+#createnewannouncementbox #close,#createnewcontest #close
+{
+    margin-top:10px;
+    background-color:#DC143C;
+}
+
+input[type="text"],#createnewannouncementbox .holder #ann,#createnewcontest .holder #contdesc
+{
+    font-family:'Nunito Sans',sans-serif;
+    box-sizing:border-box;
+    font-size:1.1rem;
+    margin-top:10px;
+    width:100%;
+    padding:5px 5px;
+    border:1px solid black;
+}
+
+input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnewcontest .holder #contdesc:focus
+{
+    outline:none;
+    border-color:#76D7C4;
+}
+
+
+
+.fortopbuttons
+{
+    z-index:-1;
+}
+
+#overlay
+{
+    position: fixed;
+    height:100%;
+    opacity:0;
+    width:100%;
+    top:0;
+    background-color: black;
+    z-index:-1;
+}
+
+
+#maindash .announcementsholder .announcementsinfo #idname .countbox
+{
+    width:fit-content;
+    padding:0 5px;
+    border-radius:2px;
+    margin:auto;
+    margin-right:0;
+    color:black;
+    font-size:1.1rem;
+}
+
+#maindash .announcementsholder .announcementsinfo #idname .clap  
+{
+    margin:auto;
+    margin-right:0;
+    margin-left:5px;
+    cursor:pointer;
+}
+
+#notiholder
+{
+    font-family: 'Roboto', sans-serif;
+    position:fixed;
+    right:75px;
+    top:75px;
+    height:0;
+    background-color:#F2F3F4;
+    width:400px;
+    z-index:2;
+    overflow:scroll;
+    overflow-x:hidden;
+    visibility:hidden;
+    opacity:0.5;
+    transition:all 0.2s ease;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    -webkit-box-shadow: 0 3px 8px -2px #1C2833;
+    -moz-box-shadow: 0 3px 8px -2px #1C2833;
+    box-shadow: 0 3px 8px -2px #1C2833;
+    padding:5px 0;
+}
+
+#notiholder .notibox
+{
+    width:85%;
+    background-color: #CACFD2;
+    color:black;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:5px;
+    font-size:1rem;
+}
+
+#notiholder .notibox .notitime
+{
+    color:white;
+    font-size:0.9rem;
+    margin-top:5px;
+    margin-bottom:0;
+    display:table;
+    height:fit-content;
+    width:fit-content;
+    width: -moz-fit-content;
+    white-space:nowrap;
+    background-color:#76D7C4;
+    padding:5px 5px;
+    border-radius:5px;
+}
+
+#header
+{
+    position:fixed;
+    display:flex;
+    background-color:black;
+    align-items:center;
+    top:0;
+    left:0;
+    right:0;
+    height:70px;
+    color:white;
+    z-index:1;
+}
+
+#header #logoholder 
+{
+    display:flex;
+    align-items:center; 
+    justify-content: flex-start;
+    min-width:27.5%;
+    height:100%;
+}
+
+#header #logoholder #logo
+{
+    margin-left:20px;
+}
+
+#header #logoholder  #title
+{
+    font-size:1.4rem;
+    font-weight: lighter;
+    letter-spacing: 2px;
+    margin-left:5px;
+}
+
+#header #otherholder
+{
+    display:flex;
+    align-items:center; 
+    justify-content: flex-start;
+    width:80%;
+    height:100%;
+}
+
+/*#header #otherholder #searchbar
+{
+    font-size:0.9rem;
+    outline:none;
+    border:none;
+    padding:8px;
+    width:42.5%;
+    margin-left:12.5%;
+}
+
+#header #otherholder #searchicon
+{
+    padding:5.5px;
+    height:25px;
+    width:25px;
+    background-color:#76D7C4;
+}*/
+
+#header #otherholder #userdetails
+{
+    height:100%;
+    width:fit-content;
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    margin:auto;
+    margin-right:0;
+    padding-right:30px;
+}
+
+#header #otherholder #userdetails #noti
+{
+    margin-left:25px;
+    margin-right:25px;
+    cursor:pointer;
+}
+
+#header #otherholder #userdetails #round
+{
+    visibility:hidden;
+    position:absolute;
+    height:5px;
+    width:5px;
+    z-index:2;
+    top:20px;
+    right:90px;
+    background-color:white;
+    color:black;
+    border-radius: 50%;
+}
+
+#header #otherholder #userdetails #userdp
+{
+    height:36px;
+    width:36px;
+    border-radius:50%;
+    cursor:pointer;
+}
+
+#dashboard
+{
+    display:flex;
+    justify-content: center;
+    margin-top:70px;
+    width:100%;
+    /*height:1000px;*/
+    height:fit-content;
+    height:-moz-fit-content;
+}
+
+#dashboard #sidenavbar
+{
+    position:fixed;
+    left:0;
+    background-color:#76D7C4;
+    display:flex;
+    flex-direction: column;
+    align-items:center !important;
+    justify-content:center !important;
+    height:100%;
+    color:white;
+    width:22.5%;
+}
+
+/*#dashboard #sidenavbar #dummy
+{
+    margin-top:50px;
+    margin-bottom:50px;
+}*/
+
+#dashboard #sidenavbar a
+{
+    display:flex;
+    align-items:center;
+    text-decoration:none;
+    font-size:1.4rem;
+    font-weight: 300;
+    margin-bottom:15px;
+    text-overflow:ellipsis;
+    color:white;
+    overflow:hidden;
+    width:fit-content;
+    white-space: nowrap;
+    transition: color 0.2s ease-in-out;
+}
+
+#dashboard #sidenavbar a:hover
+{
+    color:#148F77;
+}
+
+#dashboard #sidenavbar #active
+{
+    cursor:default;
+    color:#148F77;
+    font-style:italic;
+}
+
+
+
+#dashboard #maindash
+{
+    display:flex;
+    align-items:center;
+    justify-content: flex-start;
+    flex-direction: column;
+    flex-wrap:wrap;
+    margin:10px 0px;
+    margin-left:20%;
+    width:65%;
+    height:fit-content;
+    height:-moz-fit-content;
+    /*background-color:aqua;*/
+}
+
+#dashboard #noposts {
+    font-size:1.2rem;
+    display:flex;
+    flex-direction:row;
+    margin-top:20px;
+}
+
+#dashboard #noposts a,#dashboard #noposts a:visited
+{
+    color:#76D7C4;
+}
+
+#dashboard #maindash #welcomeuser,#createnewannouncementbox #title,#createnewcontest #title
+{
+    margin-top:25px;
+    border-bottom:2px solid #76D7C4;
+    text-align: center;
+    font-style:italic;
+    padding:10px 0px;
+    font-size:1.7rem;
+    width:50%;
+    margin-bottom:25px;
+    font-weight: 300;
+}
+
+#dashboard #maindash .topbuttons
+{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:90%;
+    height:fit-content;
+    padding:13px 0;
+    background-color:#76D7C4;
+    border:2px solid #76D7C4;
+    font-size:1.2rem;
+    color:white;
+    text-align:center;
+    cursor:pointer;
+    margin-bottom:15px;
+}
+
+#dashboard #maindash .topcreatecontestbutton
+{
+    background-color:white;
+    color:#76D7C4;
+}
+
+#dashboard #maindash .announcementsholder
+{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width:90%;
+    height:fit-content;
+    margin-bottom:25px;
+    font-weight:400;
+}
+
+#dashboard #maindash .announcementsholder .announcementsinfo
+{
+    font-family:'Roboto',sans-serif;
+    font-size:1.2rem;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    width:100%;
+    height:fit-content;
+    margin-bottom:15px;
+    -webkit-box-shadow: 0 3px 8px -2px #c0c0c0;
+    -moz-box-shadow: 0 3px 8px -2px #c0c0c0;
+    box-shadow: 0 3px 8px -2px #c0c0c0;
+}
+
+#dashboard #maindash .announcementsholder .announcementsinfo #idname
+{
+    display: flex;
+    flex-direction:row;
+    align-items:center;
+    height:fit-content;
+    margin:20px;
+    margin-bottom:0;
+    max-width:95%;
+    color:#76D7C4;
+}
+
+#dashboard #maindash .announcementsholder .announcementsinfo #createdtime
+{
+    font-size:0.9rem;
+    margin:20px;
+    margin-top:10px;
+    margin-bottom:0;
+    display:table;
+    width:fit-content;
+    width: -moz-fit-content;
+    white-space:nowrap;
+    text-align:center;
+    background-color:#76D7C4;
+    color:white;
+    padding:5px 5px;
+    border-radius:5px;
+}
+
+#dashboard #maindash .announcementsholder .announcementsinfo #idname .imgholder
+{
+    height:30px;
+    width:30px;
+    margin-right:10px;
+    overflow: hidden;
+    object-fit: scale-down;
+}
+
+
+#dashboard #maindash .announcementsholder .announcementsinfo #idname .imgholder img
+{
+    height:100%;
+    width:100%;
+}
+
+
+#dashboard #maindash .announcementsholder .announcementsinfo p
+{
+    line-height:30px;
+    margin:20px;
+    width:fit-content; 
+    height:fit-content;
+    text-align:justify;
+}
+
+#dashboard #otherarea
+{
+    font-family: 'Roboto', sans-serif;
+    position:fixed;
+    margin:10px;
+    margin-right:0;
+    right:0;
+    background-color:#E5E7E9;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:flex-start;
+    width:0;
+    overflow:hidden;
+    z-index:2;
+}
+
+#dashboard #otherarea #enlightenormentor
+{
+    width:100%;
+    height:fit-content;
+    display:flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    margin-bottom:5px;
+}
+
+#dashboard #otherarea #enlightenbox,#dashboard #otherarea #mentorbox
+{
+    width:50%;
+    padding:10px 0;
+    text-align:center;
+    border-bottom:2px solid #E5E7E9;
+    cursor:pointer;
+}
+
+#enlightenholder::-webkit-scrollbar,#notiholder::-webkit-scrollbar,#mentorreqholder::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  /* Track */
+  #enlightenholder::-webkit-scrollbar-track, #notiholder::-webkit-scrollbar-track,#mentorreqholder::-webkit-scrollbar-track {
+    background:#CACFD2;
+    /*background:yellow;*/
+  }
+  
+  /* Handle */
+  #enlightenholder::-webkit-scrollbar-thumb, #notiholder::-webkit-scrollbar-thumb,#mentorreqholder::-webkit-scrollbar-thumb {
+    background:#566573;
+  }
+  
+  /* Handle on hover */
+  #enlightenholder::-webkit-scrollbar-thumb:hover, #notiholder::-webkit-scrollbar-thumb:hover,#mentorreqholder::-webkit-scrollbar-thumb:hover{
+    background: #566573;
+  }
+
+#dashboard #otherarea #enlightenholder,
+#dashboard #otherarea #mentorreqholder
+{
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:flex-start;
+    margin-top:10px;
+    width:400px;
+    /*max-width:95%;*/
+    /*height:82.5%;*/
+    overflow:auto;
+    overflow-x:hidden;
+}
+
+#dashboard #otherarea #mentorreqholder
+{
+    margin-top:0px;
+}
+
+#dashboard #otherarea #label 
+{
+    margin:20px;
+    font-size:1.2rem;
+}
+
+#dashboard #otherarea #enlightenholder .reqbox,#dashboard #otherarea #mentorreqholder .reqbox
+{
+    margin-bottom:15px;
+    display:flex;
+    flex-direction:column;
+    font-size:1rem;
+    border:2px solid #76D7C4;
+    padding:10px 10px;
+    min-height:fit-content !important;
+    max-height:fit-content;
+    width:350px;
+}
+
+
+#dashboard #otherarea #enlightenholder .reqbox .content,#dashboard #otherarea #mentorreqholder .reqbox .content
+{
+    display:flex;
+    flex-direction:column;
+    height:fit-content;
+}
+
+#dashboard #otherarea #enlightenholder .reqbox .content a,#dashboard #otherarea #mentorreqholder .reqbox .content a
+{
+    height:fit-content;
+    color:#76D7C4;
+    margin-bottom:10px;
+}
+
+#dashboard #otherarea #enlightenholder .reqbox .content a:visited,
+#dashboard #otherarea #mentorreqholder .reqbox .content a:visited
+{
+    color:#76D7C4;
+}
+
+#dashboard #otherarea #enlightenholder .reqbox .acceptbutton,#dashboard #otherarea #mentorreqholder .reqbox .acceptbutton
+{
+    color:white;
+    align-self:flex-start;
+    width:100%;
+    margin-top:15px;
+    background-color:#76D7C4;
+    text-align:center;  
+    padding:10px 0px;
+    cursor:pointer;
+}
+
