@@ -50,8 +50,11 @@
 <div id="others">
 
 <?php
-$query="select Name as hostname,description,choice,count(voterid) as votecount from polloption natural join poll natural join vote inner join users where UserID=pollhostID
- group by pollid,choiceid having pollid=(select pollid from poll order by heldon desc limit 1)";
+
+$query = "select Name as hostname,description,DATE_FORMAT(heldon,'%d %M %Y') as heldon,polloption.pollid,polloption.choiceid,choice,count(voterid) as votecount
+from poll inner join users inner join polloption left join vote on polloption.choiceid=vote.choiceid and polloption.pollhostid=vote.pollhostid 
+where poll.pollhostid=users.userid and poll.pollid=polloption.pollid group by polloption.pollid,polloption.choiceid having pollid=(select pollid from poll order by heldon desc limit 1)";
+
 $total="select pollid,count(voterid) as totalcount from vote natural join poll group by pollid order by heldon desc limit 1"; //to get total no of votes for a poll to set percentage
 $totalresult=mysqli_query($conn,$total);
 $result=mysqli_query($conn,$query);
