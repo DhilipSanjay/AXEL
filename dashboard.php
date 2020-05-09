@@ -5,13 +5,23 @@ include("dbconnect.php");
 $userid=$_REQUEST["userid"]; //this is the userid of the user currently logged in
 //$username="Username"; //$_REQUEST["username"] - this is the username of the user currently logged in
 
-$query="select Name from users where userid=$userid";
+$query="select Name,usertype from users where userid=$userid";
 $result=mysqli_query($conn,$query);
 $resultforusername=mysqli_fetch_assoc($result);
 
 $query="select userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
 $result=mysqli_query($conn,$query);
 $count=mysqli_num_rows($result);
+
+
+//if user type is a mentor then show mentor request accepted notifications in notifications box
+if($resultforusername["usertype"]==="mentor")
+{
+$mentornotiquery="select startupid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where startupid=userid and mentorid=$userid and status='accepted' order by timeelapsed limit 50";
+$mentornotiresult=mysqli_query($conn,$mentornotiquery);
+$mentornoticount=mysqli_num_rows($mentornotiresult);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -178,7 +188,7 @@ $(function() {
 <div id="notiholder">
 
 <?php 
-if($count==0)
+if($count===0&&($resultforusername["usertype"]==="mentor"&&$mentornoticount===0))
 {
 ?>
 <div id="nonoti" style="margin-top:20px">No notifications!</div>
@@ -186,6 +196,30 @@ if($count==0)
 }
 else
 {
+
+if($resultforusername["usertype"]==="mentor")
+{
+while($row=mysqli_fetch_assoc($mentornotiresult))
+{?>
+
+<div class="notibox">
+
+You were accepted as a mentor by <?php echo $row["Name"]."!" ?>
+<div class="notitime"><?php echo $row["time"] ?></div>
+
+</div>
+
+<?php
+}
+
+if($mentornoticount!==0)
+{
+?>
+<hr width="90%" style="margin:20px 0px;border:none;height:0.5px;background-color:#c0c0c0">
+<?php
+}
+}
+
 while($row=mysqli_fetch_assoc($result))
 { ?>
 

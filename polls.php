@@ -3,11 +3,25 @@
 include("dbconnect.php");
 
 $userid=$_REQUEST["userid"]; //this is the userid of the user currently logged in
-$username="Username"; //$_REQUEST["username"] - this is the username of the user currently logged in
+//$username="Username"; //$_REQUEST["username"] - this is the username of the user currently logged in
+
+$query="select Name,usertype from users where userid=$userid";
+$result=mysqli_query($conn,$query);
+$resultforusername=mysqli_fetch_assoc($result);
 
 $query="select userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
 $result=mysqli_query($conn,$query);
 $count=mysqli_num_rows($result);
+
+
+//if user type is a mentor then show mentor request accepted notifications in notifications box
+if($resultforusername["usertype"]==="mentor")
+{
+$mentornotiquery="select startupid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where startupid=userid and mentorid=$userid and status='accepted' order by timeelapsed limit 50";
+$mentornotiresult=mysqli_query($conn,$mentornotiquery);
+$mentornoticount=mysqli_num_rows($mentornotiresult);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +88,7 @@ function gotodash(userid)
 <div id="notiholder">
 
 <?php 
-if($count==0)
+if($count===0&&($resultforusername["usertype"]==="mentor"&&$mentornoticount===0))
 {
 ?>
 <div id="nonoti" style="margin-top:20px">No notifications!</div>
@@ -82,6 +96,30 @@ if($count==0)
 }
 else
 {
+
+if($resultforusername["usertype"]==="mentor")
+{
+while($row=mysqli_fetch_assoc($mentornotiresult))
+{?>
+
+<div class="notibox">
+
+You were accepted as a mentor by <?php echo $row["Name"]."!" ?>
+<div class="notitime"><?php echo $row["time"] ?></div>
+
+</div>
+
+<?php
+}
+
+if($mentornoticount!==0)
+{
+?>
+<hr width="90%" style="margin:20px 0px;border:none;height:0.5px;background-color:#c0c0c0">
+<?php
+}
+}
+
 while($row=mysqli_fetch_assoc($result))
 { ?>
 
@@ -178,13 +216,6 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
     <!--<div id="dummy"></div>-->
 </div>
 
-<?php
-$query="select puserid,postid,Name, DATE_FORMAT(createdtime,'%d %M %Y | %h:%i %p') as createdtime, Announcement FROM post inner join users WHERE users.userID=post.PuserID and PuserID in (select AcceptorID from enlighten where requestorid=$userid and status='accepted') order by createdtime desc";
-$result=mysqli_query($conn,$query);
-$count=mysqli_num_rows($result);
-$temp=0;
-?>
-
 
 <div id="maindash">
 
@@ -193,7 +224,7 @@ $temp=0;
 <div class="label pollstitle">Recent polls</div>
 
 <?php
-$mainquery="select pollid from poll order by heldon desc limit 5";
+$mainquery="select pollhostid,pollid from poll order by heldon desc limit 5";
 $mainresult=mysqli_query($conn,$mainquery);
 
 while($row=mysqli_fetch_assoc($mainresult))
@@ -204,15 +235,38 @@ while($row=mysqli_fetch_assoc($mainresult))
 
 <?php
 //two queries to fetch results for individual poll option count and total count
-$query="select Name as hostname,description,choice,count(voterid) as votecount from polloption natural join poll natural join vote inner join
- users where UserID=pollhostID group by pollid,choiceid having pollid=".$row["pollid"];
 
-$total="select pollid,count(voterid) as totalcount from vote natural join poll where pollid=".$row["pollid"]; //to get total no of votes for a poll to set percentage
+$pollid = $row["pollid"];
+$pollhostid = $row["pollhostid"];
 
+$query = "select Name as hostname,description,DATE_FORMAT(heldon,'%d %M %Y') as heldon,polloption.pollid,polloption.choiceid,choice,count(voterid) as votecount
+from poll inner join users inner join polloption left join vote on polloption.choiceid=vote.choiceid and polloption.pollhostid=vote.pollhostid 
+where poll.pollhostid=users.userid and poll.pollid=polloption.pollid group by polloption.pollid,polloption.choiceid having pollid=".$pollid;
+
+
+$total="select count(voterid) as totalcount from vote where pollid=".$pollid; //to get total no of votes for a poll to set percentage
+
+$hasselected="select choice,voterid from vote natural join polloption where pollid=".$pollid." and voterid=".$userid;
+
+
+$hasselectedresult=mysqli_query($conn,$hasselected);
 $totalresult=mysqli_query($conn,$total);
 $result=mysqli_query($conn,$query);
 
 $totalnoofvotes=mysqli_fetch_assoc($totalresult);
+
+//for checking whether the user has selected any option in the polls
+if(mysqli_num_rows($hasselectedresult)===0)
+{
+  $selectedop=""; //user has not selected any option for poll
+}
+
+else
+{
+  $optionresult=mysqli_fetch_assoc($hasselectedresult);
+  $selectedop=$optionresult["choice"]; //user has selected this choice
+}
+
 
 $temp=1;
 ?>
@@ -228,23 +282,87 @@ if($temp==1)
 ?>
 
 <div class="createdby">
-Poll hosted by <a href="#"><?php echo $row["hostname"]; ?></a>
+Poll hosted by <a href="#"><?php echo $row["hostname"]?></a> on <i><?php echo $row["heldon"] ?></i>
 </div>
 
 <?php
 echo $row["description"];
 $temp++;
 }
+
+if(strcmp($row["choice"],$selectedop)===0)
+{
 ?>
 
-<div class="polloption">
+<div class="selected">
 
-<?php echo $row["choice"]?>
+<?php
+
+echo $row["choice"]
+
+?>
 
 <div class="countbox">
-<?php echo floor(($row["votecount"]/$totalnoofvotes["totalcount"])*100)."%" ?>
+<?php 
+
+if($totalnoofvotes["totalcount"]==="0")
+{
+echo "0%";
+}
+
+else
+{
+echo floor(($row["votecount"]/$totalnoofvotes["totalcount"])*100)."%";
+}
+?>
 </div>
 
+</div>
+
+<?php
+}
+
+else
+{
+?>
+
+
+<div class="polloption" pollhostid="<?php echo $pollhostid ?>" userid="<?php echo $userid ?>" poll-label="<?php echo $pollid?>" option-label="<?php echo $row["choiceid"]?>">
+
+<?php
+echo $row["choice"]
+
+?>
+
+<div class="countbox">
+<?php
+
+if($totalnoofvotes["totalcount"]==="0")
+{
+echo "0%";
+}
+
+else
+{
+echo floor(($row["votecount"]/$totalnoofvotes["totalcount"])*100)."%";
+}
+
+?>
+</div>
+
+</div>
+
+
+<?php
+}
+}
+
+if($selectedop==="")//no option has been selected initially
+{
+?>
+
+<div class="polloption selectbut">
+Cast my vote
 </div>
 
 <?php
@@ -272,6 +390,45 @@ $temp++;
 
 <script type="text/javascript">
 
+
+function cast(pollid,optionid,userid,pollhostid)
+{
+  $.ajax({
+        url:"castpollvote.php",
+        method:"POST",
+        data:{pollid:pollid,optionid:optionid,userid:userid,pollhostid:pollhostid},
+        success:function(response)
+        {
+            //alert(response);
+            location.reload(true); //to reload the page
+        }
+  });
+}
+
+$(document).ready(
+function()
+{
+        $(".polloption").click(
+        function(event)
+        {
+            if($(this).siblings('.selected').length===0)
+            {
+            $(this).addClass("nowselected").siblings().removeClass("nowselected");
+            //console.log($(this).attr('option-label')+"and"+$(this).attr('poll-label'));
+            
+            var pollid = $(this).attr('poll-label');
+            var pollhostid = $(this).attr('pollhostid');
+            var optionid = $(this).attr('option-label');
+            var userid = $(this).attr('userid');
+
+            var func = "cast(" + pollid + "," + optionid + "," + userid + "," + pollhostid +")";
+
+            $(this).siblings('.selectbut').attr("onclick",func);
+            }
+        }
+        );
+});
+
 var searchlistwidth = document.getElementsByClassName("searchbox")[0].clientWidth-20;
 document.getElementsByClassName("searchlist")[0].style.width=searchlistwidth+"px";
 
@@ -280,7 +437,7 @@ function closesearch()
 {
     document.getElementById("overlay").style.opacity="0";
     document.getElementById("overlay").style.zIndex="-1"; 
-    $('.searchlist').css("visibility","hidden"); 
+    $('.searchlist').css("visibility","hidden");
 }
 
 </script>
