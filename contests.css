@@ -1,0 +1,84 @@
+.contest_category
+{
+    font-size:2rem;
+    font-weight:lighter;
+    margin-top:25px;
+    align-self:center;
+}
+
+a
+{
+    color:#76D7C4;
+}
+
+.contest
+{
+    display:flex;
+    flex-wrap:wrap;
+    flex-direction: column;
+    border:2px solid #76D7C4;
+    padding: 10px 10px;
+    margin:15px 0 15px 0;
+    width: 100%;
+    border-radius:5px;
+    color:black;
+    height:fit-content;    
+    font-weight: 300;
+    font-style:italic;
+    font-size:1.5rem;
+    justify-content:center;
+}
+
+.hostedby
+{
+    display: inline-block;
+    margin: 0 auto;
+}
+.hostedby::before
+{
+    display: inline-block;
+    margin: 0px 10px 5px 0px;
+    height: 1px;
+    content: " ";
+    text-shadow: none;
+    background-color: #76D7C4;
+    width:25px;
+}
+
+.hostedby::after
+{
+    display: inline-block;
+    margin: 0px 0px 5px 10px;
+    height: 1px;
+    content: " ";
+    text-shadow: none;
+    background-color: #76D7C4;
+    width:25px;
+}
+
+.description
+{
+    display:flex;
+    align-items:center;
+    font-family:'Roboto', sans-serif;
+    font-style:normal;
+    font-size:1.2rem;
+    height:fit-content;
+    padding:10px 0;
+    margin-top: 10px;    
+}
+
+.contestfooter
+{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    grid-template-areas: "date participate viewdetails";
+    margin: 0 auto;
+    font-family:'Roboto', sans-serif;
+    font-style:normal;
+    font-size:1.2rem;
+    height:fit-content;
+    padding:10px 0;
+    margin-top: 10px; 
+    width:100%;  
+}
