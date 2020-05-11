@@ -24,8 +24,8 @@
 </div>
 
 <div id="home">
-<a href="/">
-<img id="logo" src="logo.png" height="47px" width="45px" alt="logo"></a>
+
+<img id="logo" src="logo.png" height="47px" width="45px" alt="logo">
 <div id="title">AXEL</div>
 <img onclick="openlink('dashboard.php?userid=4')" id="user" src="user.png" alt="login">
 <img id="listicon" onclick="opensidebar();" src="list.PNG" alt="picture">

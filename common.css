@@ -152,6 +152,7 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     display:flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     -webkit-box-shadow: 0 3px 8px -2px #1C2833;
     -moz-box-shadow: 0 3px 8px -2px #1C2833;
     box-shadow: 0 3px 8px -2px #1C2833;

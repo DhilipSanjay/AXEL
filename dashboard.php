@@ -3,21 +3,16 @@
 include("dbconnect.php");
 
 $userid=$_REQUEST["userid"]; //this is the userid of the user currently logged in
-//$username="Username"; //$_REQUEST["username"] - this is the username of the user currently logged in
 
 $query="select Name,usertype from users where userid=$userid";
 $result=mysqli_query($conn,$query);
 $resultforusername=mysqli_fetch_assoc($result);
 
-$query="select userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
-$result=mysqli_query($conn,$query);
-$count=mysqli_num_rows($result);
 
-
-//if user type is a mentor then show mentor request accepted notifications in notifications box
-if($resultforusername["usertype"]==="mentor")
+//if user type is a startup then show mentor request accepted notifications in notifications box
+if($resultforusername["usertype"]==="startup")
 {
-$mentornotiquery="select startupid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where startupid=userid and mentorid=$userid and status='accepted' order by timeelapsed limit 50";
+$mentornotiquery="select mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$userid and status='accepted' order by timeelapsed limit 50";
 $mentornotiresult=mysqli_query($conn,$mentornotiquery);
 $mentornoticount=mysqli_num_rows($mentornotiresult);
 }
@@ -139,7 +134,7 @@ $(function() {
 </head>
 
 
-<body onload=fillrequests(<?php echo $userid?>)>
+<body onload=fillrequests(<?php echo $userid.',"'.$resultforusername["usertype"].'"'?>)>
 
 <div id="overlay" onclick="closesearch()"></div>
 <div id="overlay" class="fortopbuttons"></div>
@@ -155,6 +150,9 @@ $(function() {
       <div id="createann" onclick="createann(<?php echo $userid ?>)">Create Announcement</div>
       <div id="close" onclick="opennewannouncementbox(<?php echo $userid ?>)">Close</div>
 </div>
+
+
+
 
 <div id="createnewcontest">
       <div id="title">Host a new Contest</div>
@@ -185,25 +183,33 @@ $(function() {
 <div id="notiholder">
 
 <?php 
-if($count===0&&($resultforusername["usertype"]==="mentor"&&$mentornoticount===0))
+
+$query="select userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
+$result=mysqli_query($conn,$query);
+$count=mysqli_num_rows($result);
+
+
+//echo $resultforusername["usertype"].",".$count.",".$mentornoticount;
+
+if( ($resultforusername["usertype"]==="mentor"&&$count===0) || ($count===0&&$resultforusername["usertype"]==="startup"&&$mentornoticount===0) )
 {
 ?>
 <div id="nonoti" style="margin-top:20px">No notifications!</div>
 <?php
 }
+
 else
 {
 
-if($resultforusername["usertype"]==="mentor")
+if($resultforusername["usertype"]==="startup")
 {
+
 while($row=mysqli_fetch_assoc($mentornotiresult))
 {?>
 
 <div class="notibox">
-
-You were accepted as a mentor by <?php echo $row["Name"]."!" ?>
+<?php echo $row["Name"]?> accepted to be your mentor!
 <div class="notitime"><?php echo $row["time"] ?></div>
-
 </div>
 
 <?php
@@ -212,9 +218,21 @@ You were accepted as a mentor by <?php echo $row["Name"]."!" ?>
 if($mentornoticount!==0)
 {
 ?>
-<hr width="90%" style="margin:20px 0px;border:none;height:0.5px;background-color:#c0c0c0">
+
+<div style="border:none;border-bottom:0.5px solid #c0c0c0;width:90%;margin:10px 0"></div>
+
 <?php
 }
+
+}
+
+if($count===0)
+{
+?>
+
+<div id="nonoti" style="margin-top:20px">No enlighten notifications!</div>
+
+<?php
 }
 
 while($row=mysqli_fetch_assoc($result))
@@ -229,7 +247,12 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 
 <?php 
 }
-} ?>
+?>
+<div style="border:none;border-bottom:0.5px solid #f2f3f4;width:90%;margin:10px 0"></div>
+
+<?php
+} 
+?>
 
 </div>
 
@@ -289,7 +312,7 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
     <path fill-rule="evenodd" d="M14 1H2a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V2a1 1 0 00-1-1zM2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2z" clip-rule="evenodd"/>
     <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
     </svg>My Profile</a>
-    <a href="#">
+    <a href="explore.php?userid=<?php echo $userid?>">
     <svg class="bi bi-book-half" style="margin-right:15px" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 018.5 2.5v11a.5.5 0 01-.854.354c-.843-.844-2.115-1.059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 010 13.5v-11a.5.5 0 01.276-.447L.5 2.5l-.224-.447.002-.001.004-.002.013-.006a5.017 5.017 0 01.22-.103 12.958 12.958 0 012.7-.869zM1 2.82v9.908c.846-.343 1.944-.672 3.074-.788 1.143-.118 2.387-.023 3.426.56V2.718c-1.063-.929-2.631-.956-4.09-.664A11.958 11.958 0 001 2.82z" clip-rule="evenodd"/>
   <path fill-rule="evenodd" d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 007.5 2.5v11a.5.5 0 00.854.354c.843-.844 2.115-1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0016 13.5v-11a.5.5 0 00-.276-.447L15.5 2.5l.224-.447-.002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 00-.799-.34 12.96 12.96 0 00-2.073-.609z" clip-rule="evenodd"/>
@@ -337,22 +360,13 @@ $temp=0;
     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-6a.5.5 0 00-1 0v6a.5.5 0 01-.5.5h-11a.5.5 0 01-.5-.5v-11a.5.5 0 01.5-.5H9a.5.5 0 000-1H2.5A1.5 1.5 0 001 2.5v11z" clip-rule="evenodd"/>
     </svg>
     Create a new announcement</div>
-
-    <?php
-    $generaluser_query = "SELECT * FROM generaluser WHERE generaluserid = " . $userid;
-    $generaluser_result= mysqli_query($conn, $generaluser_query);
-    if(mysqli_num_rows($generaluser_result) === 0)
-    {
-    ?>
     <div class="topbuttons topcreatecontestbutton" onclick="opennewcontestbox()">
     <svg class="bi bi-award" style="margin-right:10px" width="1.2em" height="1.2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l-1.51-.229L8 1.126l-1.355.702-1.51.229-.684 1.365-1.086 1.072L3.614 6l-.25 1.506 1.087 1.072.684 1.365 1.51.229L8 10.874l1.356-.702 1.509-.229.684-1.365 1.086-1.072L12.387 6l.248-1.506-1.086-1.072-.684-1.365z" clip-rule="evenodd"/>
     <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
     </svg>
     Host a new contest</div>
-    <?php
-    }
-    ?>
+
     <!--While creating make a new announcement button, check out materialize open source css framework -->
     
     <div class="label">Announcements</div>
@@ -404,8 +418,17 @@ $temp=0;
 <span id="label">REQUESTS</span>
 
 <div id="enlightenormentor">
+
+<?php if($resultforusername["usertype"]==="mentor")
+{
+?>
 <div id="enlightenbox">Enlighten</div>
-<div id="mentorbox">Mentor</div>
+<div id="mentorbox">Startups</div>
+
+<?php
+}
+?>
+
 </div>
 
 <div id="enlightenholder">

@@ -3,7 +3,6 @@
 include("dbconnect.php");
 
 $userid=$_REQUEST["userid"]; //this is the userid of the user currently logged in
-//$username="Username"; //$_REQUEST["username"] - this is the username of the user currently logged in
 
 $query="select Name,usertype from users where userid=$userid";
 $result=mysqli_query($conn,$query);
@@ -18,13 +17,14 @@ $mentornotiresult=mysqli_query($conn,$mentornotiquery);
 $mentornoticount=mysqli_num_rows($mentornotiresult);
 }
 
+
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8"> 
-<title>Axel - Polls</title>
+<title>Axel - Explore</title>
 <!--<link rel="stylesheet" href="home.css">-->
 <link rel="stylesheet" href="common.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
@@ -39,7 +39,6 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
 
-<link rel="stylesheet" href="polls.css">
 <link rel="stylesheet" href = "search.css"> 
 <script src="search.js" type="text/javascript"></script>
 
@@ -66,11 +65,6 @@ function opennotiholder()
     document.getElementById("notiholder").style.opacity="0.5";
     isopen=0;
   }
-}
-
-function gotodash(userid)
-{
-    window.location.href="dashboard.php?userid="+userid;
 }
 
 </script>
@@ -161,13 +155,11 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 </div>
 
 
-
 <div id="header"> <!--fixed header-->
-
 
 <div id="logoholder">
 <img id="logo" src="logo.png" height="42px" width="41px" alt="logo">
-<div id="title" style="cursor:pointer" onclick="gotodash(<?php echo $userid?>)">AXEL</div>
+<div id="title">AXEL</div>
 </div>
 
 <div id="otherholder">
@@ -211,7 +203,7 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
     <path fill-rule="evenodd" d="M14 1H2a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V2a1 1 0 00-1-1zM2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2z" clip-rule="evenodd"/>
     <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
     </svg>My Profile</a>
-    <a href="explore.php?userid=<?php echo $userid?>">
+    <a id="active">
     <svg class="bi bi-book-half" style="margin-right:15px" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 018.5 2.5v11a.5.5 0 01-.854.354c-.843-.844-2.115-1.059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 010 13.5v-11a.5.5 0 01.276-.447L.5 2.5l-.224-.447.002-.001.004-.002.013-.006a5.017 5.017 0 01.22-.103 12.958 12.958 0 012.7-.869zM1 2.82v9.908c.846-.343 1.944-.672 3.074-.788 1.143-.118 2.387-.023 3.426.56V2.718c-1.063-.929-2.631-.956-4.09-.664A11.958 11.958 0 001 2.82z" clip-rule="evenodd"/>
   <path fill-rule="evenodd" d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 007.5 2.5v11a.5.5 0 00.854.354c.843-.844 2.115-1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0016 13.5v-11a.5.5 0 00-.276-.447L15.5 2.5l.224-.447-.002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 00-.799-.34 12.96 12.96 0 00-2.073-.609z" clip-rule="evenodd"/>
@@ -227,7 +219,7 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
   <path fill-rule="evenodd" d="M15.5 3a.5.5 0 01.5.5V14a1.5 1.5 0 01-1.5 1.5h-3v-1h3a.5.5 0 00.5-.5V3.5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
   <path d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z"/>
 </svg>News</a>
-    <a id="active">
+    <a href="polls.php?userid=<?php echo $userid?>">
     <svg class="bi bi-clipboard-data" style="margin-right:15px" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M4 1.5H3a2 2 0 00-2 2V14a2 2 0 002 2h10a2 2 0 002-2V3.5a2 2 0 00-2-2h-1v1h1a1 1 0 011 1V14a1 1 0 01-1 1H3a1 1 0 01-1-1V3.5a1 1 0 011-1h1v-1z" clip-rule="evenodd"/>
   <path fill-rule="evenodd" d="M9.5 1h-3a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h3a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5zm-3-1A1.5 1.5 0 005 1.5v1A1.5 1.5 0 006.5 4h3A1.5 1.5 0 0011 2.5v-1A1.5 1.5 0 009.5 0h-3z" clip-rule="evenodd"/>
@@ -241,218 +233,24 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
     <!--<div id="dummy"></div>-->
 </div>
 
+<?php
+$query="select puserid,postid,Name, DATE_FORMAT(createdtime,'%d %M %Y | %h:%i %p') as createdtime, Announcement FROM post inner join users WHERE users.userID=post.PuserID and PuserID in (select AcceptorID from enlighten where requestorid=$userid and status='accepted') order by createdtime desc";
+$result=mysqli_query($conn,$query);
+$count=mysqli_num_rows($result);
+$temp=0;
+?>
+
 
 <div id="maindash">
 
-
-
-<div class="label pollstitle">Recent polls</div>
-
-<?php
-$mainquery="select pollhostid,pollid from poll order by heldon desc limit 5";
-$mainresult=mysqli_query($conn,$mainquery);
-
-while($row=mysqli_fetch_assoc($mainresult))
-{
-?>
-
-<hr width="100%" style="margin:20px 0px;border:none;border-bottom:0.5px solid #76D7C4">
-
-<?php
-//two queries to fetch results for individual poll option count and total count
-
-$pollid = $row["pollid"];
-$pollhostid = $row["pollhostid"];
-
-$query = "select Name as hostname,description,DATE_FORMAT(heldon,'%d %M %Y') as heldon,polloption.pollid,polloption.choiceid,choice,count(voterid) as votecount
-from poll inner join users inner join polloption left join vote on polloption.choiceid=vote.choiceid and polloption.pollhostid=vote.pollhostid 
-where poll.pollhostid=users.userid and poll.pollid=polloption.pollid group by polloption.pollid,polloption.choiceid having pollid=".$pollid;
-
-
-$total="select count(voterid) as totalcount from vote where pollid=".$pollid; //to get total no of votes for a poll to set percentage
-
-$hasselected="select choice,voterid from vote natural join polloption where pollid=".$pollid." and voterid=".$userid;
-
-
-$hasselectedresult=mysqli_query($conn,$hasselected);
-$totalresult=mysqli_query($conn,$total);
-$result=mysqli_query($conn,$query);
-
-$totalnoofvotes=mysqli_fetch_assoc($totalresult);
-
-//for checking whether the user has selected any option in the polls
-if(mysqli_num_rows($hasselectedresult)===0)
-{
-  $selectedop=""; //user has not selected any option for poll
-}
-
-else
-{
-  $optionresult=mysqli_fetch_assoc($hasselectedresult);
-  $selectedop=$optionresult["choice"]; //user has selected this choice
-}
-
-
-$temp=1;
-?>
-
-<div id="polls">
-
-<?php
-while($row=mysqli_fetch_assoc($result))
-{
-
-if($temp==1)
-{
-?>
-
-<div class="createdby">
-Poll hosted by <a href="#"><?php echo $row["hostname"]?></a> on <i><?php echo $row["heldon"] ?></i>
-</div>
-
-<?php
-echo $row["description"];
-$temp++;
-}
-
-if(strcmp($row["choice"],$selectedop)===0)
-{
-?>
-
-<div class="selected">
-
-<?php
-
-echo $row["choice"]
-
-?>
-
-<div class="countbox">
-<?php 
-
-if($totalnoofvotes["totalcount"]==="0")
-{
-echo "0%";
-}
-
-else
-{
-echo floor(($row["votecount"]/$totalnoofvotes["totalcount"])*100)."%";
-}
-?>
-</div>
+<!--ALL OF YOUR CODE MUST GO HERE-->
 
 </div>
-
-<?php
-}
-
-else
-{
-?>
-
-
-<div class="polloption" pollhostid="<?php echo $pollhostid ?>" userid="<?php echo $userid ?>" poll-label="<?php echo $pollid?>" option-label="<?php echo $row["choiceid"]?>">
-
-<?php
-echo $row["choice"]
-
-?>
-
-<div class="countbox">
-<?php
-
-if($totalnoofvotes["totalcount"]==="0")
-{
-echo "0%";
-}
-
-else
-{
-echo floor(($row["votecount"]/$totalnoofvotes["totalcount"])*100)."%";
-}
-
-?>
-</div>
-
-</div>
-
-
-<?php
-}
-}
-
-if($selectedop==="")//no option has been selected initially
-{
-?>
-
-<div class="polloption selectbut">
-Cast my vote
-</div>
-
-<?php
-}
-?>
-
-</div>
-<?php
-}
-?>
-
-
-
-
-
-
-
-
-
-
-
 
 
 </div>
 
 <script type="text/javascript">
-
-
-function cast(pollid,optionid,userid,pollhostid)
-{
-  $.ajax({
-        url:"castpollvote.php",
-        method:"POST",
-        data:{pollid:pollid,optionid:optionid,userid:userid,pollhostid:pollhostid},
-        success:function(response)
-        {
-            //alert(response);
-            location.reload(true); //to reload the page
-        }
-  });
-}
-
-$(document).ready(
-function()
-{
-        $(".polloption").click(
-        function(event)
-        {
-            if($(this).siblings('.selected').length===0)
-            {
-            $(this).addClass("nowselected").siblings().removeClass("nowselected");
-            //console.log($(this).attr('option-label')+"and"+$(this).attr('poll-label'));
-            
-            var pollid = $(this).attr('poll-label');
-            var pollhostid = $(this).attr('pollhostid');
-            var optionid = $(this).attr('option-label');
-            var userid = $(this).attr('userid');
-
-            var func = "cast(" + pollid + "," + optionid + "," + userid + "," + pollhostid +")";
-
-            $(this).siblings('.selectbut').attr("onclick",func);
-            }
-        }
-        );
-});
 
 var searchlistwidth = document.getElementsByClassName("searchbox")[0].clientWidth-20;
 document.getElementsByClassName("searchlist")[0].style.width=searchlistwidth+"px";
@@ -462,7 +260,7 @@ function closesearch()
 {
     document.getElementById("overlay").style.opacity="0";
     document.getElementById("overlay").style.zIndex="-1"; 
-    $('.searchlist').css("visibility","hidden");
+    $('.searchlist').css("visibility","hidden"); 
 }
 
 </script>
