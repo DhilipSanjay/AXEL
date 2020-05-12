@@ -15,9 +15,9 @@ mysqli_query($conn,$query);
 
 else
 {
-$mentorid=$_GET["mentorid"];
+$startupid=$_GET["startupid"];
 
-$query="update mentorship set status='accepted',statuschangetime=NOW() where mentorid=$mentorid and startupid=$acceptorid";
+$query="update mentorship set status='accepted',statuschangetime=NOW() where startupid=$startupid and mentorid=$acceptorid";
 mysqli_query($conn,$query);
 }
 

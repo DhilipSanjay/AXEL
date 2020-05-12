@@ -36,9 +36,9 @@ $output .= '<div class="reqbox"><div class="content"><a href="#">'.'Request from
 echo $output;
 }
 
-else
+else //mentorship requests by startups
 {
-$query="select mentorid,Name,statuschangetime from mentorship inner join users where userID=mentorID and startupid=$userid and status='pending' order by statuschangetime desc limit 40"; //a limit has been set as to how many requests has to be shown (40 requests only)
+$query="select startupid,Name,statuschangetime from mentorship inner join users where userID=startupID and mentorid=$userid and status='pending' order by statuschangetime desc limit 40;"; //a limit has been set as to how many requests has to be shown (40 requests only)
 $result=mysqli_query($conn,$query);
 $count=mysqli_num_rows($result);
 $output='';
@@ -46,7 +46,7 @@ $output='';
 if($count==0)
 {
     
-$output .= '<div id="noreq" style="margin-top:20px">No requests from mentors!</div>';
+$output .= '<div id="noreq" style="margin-top:20px">No requests from startups!</div>';
     
 }
 
@@ -57,7 +57,7 @@ else
 while($row=mysqli_fetch_assoc($result))
 { 
 
-$output .= '<div class="reqbox"><div class="content"><a href="#">'.'Request from '.$row["Name"]."</a>".$row["Name"].' wants to be your mentor!</div><div class="acceptbutton"'."onclick='acceptasmentor(".$row["mentorid"].",".$userid.",event)'>Accept as Mentor</div></div>";
+$output .= '<div class="reqbox"><div class="content"><a href="#">'.'Request from '.$row["Name"]."</a>".$row["Name"].' wants you to be their mentor!</div><div class="acceptbutton"'."onclick='acceptasmentor(".$row["startupid"].",".$userid.",event)'>Accept as Mentor</div></div>";
 
 }
 

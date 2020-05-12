@@ -134,7 +134,8 @@ function hostcontest(hostid)
 
     if (this.readyState == 4 && this.status == 200) {
         
-        alert(this.responseText);
+        //alert(this.responseText);
+        location.reload(true); //to reload the page
     } 
 
   };
@@ -182,7 +183,7 @@ function accept(reqid,accid,event)
 }
 
 
-function acceptasmentor(mentorid,accid,event)
+function acceptasmentor(startupid,accid,event)
 {
     if(event.target.innerHTML!="Accepted as mentor")
     {
@@ -197,7 +198,7 @@ function acceptasmentor(mentorid,accid,event)
 
       };
 
-    var url="accept.php?mentorid="+mentorid+"&acceptorid="+accid+"&accept=mentorship";
+    var url="accept.php?startupid="+startupid+"&acceptorid="+accid+"&accept=mentorship";
 
     mentorreqobj.open("GET", url, true);
     mentorreqobj.send();
@@ -205,10 +206,12 @@ function acceptasmentor(mentorid,accid,event)
     
 }
 
-function fillrequests(userid)
+function fillrequests(userid,usertype)
 {
   var reqfillobj=createreqobj();
 
+  if(usertype!=="startup"&&usertype!=="general") //this is only for mentors
+  {
   document.getElementById("enlightenbox").style.borderBottom="2px solid #76D7C4";
   document.getElementById("mentorbox").style.borderBottom="2px solid #E5E7E9";
 
@@ -220,6 +223,7 @@ function fillrequests(userid)
 
   document.getElementById("mentorreqholder").style.height="0";
   document.getElementById("mentorreqholder").style.visibility="hidden";
+  }
 
   reqfillobj.onreadystatechange = function() {
 
@@ -239,6 +243,8 @@ function fillrequests(userid)
 function fillmentorreq(userid)
 {
   var mentorreqfillobj=createreqobj();
+
+  //alert(document.getElementById("mentorbox").innerHTML);
 
   document.getElementById("enlightenbox").style.borderBottom="2px solid #E5E7E9";
   document.getElementById("mentorbox").style.borderBottom="2px solid #76D7C4";
