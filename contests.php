@@ -250,7 +250,7 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 $generaluser_query = "SELECT * FROM generaluser WHERE generaluserid = " . $userid;
 $generaluser_result= mysqli_query($conn, $generaluser_query);
 
-$active_query = "SELECT contestid, hostid, username, DATE_FORMAT(heldon,'%d %M %Y') as heldon, contestlink, description FROM contest join users where hostid=userid AND heldon = CURRENT_DATE()";
+$active_query = "SELECT contestid, hostid, name, DATE_FORMAT(heldon,'%d %M %Y') as heldon, contestlink, description FROM contest join users where hostid=userid AND heldon = CURRENT_DATE()";
 $active_result = mysqli_query($conn, $active_query);
 
 
@@ -268,7 +268,7 @@ else
 while($row = mysqli_fetch_assoc($active_result))
 {
   $contestid = $row['contestid'];
-  $hostname = $row['username'];
+  $hostname = $row['name'];
   $hostid = $row['hostid'];
   $heldon = $row['heldon'];
   $contestlink = $row['contestlink'];
@@ -300,12 +300,18 @@ Contest hosted by <a href="#"><?php echo $hostname; ?></a>
   $participated_result= mysqli_query($conn, $participated_query);
   if(mysqli_num_rows($participated_result) === 0)
   {
-?><a href="<?php echo $contestlink?>" target="_blank" onclick="participate(<?php echo $userid. ",". $contestid. ",". $hostid?>)">Participate</a> 
+  ?>
+  <div style="text-align:center">
+<a href="<?php echo $contestlink?>" target="_blank" onclick="participate(<?php echo $userid. ",". $contestid. ",". $hostid?>)">Participate</a> 
+  </div>
 <?php
   }
   else
   {
-?>Already Participated!
+?>
+<div style="text-align:center">
+Already Participated!
+</div>
 <?php
   }
 }
@@ -324,13 +330,13 @@ Contest hosted by <a href="#"><?php echo $hostname; ?></a>
 <hr width="100%" style="margin:20px 0px;border:none;border-bottom:0.5px solid #76D7C4">
 
 <?php
-$upcoming_query = "SELECT contestid, hostid, username, DATE_FORMAT(heldon,'%d %M %Y') as heldon, contestlink, description FROM contest join users where hostid=userid AND heldon > CURRENT_DATE() ORDER BY heldon";
+$upcoming_query = "SELECT contestid, hostid, name, DATE_FORMAT(heldon,'%d %M %Y') as heldon, contestlink, description FROM contest join users where hostid=userid AND heldon > CURRENT_DATE() ORDER BY heldon";
 $upcoming_result = mysqli_query($conn, $upcoming_query);
 
 while($row = mysqli_fetch_assoc($upcoming_result))
 {
   $contestid = $row['contestid'];
-  $hostname = $row['username'];
+  $hostname = $row['name'];
   $hostid = $row['hostid'];
   $heldon = $row['heldon'];
   $contestlink = $row['contestlink'];
@@ -360,13 +366,13 @@ Contest hosted by <a href="#"><?php echo $hostname; ?></a>
 <hr width="100%" style="margin:20px 0px;border:none;border-bottom:0.5px solid #76D7C4">
 
 <?php
-$archived_query = "SELECT contestid, hostid, username, DATE_FORMAT(heldon,'%d %M %Y') as heldon, contestlink, description FROM contest join users where hostid=userid AND heldon < CURRENT_DATE() ORDER BY heldon";
+$archived_query = "SELECT contestid, hostid, name, DATE_FORMAT(heldon,'%d %M %Y') as heldon, contestlink, description FROM contest join users where hostid=userid AND heldon < CURRENT_DATE() ORDER BY heldon";
 $archived_result = mysqli_query($conn, $archived_query);
 
 while($row = mysqli_fetch_assoc($archived_result))
 {
   $contestid = $row['contestid'];
-  $hostname = $row['username'];
+  $hostname = $row['name'];
   $hostid = $row['hostid'];
   $heldon = $row['heldon'];
   $contestlink = $row['contestlink'];
@@ -394,12 +400,19 @@ Contest hosted by <a href="#"><?php echo $hostname; ?></a>
   $participated_result= mysqli_query($conn, $participated_query);
   if(mysqli_num_rows($participated_result) === 0)
   {
-?>You have missed this contest!
+?>
+<div style="text-align:center;color:red">
+You missed this contest!
+</div>
+
 <?php
   }
   else
   {
-?>Hope you enjoyed this contest!
+?>
+<div style="text-align:center;color:#76D7C4">
+Hope you enjoyed this contest!
+</div>
 <?php
   }
 }
@@ -431,7 +444,7 @@ function participate(participantID, contestID, hostID)
         data:{pid:participantID, cid:contestID, hid:hostID},
         success:function(result)
         {
-          $('#participation').html('Already Participated!');
+          location.reload(true);
         }
 
   });

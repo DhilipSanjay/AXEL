@@ -158,7 +158,7 @@ $(function() {
       <div id="title">Host a new Contest</div>
 
       <div class="holder">
-      Contest link (Ex - Hackerrank, Hackerearth...)
+      Contest link (Absolute URL must be specified)
       <input type="text" id="conlink" placeholder="Contest Link">
       </div>      
 
@@ -282,10 +282,16 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 </div>
 
 <div id="userdetails">
+
+  <?php if($resultforusername["usertype"]!=="general")
+    {
+  ?>
   <svg onclick="openclosereqbox()" style="cursor:pointer" class="bi bi-person-plus" width="1.7em" height="1.7em" viewBox="0 0 16 16" fill="#76D7C4" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M11 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM1.022 13h9.956a.274.274 0 00.014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 00.022.004zm9.974.056v-.002.002zM6 7a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0zm4.5 0a.5.5 0 01.5.5v2a.5.5 0 01-.5.5h-2a.5.5 0 010-1H13V5.5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
   <path fill-rule="evenodd" d="M13 7.5a.5.5 0 01.5-.5h2a.5.5 0 010 1H14v1.5a.5.5 0 01-1 0v-2z" clip-rule="evenodd"/>
   </svg>
+
+    <?php } ?>
 
   <svg  id="noti" onclick="opennotiholder()" class="bi bi-bell" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="#76D7C4" xmlns="http://www.w3.org/2000/svg">
   <path d="M8 16a2 2 0 002-2H6a2 2 0 002 2z"/>
@@ -354,6 +360,9 @@ $temp=0;
     <div id="welcomeuser">Welcome <?php echo $resultforusername["Name"] ?></div>
     <!--No posts to show-->
 
+    <?php if($resultforusername["usertype"]!=="general")
+    {
+    ?>
     <div class="topbuttons" onclick="opennewannouncementbox()">
     <svg class="bi bi-pencil-square" style="margin-right:10px" width="1.5em" height="1.4em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path d="M15.502 1.94a.5.5 0 010 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 01.707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 00-.121.196l-.805 2.414a.25.25 0 00.316.316l2.414-.805a.5.5 0 00.196-.12l6.813-6.814z"/>
@@ -366,6 +375,8 @@ $temp=0;
     <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
     </svg>
     Host a new contest</div>
+
+    <?php } ?>
 
     <!--While creating make a new announcement button, check out materialize open source css framework -->
     

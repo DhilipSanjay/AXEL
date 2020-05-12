@@ -210,7 +210,7 @@ function fillrequests(userid,usertype)
 {
   var reqfillobj=createreqobj();
 
-  if(usertype!=="startup")
+  if(usertype!=="startup"&&usertype!=="general") //this is only for mentors
   {
   document.getElementById("enlightenbox").style.borderBottom="2px solid #76D7C4";
   document.getElementById("mentorbox").style.borderBottom="2px solid #E5E7E9";
