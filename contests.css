@@ -17,7 +17,7 @@ a
     flex-wrap:wrap;
     flex-direction: column;
     border:2px solid #76D7C4;
-    padding: 10px 10px;
+    padding: 15px;
     margin:15px 0 15px 0;
     width: 100%;
     border-radius:5px;
@@ -27,6 +27,7 @@ a
     font-style:italic;
     font-size:1.5rem;
     justify-content:center;
+    overflow:hidden;
 }
 
 .hostedby
@@ -59,12 +60,13 @@ a
 .description
 {
     display:flex;
+    text-align:justify;
     align-items:center;
     font-family:'Roboto', sans-serif;
     font-style:normal;
     font-size:1.2rem;
     height:fit-content;
-    padding:10px 0;
+    padding:20px 0;
     margin-top: 10px;    
 }
 
@@ -73,12 +75,13 @@ a
     display:grid;
     grid-template-columns:1fr 1fr 1fr;
     grid-template-areas: "date participate viewdetails";
-    margin: 0 auto;
     font-family:'Roboto', sans-serif;
+    margin:auto;
+    margin-left:0;
     font-style:normal;
     font-size:1.2rem;
     height:fit-content;
     padding:10px 0;
     margin-top: 10px; 
-    width:100%;  
+    width:100%;
 }

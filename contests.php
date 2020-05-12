@@ -9,15 +9,11 @@ $query="select Name,usertype from users where userid=$userid";
 $result=mysqli_query($conn,$query);
 $resultforusername=mysqli_fetch_assoc($result);
 
-$query="select userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
-$result=mysqli_query($conn,$query);
-$count=mysqli_num_rows($result);
 
-
-//if user type is a mentor then show mentor request accepted notifications in notifications box
-if($resultforusername["usertype"]==="mentor")
+//if user type is a startup then show mentor request accepted notifications in notifications box
+if($resultforusername["usertype"]==="startup")
 {
-$mentornotiquery="select startupid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where startupid=userid and mentorid=$userid and status='accepted' order by timeelapsed limit 50";
+$mentornotiquery="select mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$userid and status='accepted' order by timeelapsed limit 50";
 $mentornotiresult=mysqli_query($conn,$mentornotiquery);
 $mentornoticount=mysqli_num_rows($mentornotiresult);
 }
@@ -28,9 +24,11 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
 <html>
 <head>
 <meta charset="utf-8"> 
-<title>Axel - Polls</title>
+<title>Axel - Contests</title>
 <!--<link rel="stylesheet" href="home.css">-->
 <link rel="stylesheet" href="common.css">
+<link rel="stylesheet" href="contests.css">
+<link rel="stylesheet" href = "search.css"> 
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <link rel="icon" href="logo.png">
 <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i&display=swap" rel="stylesheet">
@@ -43,8 +41,6 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
 
-<link rel="stylesheet" href="contests.css">
-<link rel="stylesheet" href = "search.css"> 
 <script src="search.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -85,28 +81,39 @@ function gotodash(userid)
 
 <div id="overlay" onclick="closesearch()"></div>
 
+
+
+
 <div id="notiholder">
 
 <?php 
-if($count===0&&($resultforusername["usertype"]==="mentor"&&$mentornoticount===0))
+
+$query="select userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
+$result=mysqli_query($conn,$query);
+$count=mysqli_num_rows($result);
+
+
+//echo $resultforusername["usertype"].",".$count.",".$mentornoticount;
+
+if( ($resultforusername["usertype"]==="mentor"&&$count===0) || ($count===0&&$resultforusername["usertype"]==="startup"&&$mentornoticount===0) )
 {
 ?>
 <div id="nonoti" style="margin-top:20px">No notifications!</div>
 <?php
 }
+
 else
 {
 
-if($resultforusername["usertype"]==="mentor")
+if($resultforusername["usertype"]==="startup")
 {
+
 while($row=mysqli_fetch_assoc($mentornotiresult))
 {?>
 
 <div class="notibox">
-
-You were accepted as a mentor by <?php echo $row["Name"]."!" ?>
+<?php echo $row["Name"]?> accepted to be your mentor!
 <div class="notitime"><?php echo $row["time"] ?></div>
-
 </div>
 
 <?php
@@ -115,9 +122,21 @@ You were accepted as a mentor by <?php echo $row["Name"]."!" ?>
 if($mentornoticount!==0)
 {
 ?>
-<hr width="90%" style="margin:20px 0px;border:none;height:0.5px;background-color:#c0c0c0">
+
+<div style="border:none;border-bottom:0.5px solid #c0c0c0;width:90%;margin:10px 0"></div>
+
 <?php
 }
+
+}
+
+if($count===0)
+{
+?>
+
+<div id="nonoti" style="margin-top:20px">No enlighten notifications!</div>
+
+<?php
 }
 
 while($row=mysqli_fetch_assoc($result))
@@ -132,9 +151,15 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 
 <?php 
 }
-} ?>
+?>
+<div style="border:none;border-bottom:0.5px solid #f2f3f4;width:90%;margin:10px 0"></div>
+
+<?php
+} 
+?>
 
 </div>
+
 
 
 <div id="header"> <!--fixed header-->
@@ -218,14 +243,28 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 
 <div id="maindash">
 <div class="label contest_category">Active Contests</div>
-<hr width="100%" style="margin:20px 0px;border:none;height:0.5px;background-color:#76D7C4">
+
+<hr width="100%" style="margin:20px 0px;border:none;border-bottom:0.5px solid #76D7C4">
+
 <?php
 $generaluser_query = "SELECT * FROM generaluser WHERE generaluserid = " . $userid;
 $generaluser_result= mysqli_query($conn, $generaluser_query);
 
-$active_query = "SELECT contestid, hostid, username, heldon, contestlink, description FROM contest join users where hostid=userid AND heldon = CURRENT_DATE()";
+$active_query = "SELECT contestid, hostid, username, DATE_FORMAT(heldon,'%d %M %Y') as heldon, contestlink, description FROM contest join users where hostid=userid AND heldon = CURRENT_DATE()";
 $active_result = mysqli_query($conn, $active_query);
 
+
+if(mysqli_num_rows($active_result)===0)
+{
+?>
+
+<div style="font-size:1.2rem;margin:15px">No Active Contests!</div>
+
+<?php
+}
+
+else
+{
 while($row = mysqli_fetch_assoc($active_result))
 {
   $contestid = $row['contestid'];
@@ -246,13 +285,13 @@ Contest hosted by <a href="#"><?php echo $hostname; ?></a>
 </div>
 
 <div class="contestfooter">
-<div><b>Date :</b><?php echo $heldon;?> </div>
+<div><b>Date : </b><?php echo $heldon;?> </div>
 <div id="participation">
 <?php
   if(mysqli_num_rows($generaluser_result) === 0)
   {
 ?>
-Mentors/Startups can't participate
+<div style="text-align:center;color:red">Mentors/Startups can't participate!</div>
 <?php
   }
   else
@@ -272,17 +311,20 @@ Mentors/Startups can't participate
 }
 ?>
 </div>
-<div style="grid-area: viewdetails"><a href="<?php echo $contestlink?>" target="_blank">View Details</a></div>
+<div style="grid-area:viewdetails;text-align:right"><a href="<?php echo $contestlink?>" target="_blank">View Details</a></div>
 </div>
 </div>
 <?php
 }
+}
 ?>
 
 <div class="label contest_category">Upcoming Contests</div>
-<hr width="100%" style="margin:20px 0px;border:none;height:0.5px;background-color:#76D7C4">
+
+<hr width="100%" style="margin:20px 0px;border:none;border-bottom:0.5px solid #76D7C4">
+
 <?php
-$upcoming_query = "SELECT contestid, hostid, username, heldon, contestlink, description FROM contest join users where hostid=userid AND heldon > CURRENT_DATE() ORDER BY heldon";
+$upcoming_query = "SELECT contestid, hostid, username, DATE_FORMAT(heldon,'%d %M %Y') as heldon, contestlink, description FROM contest join users where hostid=userid AND heldon > CURRENT_DATE() ORDER BY heldon";
 $upcoming_result = mysqli_query($conn, $upcoming_query);
 
 while($row = mysqli_fetch_assoc($upcoming_result))
@@ -305,8 +347,8 @@ Contest hosted by <a href="#"><?php echo $hostname; ?></a>
 </div>
 
 <div class="contestfooter">
-<div><b>Starts on :</b><?php echo $heldon;?> </div>
-<div style="grid-area: viewdetails"><a href="<?php echo $contestlink?>" target="_blank">View Details</a></div>
+<div><b>Starts on : </b><?php echo $heldon;?> </div>
+<div style="grid-area:viewdetails;text-align:right"><a href="<?php echo $contestlink?>" target="_blank">View Details</a></div>
 </div>
 </div>
 <?php
@@ -314,9 +356,11 @@ Contest hosted by <a href="#"><?php echo $hostname; ?></a>
 ?>
 
 <div class="label contest_category">Archived Contests</div>
-<hr width="100%" style="margin:20px 0px;border:none;height:0.5px;background-color:#76D7C4">
+
+<hr width="100%" style="margin:20px 0px;border:none;border-bottom:0.5px solid #76D7C4">
+
 <?php
-$archived_query = "SELECT contestid, hostid, username, heldon, contestlink, description FROM contest join users where hostid=userid AND heldon < CURRENT_DATE() ORDER BY heldon";
+$archived_query = "SELECT contestid, hostid, username, DATE_FORMAT(heldon,'%d %M %Y') as heldon, contestlink, description FROM contest join users where hostid=userid AND heldon < CURRENT_DATE() ORDER BY heldon";
 $archived_result = mysqli_query($conn, $archived_query);
 
 while($row = mysqli_fetch_assoc($archived_result))
@@ -340,7 +384,7 @@ Contest hosted by <a href="#"><?php echo $hostname; ?></a>
 </div>
 
 <div class="contestfooter">
-<div><b>Held on:</b><?php echo $heldon;?> </div>
+<div><b>Held on : </b><?php echo $heldon;?> </div>
 
 <div id="participation">
 <?php
@@ -361,7 +405,7 @@ Contest hosted by <a href="#"><?php echo $hostname; ?></a>
 }
 ?>
 </div>
-<div style="grid-area: viewdetails"><a href="<?php echo $contestlink?>" target="_blank">View Details</a></div>
+<div style="grid-area:viewdetails;text-align:right"><a href="<?php echo $contestlink?>" target="_blank">View Details</a></div>
 </div>
 </div>
 <?php
@@ -393,8 +437,6 @@ function participate(participantID, contestID, hostID)
   });
 }
 </script>
-
-<script src="news.js" type="text/javascript"></script>
 
 </body>
 </html>
