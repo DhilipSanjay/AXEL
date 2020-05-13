@@ -1,0 +1,80 @@
+:root
+{
+    --maincolor: #76D7C4;
+}
+
+.main-container
+{
+    font-size: 16px;
+    font-weight: 600;
+    margin:20px auto;
+    width: 40%;
+    height: auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #d8dee2;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.text
+{
+    margin:0 auto;
+    text-align: center;
+}
+.progressbar
+{
+    height: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border:2px solid var(--maincolor);
+    border-radius: 5px;
+    margin:20px 0;
+    text-align: center;
+    
+}
+.btn-modify
+{
+    background: var(--maincolor) !important;
+}
+
+#secondstep
+{
+    display: none;
+}
+
+#startup_form
+{
+    display: none;
+}
+
+#general_form
+{
+    display: none;
+}
+
+#mentor_form
+{
+    display: none;
+}
+#dp-holder
+{
+    text-align: center;
+    margin:15px auto;
+}
+#dp
+{
+    width:100px;
+}
+#redirect
+{
+    font-size: 16px;
+    font-weight: 600;
+    margin:20px auto;
+    padding: 20px;
+    text-align: center;
+}
+.footer
+{
+    text-align: center;
+    margin: 15px auto;
+}
