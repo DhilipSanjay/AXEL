@@ -2,8 +2,14 @@
 
 include("dbconnect.php");
 
-$userid=$_REQUEST["userid"]; //this is the userid of the user currently logged in
-//$username="Username"; //$_REQUEST["username"] - this is the username of the user currently logged in
+if(!isset($_SESSION))
+{
+  session_start();
+}
+include("session_check.php");
+$userid=$_SESSION["userid"]; //this is the userid of the user currently logged in
+$name = $_SESSION['name'];
+$usertype = $_SESSION['usertype'];
 
 $query="select Name,usertype from users where userid=$userid";
 $result=mysqli_query($conn,$query);
@@ -24,7 +30,7 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
 <html>
 <head>
 <meta charset="utf-8"> 
-<title>Axel - Contests</title>
+<title>Contests - Axel</title>
 <!--<link rel="stylesheet" href="home.css">-->
 <link rel="stylesheet" href="common.css">
 <link rel="stylesheet" href="contests.css">
@@ -211,7 +217,7 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
     <path fill-rule="evenodd" d="M14 1H2a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V2a1 1 0 00-1-1zM2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2z" clip-rule="evenodd"/>
     <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
     </svg>My Profile</a>
-    <a href="#">
+    <a href="explore.php?userid=<?php echo $userid?>">
     <svg class="bi bi-book-half" style="margin-right:15px" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 018.5 2.5v11a.5.5 0 01-.854.354c-.843-.844-2.115-1.059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 010 13.5v-11a.5.5 0 01.276-.447L.5 2.5l-.224-.447.002-.001.004-.002.013-.006a5.017 5.017 0 01.22-.103 12.958 12.958 0 012.7-.869zM1 2.82v9.908c.846-.343 1.944-.672 3.074-.788 1.143-.118 2.387-.023 3.426.56V2.718c-1.063-.929-2.631-.956-4.09-.664A11.958 11.958 0 001 2.82z" clip-rule="evenodd"/>
   <path fill-rule="evenodd" d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 007.5 2.5v11a.5.5 0 00.854.354c.843-.844 2.115-1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0016 13.5v-11a.5.5 0 00-.276-.447L15.5 2.5l.224-.447-.002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 00-.799-.34 12.96 12.96 0 00-2.073-.609z" clip-rule="evenodd"/>
@@ -333,6 +339,17 @@ Already Participated!
 $upcoming_query = "SELECT contestid, hostid, name, DATE_FORMAT(heldon,'%d %M %Y') as heldon, contestlink, description FROM contest join users where hostid=userid AND heldon > CURRENT_DATE() ORDER BY heldon";
 $upcoming_result = mysqli_query($conn, $upcoming_query);
 
+if(mysqli_num_rows($upcoming_result)===0)
+{
+?>
+
+<div style="font-size:1.2rem;margin:15px">No Upcoming Contests!</div>
+
+<?php
+}
+
+else
+{
 while($row = mysqli_fetch_assoc($upcoming_result))
 {
   $contestid = $row['contestid'];
@@ -358,6 +375,7 @@ Contest hosted by <a href="#"><?php echo $hostname; ?></a>
 </div>
 </div>
 <?php
+}
 }
 ?>
 
