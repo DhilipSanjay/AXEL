@@ -1,9 +1,14 @@
 <?php 
 
 include("dbconnect.php");
-
-$userid=$_REQUEST["userid"]; //this is the userid of the user currently logged in
-//$username="Username"; //$_REQUEST["username"] - this is the username of the user currently logged in
+if(!isset($_SESSION))
+{
+  session_start();
+}
+include("session_check.php");
+$userid=$_SESSION["userid"]; //this is the userid of the user currently logged in
+$name = $_SESSION['name'];
+$usertype = $_SESSION['usertype'];
 
 $query="select Name,usertype from users where userid=$userid";
 $result=mysqli_query($conn,$query);
@@ -24,7 +29,7 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
 <html>
 <head>
 <meta charset="utf-8"> 
-<title>Axel - Polls</title>
+<title>Polls - Axel</title>
 <!--<link rel="stylesheet" href="home.css">-->
 <link rel="stylesheet" href="common.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 

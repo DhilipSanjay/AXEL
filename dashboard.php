@@ -1,8 +1,14 @@
 <?php 
 
 include("dbconnect.php");
-
-$userid=$_REQUEST["userid"]; //this is the userid of the user currently logged in
+if(!isset($_SESSION))
+{
+  session_start();
+}
+include("session_check.php");
+$userid=$_SESSION["userid"]; //this is the userid of the user currently logged in
+$name = $_SESSION['name'];
+$usertype = $_SESSION['usertype'];
 
 $query="select Name,usertype from users where userid=$userid";
 $result=mysqli_query($conn,$query);
@@ -23,7 +29,7 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
 <html>
 <head>
 <meta charset="utf-8"> 
-<title>Axel - Dashboard</title>
+<title>Dashboard - Axel</title>
 <link rel="stylesheet" href="home.css"> 
 <link rel="stylesheet" href="dashboard.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
@@ -346,6 +352,11 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
   <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
 </svg>Contests</a>
     <!--<div id="dummy"></div>-->
+    <div>
+    <form id="logout" action="logout.php" method ="post">
+    <button type="submit" name="logout" class="btn btn-primary">Logout</button>
+    </div>
+</form>
 </div>
 
 <?php
@@ -388,7 +399,7 @@ $temp=0;
     {
     ?>
 
-        <div id="noposts">No announcements to show!&nbsp<a href="#">Click here</a>&nbspto explore startups and mentors!</div>
+        <div id="noposts">No announcements to show!&nbsp<a href="explore.php?userid=<?php echo $userid?>">Click here</a>&nbspto explore startups and mentors!</div>
 
     <?php
     }

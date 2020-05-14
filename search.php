@@ -18,7 +18,8 @@
     if(isset($_POST["query"]))
     {
         $output = '';
-        $query = "SELECT * FROM users WHERE Name LIKE '%".$_POST["query"]."%' ";
+        $searchtext = mysqli_escape_string($conn,$_POST["query"]);
+        $query = "SELECT * FROM users WHERE Name LIKE '%$searchtext%'";
         $result = mysqli_query($conn, $query);
         if(mysqli_num_rows($result) > 0)
         {
