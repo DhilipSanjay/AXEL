@@ -130,10 +130,10 @@ $result=mysqli_query($conn,$query);
 
 <?php } ?>
 
-<div class="loadmore" onclick="openlink('announcements.php')">
-Load More
 </div>
 
+<div class="loadmore" onclick="openlink('announcements.php')">
+Load More
 </div>
 
 <div class="label">News</div>

@@ -2,14 +2,7 @@
 
 include("dbconnect.php");
 
-if(!isset($_SESSION))
-{
-  session_start();
-}
-include("session_check.php");
-$userid=$_SESSION["userid"]; //this is the userid of the user currently logged in
-$name = $_SESSION['name'];
-$usertype = $_SESSION['usertype'];
+$userid=$_REQUEST["userid"];
 
 $query="select Name,usertype from users where userid=$userid";
 $result=mysqli_query($conn,$query);
@@ -30,11 +23,9 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
 <html>
 <head>
 <meta charset="utf-8"> 
-<title>Contests - Axel</title>
+<title>Axel - News</title>
 <!--<link rel="stylesheet" href="home.css">-->
 <link rel="stylesheet" href="common.css">
-<link rel="stylesheet" href="contests.css">
-<link rel="stylesheet" href = "search.css"> 
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <link rel="icon" href="logo.png">
 <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i&display=swap" rel="stylesheet">
@@ -47,6 +38,7 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
 
+<link rel="stylesheet" href = "search.css"> 
 <script src="search.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -74,11 +66,6 @@ function opennotiholder()
   }
 }
 
-function gotodash(userid)
-{
-    window.location.href="dashboard.php?userid="+userid;
-}
-
 </script>
 </head>
 
@@ -86,6 +73,8 @@ function gotodash(userid)
 <body>
 
 <div id="overlay" onclick="closesearch()"></div>
+
+
 
 
 
@@ -168,12 +157,12 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 
 
 
-<div id="header"> <!--fixed header-->
 
+<div id="header"> <!--fixed header-->
 
 <div id="logoholder">
 <img id="logo" src="logo.png" height="42px" width="41px" alt="logo">
-<div id="title" style="cursor:pointer" onclick="gotodash(<?php echo $userid?>)">AXEL</div>
+<div id="title">AXEL</div>
 </div>
 
 <div id="otherholder">
@@ -227,7 +216,7 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
   <path fill-rule="evenodd" d="M2.678 11.894a1 1 0 01.287.801 10.97 10.97 0 01-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 01.71-.074A8.06 8.06 0 008 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 01-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 00.244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 01-2.347-.306c-.52.263-1.639.742-3.468 1.105z" clip-rule="evenodd"/>
   <path d="M5 8a1 1 0 11-2 0 1 1 0 012 0zm4 0a1 1 0 11-2 0 1 1 0 012 0zm4 0a1 1 0 11-2 0 1 1 0 012 0z"/>
 </svg>Connect</a>
-    <a href="news.php">
+    <a id="active">
     <svg class="bi bi-newspaper" style="margin-right:15px" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M0 2A1.5 1.5 0 011.5.5h11A1.5 1.5 0 0114 2v12a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 010 14V2zm1.5-.5A.5.5 0 001 2v12a.5.5 0 00.5.5h11a.5.5 0 00.5-.5V2a.5.5 0 00-.5-.5h-11z" clip-rule="evenodd"/>
   <path fill-rule="evenodd" d="M15.5 3a.5.5 0 01.5.5V14a1.5 1.5 0 01-1.5 1.5h-3v-1h3a.5.5 0 00.5-.5V3.5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
@@ -239,7 +228,7 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
   <path fill-rule="evenodd" d="M9.5 1h-3a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h3a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5zm-3-1A1.5 1.5 0 005 1.5v1A1.5 1.5 0 006.5 4h3A1.5 1.5 0 0011 2.5v-1A1.5 1.5 0 009.5 0h-3z" clip-rule="evenodd"/>
   <path d="M4 11a1 1 0 112 0v1a1 1 0 11-2 0v-1zm6-4a1 1 0 112 0v5a1 1 0 11-2 0V7zM7 9a1 1 0 012 0v3a1 1 0 11-2 0V9z"/>
 </svg>Polls</a>
-    <a id="active">
+    <a href="contests.php?userid=<?php echo $userid?>">
     <svg class="bi bi-award" style="margin-right:15px" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l-1.51-.229L8 1.126l-1.355.702-1.51.229-.684 1.365-1.086 1.072L3.614 6l-.25 1.506 1.087 1.072.684 1.365 1.51.229L8 10.874l1.356-.702 1.509-.229.684-1.365 1.086-1.072L12.387 6l.248-1.506-1.086-1.072-.684-1.365z" clip-rule="evenodd"/>
   <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
@@ -247,236 +236,39 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
     <!--<div id="dummy"></div>-->
 </div>
 
+<?php
+$query="select puserid,postid,Name, DATE_FORMAT(createdtime,'%d %M %Y | %h:%i %p') as createdtime, Announcement FROM post inner join users WHERE users.userID=post.PuserID and PuserID in (select AcceptorID from enlighten where requestorid=$userid and status='accepted') order by createdtime desc";
+$result=mysqli_query($conn,$query);
+$count=mysqli_num_rows($result);
+$temp=0;
+?>
+
+
 <div id="maindash">
-<div class="label contest_category">Active Contests</div>
 
-<hr width="100%" style="margin:20px 0px;border:none;border-bottom:0.5px solid #76D7C4">
+<!--ALL OF YOUR CODE MUST GO HERE-->
 
-<?php
-$generaluser_query = "SELECT * FROM generaluser WHERE generaluserid = " . $userid;
-$generaluser_result= mysqli_query($conn, $generaluser_query);
-
-$active_query = "SELECT contestid, hostid, name, DATE_FORMAT(heldon,'%d %M %Y') as heldon, contestlink, description FROM contest join users where hostid=userid AND heldon = CURRENT_DATE()";
-$active_result = mysqli_query($conn, $active_query);
-
-
-if(mysqli_num_rows($active_result)===0)
-{
-?>
-
-<div style="font-size:1.2rem;margin:15px">No Active Contests!</div>
-
-<?php
-}
-
-else
-{
-while($row = mysqli_fetch_assoc($active_result))
-{
-  $contestid = $row['contestid'];
-  $hostname = $row['name'];
-  $hostid = $row['hostid'];
-  $heldon = $row['heldon'];
-  $contestlink = $row['contestlink'];
-  $desc = $row['description'];
-?>
-<div class = "contest">
-
-<div class="hostedby">
-Contest hosted by <a href="#"><?php echo $hostname; ?></a>
 </div>
 
-<div class="description"> 
-<?php echo $desc;?>  
+
 </div>
-
-<div class="contestfooter">
-<div><b>Date : </b><?php echo $heldon;?> </div>
-<div id="participation">
-<?php
-  if(mysqli_num_rows($generaluser_result) === 0)
-  {
-?>
-<div style="text-align:center;color:red">Mentors/Startups can't participate!</div>
-<?php
-  }
-  else
-  {
-  $participated_query= "SELECT * FROM participant WHERE participantID = ". $userid . " AND contestid = ". $contestid . " AND hostid = ". $hostid;
-  $participated_result= mysqli_query($conn, $participated_query);
-  if(mysqli_num_rows($participated_result) === 0)
-  {
-  ?>
-  <div style="text-align:center">
-<a href="<?php echo $contestlink?>" target="_blank" onclick="participate(<?php echo $userid. ",". $contestid. ",". $hostid?>)">Participate</a> 
-  </div>
-<?php
-  }
-  else
-  {
-?>
-<div style="text-align:center">
-Already Participated!
-</div>
-<?php
-  }
-}
-?>
-</div>
-<div style="grid-area:viewdetails;text-align:right"><a href="<?php echo $contestlink?>" target="_blank">View Details</a></div>
-</div>
-</div>
-<?php
-}
-}
-?>
-
-<div class="label contest_category">Upcoming Contests</div>
-
-<hr width="100%" style="margin:20px 0px;border:none;border-bottom:0.5px solid #76D7C4">
-
-<?php
-$upcoming_query = "SELECT contestid, hostid, name, DATE_FORMAT(heldon,'%d %M %Y') as heldon, contestlink, description FROM contest join users where hostid=userid AND heldon > CURRENT_DATE() ORDER BY heldon";
-$upcoming_result = mysqli_query($conn, $upcoming_query);
-
-if(mysqli_num_rows($upcoming_result)===0)
-{
-?>
-
-<div style="font-size:1.2rem;margin:15px">No Upcoming Contests!</div>
-
-<?php
-}
-
-else
-{
-while($row = mysqli_fetch_assoc($upcoming_result))
-{
-  $contestid = $row['contestid'];
-  $hostname = $row['name'];
-  $hostid = $row['hostid'];
-  $heldon = $row['heldon'];
-  $contestlink = $row['contestlink'];
-  $desc = $row['description'];
-?>
-<div class = "contest">
-
-<div class="hostedby">
-Contest hosted by <a href="#"><?php echo $hostname; ?></a>
-</div>
-
-<div class="description"> 
-<?php echo $desc;?>  
-</div>
-
-<div class="contestfooter">
-<div><b>Starts on : </b><?php echo $heldon;?> </div>
-<div style="grid-area:viewdetails;text-align:right"><a href="<?php echo $contestlink?>" target="_blank">View Details</a></div>
-</div>
-</div>
-<?php
-}
-}
-?>
-
-<div class="label contest_category">Archived Contests</div>
-
-<hr width="100%" style="margin:20px 0px;border:none;border-bottom:0.5px solid #76D7C4">
-
-<?php
-$archived_query = "SELECT contestid, hostid, name, DATE_FORMAT(heldon,'%d %M %Y') as heldon, contestlink, description FROM contest join users where hostid=userid AND heldon < CURRENT_DATE() ORDER BY heldon";
-$archived_result = mysqli_query($conn, $archived_query);
-
-if(mysqli_num_rows($archived_result)===0)
-{
-?>
-
-<div style="font-size:1.2rem;margin:15px">No Archived Contests!</div>
-
-<?php
-}
-
-while($row = mysqli_fetch_assoc($archived_result))
-{
-  $contestid = $row['contestid'];
-  $hostname = $row['name'];
-  $hostid = $row['hostid'];
-  $heldon = $row['heldon'];
-  $contestlink = $row['contestlink'];
-  $desc = $row['description'];
-
-?>
-<div class = "contest">
-
-<div class="hostedby">
-Contest hosted by <a href="#"><?php echo $hostname; ?></a>
-</div>
-
-<div class="description"> 
-<?php echo $desc;?>  
-</div>
-
-<div class="contestfooter">
-<div><b>Held on : </b><?php echo $heldon;?> </div>
-
-<div id="participation">
-<?php
-  if(!(mysqli_num_rows($generaluser_result) === 0))
-  {
-  $participated_query= "SELECT * FROM participant WHERE participantID = ". $userid . " AND contestid = ". $contestid . " AND hostid = ". $hostid;
-  $participated_result= mysqli_query($conn, $participated_query);
-  if(mysqli_num_rows($participated_result) === 0)
-  {
-?>
-<div style="text-align:center;color:red">
-You missed this contest!
-</div>
-
-<?php
-  }
-  else
-  {
-?>
-<div style="text-align:center;color:#76D7C4">
-Hope you enjoyed this contest!
-</div>
-<?php
-  }
-}
-?>
-</div>
-<div style="grid-area:viewdetails;text-align:right"><a href="<?php echo $contestlink?>" target="_blank">View Details</a></div>
-</div>
-</div>
-<?php
-}
-?>
 
 <script type="text/javascript">
+
 var searchlistwidth = document.getElementsByClassName("searchbox")[0].clientWidth-20;
 document.getElementsByClassName("searchlist")[0].style.width=searchlistwidth+"px";
+
 
 function closesearch()
 {
     document.getElementById("overlay").style.opacity="0";
     document.getElementById("overlay").style.zIndex="-1"; 
-    $('.searchlist').css("visibility","hidden");
+    $('.searchlist').css("visibility","hidden"); 
 }
 
-function participate(participantID, contestID, hostID)
-{
-  $.ajax({
-        url: "contest_participated.php",
-        method: "POST",
-        data:{pid:participantID, cid:contestID, hid:hostID},
-        success:function(result)
-        {
-          location.reload(true);
-        }
-
-  });
-}
 </script>
+
+<script src="news.js" type="text/javascript"></script>
 
 </body>
 </html>
