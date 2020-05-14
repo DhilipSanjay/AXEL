@@ -928,7 +928,13 @@ hr
     margin:0;
     margin-top:10px;
     justify-self: center;
-    width:100%;
+    width:50%;
+}
+
+#others .new
+{
+    margin:auto;
+    margin-top:20px;
 }
 
 #others #contests .cholder .label

@@ -1,10 +1,14 @@
-<?php include("dbconnect.php") ?>
+<?php 
+
+include("dbconnect.php"); 
+
+?>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>Axel - Home</title>
+<title>Home - Axel</title>
 <link rel="stylesheet" href="home.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <link rel="icon" href="logo.png">
@@ -126,10 +130,10 @@ $result=mysqli_query($conn,$query);
 
 <?php } ?>
 
-<div class="loadmore" onclick="openlink('announcements.php')">
-Load More
 </div>
 
+<div class="loadmore" onclick="openlink('announcements.php')">
+Load More
 </div>
 
 <div class="label">News</div>
