@@ -257,6 +257,17 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 $mainquery="select pollhostid,pollid from poll order by heldon desc limit 5";
 $mainresult=mysqli_query($conn,$mainquery);
 
+if(mysqli_num_rows($mainresult)===0)
+{
+?>
+
+<div style="font-size:1.2rem;margin:50px">No Polls to show!</div>
+
+<?php  
+}
+
+else
+{
 while($row=mysqli_fetch_assoc($mainresult))
 {
 ?>
@@ -304,6 +315,7 @@ $temp=1;
 <div id="polls">
 
 <?php
+
 while($row=mysqli_fetch_assoc($result))
 {
 
@@ -401,6 +413,7 @@ Cast my vote
 
 </div>
 <?php
+}
 }
 ?>
 

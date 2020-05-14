@@ -387,6 +387,15 @@ Contest hosted by <a href="#"><?php echo $hostname; ?></a>
 $archived_query = "SELECT contestid, hostid, name, DATE_FORMAT(heldon,'%d %M %Y') as heldon, contestlink, description FROM contest join users where hostid=userid AND heldon < CURRENT_DATE() ORDER BY heldon";
 $archived_result = mysqli_query($conn, $archived_query);
 
+if(mysqli_num_rows($archived_result)===0)
+{
+?>
+
+<div style="font-size:1.2rem;margin:15px">No Archived Contests!</div>
+
+<?php
+}
+
 while($row = mysqli_fetch_assoc($archived_result))
 {
   $contestid = $row['contestid'];

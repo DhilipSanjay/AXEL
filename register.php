@@ -219,6 +219,9 @@ if(isset($_POST['Submit']))
 </div>
 <script>
 
+document.getElementById("step1").style.backgroundColor = "#76D7C4";
+document.getElementById("step1").style.color = "white";
+
 if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
     }
@@ -264,8 +267,10 @@ function validate_step1()
 }
 function loadnext()
 {
-    document.getElementById("step1").style.backgroundColor = "#76D7C4";
-    document.getElementById("step1").style.fonStyle = "italic";
+    document.getElementById("step2").style.backgroundColor = "#76D7C4";
+    document.getElementById("step2").style.color = "white";
+    document.getElementById("step1").style.backgroundColor = "white";
+    document.getElementById("step1").style.color = "black";
     document.getElementById("firststep").style.display = "none";
     document.getElementById("redirect").style.display = "none";
     document.getElementById("secondstep").style.display = "block";

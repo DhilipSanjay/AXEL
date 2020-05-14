@@ -3,6 +3,15 @@
     --maincolor: #76D7C4;
 }
 
+body
+{
+    background: url("regbg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
 .main-container
 {
     font-size: 16px;
@@ -10,7 +19,7 @@
     margin:20px auto;
     width: 40%;
     height: auto;
-    padding: 20px;
+    padding: 50px 100px;
     background-color: #fff;
     border: 1px solid #d8dee2;
     border-radius: 5px;
