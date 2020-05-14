@@ -34,7 +34,7 @@ body
 {
     height: 30px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     border:2px solid var(--maincolor);
     border-radius: 5px;
     margin:20px 0;
@@ -44,6 +44,12 @@ body
 .btn-modify
 {
     background: var(--maincolor) !important;
+}
+.header
+{
+    text-align: center;
+    font-size: 24px;
+    font-weight: 300;
 }
 
 #secondstep
@@ -65,7 +71,12 @@ body
 {
     display: none;
 }
-#dp-holder
+
+#thirdstep
+{
+    display: none;
+}
+.img-holder
 {
     text-align: center;
     margin:15px auto;
@@ -73,6 +84,10 @@ body
 #dp
 {
     width:100px;
+}
+#social
+{
+    width: 300px;
 }
 #redirect
 {

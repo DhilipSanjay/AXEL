@@ -72,7 +72,7 @@ body
                 <input type ="radio" id = "general" name="radio" value="general" required> General User
                 </clr-checkbox-wrapper>
                 <button type="submit" name="login" style="margin-top:25px;width:80%" class="btn btn-primary">Login</button>
-                <a href="register.php"  style="margin-top:15px;width:80%" class="signup">I want to create a new account!</a>
+                <a href="register.html"  style="margin-top:15px;width:80%" class="signup">I want to create a new account!</a>
             </div>
         </form>
     </div>
