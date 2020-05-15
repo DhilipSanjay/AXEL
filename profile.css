@@ -18,7 +18,6 @@
 
 #topinfo #dp
 {
-    margin-top:5px;
     width:150px;
     overflow:hidden;
     align-self:flex-start;
@@ -38,6 +37,16 @@
     font-size:1.2rem;
     height:fit-content;
     padding:0 20px;
+}
+
+#topinfo #enlightenbut
+{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin:auto;
+    margin-top:0;
+    margin-right:0;
 }
 
 .value

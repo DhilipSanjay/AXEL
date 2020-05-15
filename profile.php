@@ -16,9 +16,12 @@ $resultforusername=mysqli_fetch_assoc($result);
 $name = $resultforusername["Name"];
 $usertype = $resultforusername["usertype"];
 
+$sessionuserid = $_SESSION["userid"];
+$sessionusertype = $_SESSION["usertype"];
+
 
 //if user type is a startup then show mentor request accepted notifications in notifications box
-if($usertype==="startup")
+if($sessionusertype==="startup")
 {
 $mentornotiquery="select mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$userid and status='accepted' order by timeelapsed limit 50";
 $mentornotiresult=mysqli_query($conn,$mentornotiquery);
@@ -121,12 +124,12 @@ function checkapplaudcount(postid,count)
 
 <?php 
 
-$query="select userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
+$query="select userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$sessionuserid and status='accepted' order by timeelapsed limit 50";
 $result=mysqli_query($conn,$query);
 $count=mysqli_num_rows($result);
 
 
-if( ($usertype==="mentor"&&$count===0) || ($count===0&&$usertype==="startup"&&$mentornoticount===0) )
+if( ($sessionusertype==="mentor"&&$count===0) || ($count===0&&$sessionusertype==="startup"&&$mentornoticount===0) )
 {
 ?>
 <div id="nonoti" style="margin-top:20px">No notifications!</div>
@@ -136,7 +139,7 @@ if( ($usertype==="mentor"&&$count===0) || ($count===0&&$usertype==="startup"&&$m
 else
 {
 
-if($usertype==="startup")
+if($sessionusertype==="startup")
 {
 
 while($row=mysqli_fetch_assoc($mentornotiresult))
@@ -238,11 +241,35 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
     <svg class="bi bi-columns-gap" style="margin-right:15px" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" d="M6 1H1v3h5V1zM1 0a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1v-3a1 1 0 00-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V8a1 1 0 00-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1h-5z" clip-rule="evenodd"/>
     </svg>Dashboard</a>
-    <a id="active">
+
+
+
+    
+<?php if($userid===$_SESSION["userid"]) //profile of logged in user
+{
+?>
+ <a id="active">
     <svg class="bi bi-person-square" style="margin-right:15px"  width="1em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" d="M14 1H2a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V2a1 1 0 00-1-1zM2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2z" clip-rule="evenodd"/>
     <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
     </svg>My Profile</a>
+
+<?php
+}
+
+else
+{
+?>
+
+<a href="<?php echo "profile.php?userid=".$_SESSION["userid"] ?>">
+    <svg class="bi bi-person-square" style="margin-right:15px"  width="1em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M14 1H2a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V2a1 1 0 00-1-1zM2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2z" clip-rule="evenodd"/>
+    <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+    </svg>My Profile</a>
+
+
+<?php } ?>
+
     <a href="explore.php">
     <svg class="bi bi-book-half" style="margin-right:15px" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 018.5 2.5v11a.5.5 0 01-.854.354c-.843-.844-2.115-1.059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 010 13.5v-11a.5.5 0 01.276-.447L.5 2.5l-.224-.447.002-.001.004-.002.013-.006a5.017 5.017 0 01.22-.103 12.958 12.958 0 012.7-.869zM1 2.82v9.908c.846-.343 1.944-.672 3.074-.788 1.143-.118 2.387-.023 3.426.56V2.718c-1.063-.929-2.631-.956-4.09-.664A11.958 11.958 0 001 2.82z" clip-rule="evenodd"/>
@@ -298,6 +325,12 @@ $query1 = "select dp,name,location,founder,field,phoneno from users inner join s
 $ex1 = mysqli_query($conn,$query1);
 $res1 = mysqli_fetch_assoc($ex1);
 
+
+$isenlightenedquery = "select count(acceptorid) as count from enlighten where requestorid=$sessionuserid and acceptorid=$userid and status='accepted'";
+$exquery = mysqli_query($conn,$isenlightenedquery);
+$exres = mysqli_fetch_assoc($exquery);
+
+$isenlightened=$exres["count"];
 ?>
 
 
@@ -316,13 +349,21 @@ $res1 = mysqli_fetch_assoc($ex1);
 <p>Field - <span class="value"><?php echo $res1["field"] ?></span></p>
 </div>
 
+<?php if($userid!==$_SESSION["userid"]&&$isenlightened!=1) //not profile of logged in user and not already enlightened
+{?>
+<div id="enlightenbut">
+    <img src="eng.png" height="35px" alt="enlighten">
+    <p>Enlighten</p>
+</div>
+
+<?php } ?>
 </div>
 
 <?php if($userid===$_SESSION["userid"]) //profile of logged in user
 {?>
 <div id="select">
 <div id="s1" onclick="toggle(1)">Profile</div>
-<div id="s2" onclick="toggle(2)">Announcements</div>
+<div id="s2" onclick="toggle(2)">My Announcements</div>
 </div>
 
 <?php } ?>
@@ -426,7 +467,189 @@ $ex = mysqli_query($conn,$query);
 
 else if($usertype==="mentor")
 {
+    $query1 = "select dp,name,location,field,phoneno from users inner join mentor where userid=mentorid and userid=$userid";
+    $ex1 = mysqli_query($conn,$query1);
+    $res1 = mysqli_fetch_assoc($ex1);
+
+    $isenlightenedquery = "select count(acceptorid) as count from enlighten where requestorid=$sessionuserid and acceptorid=$userid and status='accepted'";
+    $exquery = mysqli_query($conn,$isenlightenedquery);
+    $exres = mysqli_fetch_assoc($exquery);
+
+    $isenlightened=$exres["count"];
+    
+    $ismentorquery = "select count(mentorid) as count from mentorship where startupid=$sessionuserid and mentorid=$userid and status='accepted'";
+    $menquery = mysqli_query($conn,$ismentorquery);
+    $menres = mysqli_fetch_assoc($menquery);
+
+    $ismentor=$menres["count"];
 ?>
+    
+    
+    <div id=topinfo>
+    
+    <div id="dp">
+    <img src="<?php echo $res1["dp"] ?>" style="object-fit:cover">
+    </div>
+    
+    
+    <div id="maindetails">
+    <p><span class="value" style="font-size:2em"><?php echo $res1["name"] ?></span></p>
+    <p style="color:#ccc;font-style:italic;margin-bottom:30px">Mentor</p>
+    <p>Location - <span class="value"><?php echo $res1["location"] ?></span></p>
+    <p>Field - <span class="value"><?php echo $res1["field"] ?></span></p>
+    </div>
+
+    <?php if($userid!==$_SESSION["userid"]) //not profile of logged in user
+    {
+    ?>
+    <div id="enlightenbut">
+    <?php if($isenlightened!=1){?>
+
+    <img src="eng.png" height="35px" alt="enlighten">
+    <p>Enlighten</p>
+
+    <?php } 
+    
+    if($ismentor!=1&&$_SESSION["usertype"]!=="general"){
+    ?>
+
+    <svg class="bi bi-person-plus-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 100-6 3 3 0 000 6zm7.5-3a.5.5 0 01.5.5v2a.5.5 0 01-.5.5h-2a.5.5 0 010-1H13V5.5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+     <path fill-rule="evenodd" d="M13 7.5a.5.5 0 01.5-.5h2a.5.5 0 010 1H14v1.5a.5.5 0 01-1 0v-2z" clip-rule="evenodd"/>
+    </svg>
+    <p>Request</p>
+
+    <?php }?>
+    </div>
+    <?php
+    } 
+    ?>
+
+    </div>
+    
+    
+    <?php if($userid===$_SESSION["userid"]) //profile of logged in user
+    {?>
+    <div id="select">
+    <div id="s1" onclick="toggle(1)">Profile</div>
+    <div id="s2" onclick="toggle(2)">My Announcements</div>
+    </div>
+    
+    <?php } ?>
+    
+    
+    <div id="otherinfo">
+    
+    <?php
+    $query ="select qualification from mentorqual where mentorid=$userid";
+    $ex = mysqli_query($conn,$query);
+    ?>
+    
+    <div class="contents">
+    <p style="font-size:1.5rem;color:#76D7C4">Qualification</p>
+    <hr width="100%" style="margin:20px 0px;border:none;border-bottom:0.5px solid #76D7C4">
+    
+    <div id="membergrid">
+    
+    <?php while($res = mysqli_fetch_assoc($ex))
+    {?>
+    
+    <div class="member">
+    <p><span class="value" style="color:black"><?php echo $res["qualification"] ?></span></p>
+    </div>
+    
+    <?php } ?>
+    
+    </div>
+    
+    </div>
+    
+    
+    <?php
+    $query ="select links from userlinks where userid=$userid";
+    $ex = mysqli_query($conn,$query);
+    ?>
+    
+    
+    <div class="contents">
+    <p style="font-size:1.5rem;color:#76D7C4">Connect</p>
+    <hr width="100%" style="margin:20px 0px;border:none;border-bottom:0.5px solid #76D7C4">
+    
+    <div id="contactgrid">
+    
+    <div class="contact">
+    <p>Phone number - <span class="value"><?php echo $res1["phoneno"] ?></span></p>
+    </div>
+    
+    <?php
+    
+    while($res = mysqli_fetch_assoc($ex))
+    {
+    ?>
+    
+    <div class="contact">
+    <p><a href="<?php echo $res["links"] ?>" style="color: #76D7C4"><?php echo $res["links"] ?></a></p>
+    </div>
+    
+    <?php } ?>
+    
+    </div>
+    
+    </div>
+    
+    
+    <?php
+    $query = "select name,field from mentorship inner join users inner join startup where startup.startupid=mentorship.startupid and userid=startup.startupid and mentorid=$userid";
+    $ex = mysqli_query($conn,$query);
+    ?>
+    
+    <div class="contents">
+    <p style="font-size:1.5rem;color:#76D7C4">Startups mentoring</p>
+    <hr width="100%" style="margin:20px 0px;border:none;border-bottom:0.5px solid #76D7C4">
+    
+    <div id="membergrid">
+    
+    <?php while($res = mysqli_fetch_assoc($ex))
+    {?>
+    
+    <div class="member">
+    <p>Name - <span class="value"><?php echo $res["name"] ?></span></p>
+    <p>Field - <span class="value"><?php echo $res["field"] ?></span></p>
+    </div>
+    
+    <?php } ?>
+    
+    </div>
+    
+    </div>
+    
+    
+    
+    
+    
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -446,7 +669,75 @@ else if($usertype==="mentor")
 
 else
 {
+
+    $query1 = "select dp,name,designation,location,phoneno from users inner join generaluser where userid=generaluserid and userid=$userid";
+    $ex1 = mysqli_query($conn,$query1);
+    $res1 = mysqli_fetch_assoc($ex1);
+    
 ?>
+    
+    
+    <div id=topinfo>
+    
+    <div id="dp">
+    <img src="<?php echo $res1["dp"] ?>" style="object-fit:cover">
+    </div>
+    
+    
+    <div id="maindetails">
+    <p><span class="value" style="font-size:2em"><?php echo $res1["name"] ?></span></p>
+    <p style="color:#ccc;font-style:italic;margin-bottom:30px">General User</p>
+    <p>Location - <span class="value"><?php echo $res1["location"] ?></span></p>
+    <p>Designation - <span class="value"><?php echo $res1["designation"] ?></span></p>
+    </div>
+    
+    </div>
+    
+    
+    <div id="otherinfo">
+    
+    <?php
+    $query ="select links from userlinks where userid=$userid";
+    $ex = mysqli_query($conn,$query);
+    ?>
+    
+    
+    <div class="contents">
+    <p style="font-size:1.5rem;color:#76D7C4">Connect</p>
+    <hr width="100%" style="margin:20px 0px;border:none;border-bottom:0.5px solid #76D7C4">
+    
+    <div id="contactgrid">
+    
+    <div class="contact">
+    <p>Phone number - <span class="value"><?php echo $res1["phoneno"] ?></span></p>
+    </div>
+    
+    <?php
+    
+    while($res = mysqli_fetch_assoc($ex))
+    {
+    ?>
+    
+    <div class="contact">
+    <p><a href="<?php echo $res["links"] ?>" style="color: #76D7C4"><?php echo $res["links"] ?></a></p>
+    </div>
+    
+    <?php } ?>
+    
+    </div>
+    
+    </div>
+    
+    
+    </div>
+    
+    </div>
+    
+    
+    
+    
+    
+    </div>
 
 
 
@@ -472,7 +763,7 @@ else
 <?php 
 
 $anquery ="select puserid,postid,Name, DATE_FORMAT(createdtime,'%d %M %Y | %h:%i %p') as createdtime,
- Announcement FROM post inner join users WHERE users.userID=post.puserid and userid=$userid";
+ Announcement FROM post inner join users WHERE users.userID=post.puserid and userid=$userid order by createdtime desc";
 
 $anex = mysqli_query($conn,$anquery);
 $temp=0;
@@ -482,7 +773,7 @@ if($count===0)
 {
 ?>
 
-    <div id="noposts">No announcements made yet!</div>
+    <div style="text-align:center;width:100%;font-size:1.2rem;margin-top:15px">No announcements made yet!</div>
 
 <?php
 }

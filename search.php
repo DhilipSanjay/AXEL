@@ -25,8 +25,9 @@
         {
             while($row = mysqli_fetch_array($result))
             {
+                $userid = $row["userID"];
                 $username = $row["Name"];
-                $output .= '<div class="searchlistitem" onclick= "selectuser(\''.$username.'\')">'; 
+                $output .= '<div class="searchlistitem" onclick= "selectuser(\''.$userid.'\')">'; 
                 /*$output .= '<img class="DP" src= "'.$row["DP"] . '" alt="defaultimgholder.png">';*/
                 $output .= '<img class="DP" src= "'."avatar.png". '" alt="defaultimgholder.png">';
                 $output .= '<span class="profile"><div class = "uname">' .$username.'</div>';

@@ -39,11 +39,12 @@ $(document).ready(function()
     });    
 });
 
-function selectuser(username)
+function selectuser(userid)
     {
-        $('#searchtext').val(username);
-        /*$('.searchlist').fadeOut();*/
+        /*$('#searchtext').val(username);
         $('.searchlist').css("visibility","hidden");
         $('#overlay').css("opacity","0");
-        $('#overlay').css("z-index","-1");
+        $('#overlay').css("z-index","-1");*/
+
+        window.location.href="profile.php?userid="+userid;
     }
