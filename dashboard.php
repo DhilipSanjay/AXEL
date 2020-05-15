@@ -147,6 +147,10 @@ $(function() {
 <div id="overlay" onclick="closesearch()"></div>
 <div id="overlay" class="fortopbuttons"></div>
 
+<?php if($usertype!=="general") //only startups and mentors can use these features
+{
+?>
+
 <div id="createnewannouncementbox">
       <div id="title">Create a new Announcement</div>
 
@@ -186,6 +190,7 @@ $(function() {
 </div>
 
 
+<?php } ?>
 
 
 <div id="notiholder">
