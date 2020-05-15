@@ -339,7 +339,7 @@ if($temp==1)
 ?>
 
 <div class="createdby">
-Poll hosted by <a href="#"><?php echo $row["hostname"]?></a> on <i><?php echo $row["heldon"] ?></i>
+Poll hosted by <a href="profile.php?userid=<?php echo $pollhostid?>"><?php echo $row["hostname"]?></a> on <i><?php echo $row["heldon"] ?></i>
 </div>
 
 <?php
