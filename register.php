@@ -18,28 +18,29 @@ if(isset($_POST['Submit']))
         
         if(mysqli_stmt_execute($stmt))
         {
-            //echo "Inserted successfully";
+            echo "Inserted successfully";
             //Fetching userid
             $userid_query = "SELECT userid FROM users WHERE email = '$email'";
             $userid_result = mysqli_query($conn, $userid_query);
             $info = mysqli_fetch_array($userid_result, MYSQLI_ASSOC);
             $userid = $info['userid'];  
 
-            if($usertype === "startup")
+            if($usertype === "startup") //For startup 
             {   
                 $founder= mysqli_real_escape_string($conn, $_POST['founder']);
                 $field = mysqli_real_escape_string($conn, $_POST['startup_field']);
-
+                //inserting into startup table
                 $startup_insert = "INSERT INTO startup VALUES ($userid, '$founder', '$field')";
                 if(mysqli_query($conn, $startup_insert))
                 {
-                    //echo "Startup inserted successfully";
+                    echo "Startup inserted successfully";
                 }
                 else
                 {
                     echo "Error: Could not execute the query: " . mysqli_error($conn);
                 }
-
+                
+                //inserting the members of startup
                 $member_count = 1;
                 $member_insert = "";
                 $member = "";
@@ -99,10 +100,10 @@ if(isset($_POST['Submit']))
                     }
                 }
             }
-            else if($usertype === "mentor")
+            else if($usertype === "mentor") //For mentor
             {
                 $field = mysqli_real_escape_string($conn, $_POST['field']);
-                                
+                //inserting into mentor table               
                 $mentor_insert = "INSERT INTO mentor VALUES ($userid, '$field')";
                 if(mysqli_query($conn, $mentor_insert))
                 {
@@ -112,7 +113,7 @@ if(isset($_POST['Submit']))
                 {
                     echo "Error: Could not execute the query: " . mysqli_error($conn);
                 }
-
+                //inserting mentor qualifications
                 $qual_count = 1;
                 $qual_insert = "";
                 $qual = "";
@@ -128,7 +129,7 @@ if(isset($_POST['Submit']))
                     $qual = "";
                     if(isset($_POST['qualification'.$qual_count.'']))
                     {
-                        $qual = mysqli_real_escape_string($conn,$_POST['qual'.$qual_count.'']);
+                        $qual = mysqli_real_escape_string($conn,$_POST['qualification'.$qual_count.'']);
                     }
                     if($qual === '')
                     {
@@ -154,7 +155,7 @@ if(isset($_POST['Submit']))
                 {
                     if(mysqli_multi_query($conn, $qual_insert))
                     {
-                        echo "Qualifications  inserted successfully";
+                        echo "Qualifications inserted successfully";
                     }
                     else
                     {
@@ -162,19 +163,21 @@ if(isset($_POST['Submit']))
                     }
                 }
             }
-            else if ($usertype === "general")
+            else if ($usertype === "general") //For general user
             {   
                 $designation = mysqli_real_escape_string($conn, $_POST['designation']);
                 $general_insert = "INSERT INTO generaluser VALUES ($userid, '$designation')";
+                //inserting into generaluser
                 if(mysqli_query($conn, $general_insert))
                 {
-                    //echo "General user inserted successfully";
+                    echo "General user inserted successfully";
                 }
                 else
                 {
                     echo "Error: Could not execute the query: " . mysqli_error($conn);
                 }
             }
+            //inserting user links
             $link_count = 1;
             $link_insert = "";
             $link = "";
@@ -223,7 +226,7 @@ if(isset($_POST['Submit']))
                     echo "Error: Could not execute the query: " . mysqli_error($conn);
                 }
             }
-            
+            //Session creation
             session_start();
             $_SESSION['userid'] = $userid;
             $_SESSION['name'] = $name;       
