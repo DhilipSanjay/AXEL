@@ -40,8 +40,12 @@ function validate_step1()
 }
 function loadsecond()
 {
-    document.getElementById("step1").style.backgroundColor = "#76D7C4";
-    document.getElementById("step1").style.fonStyle = "italic";
+    document.getElementById("step2").style.backgroundColor = "#76D7C4";
+    document.getElementById("step2").style.color = "white";
+
+    document.getElementById("step1").style.backgroundColor = "white";
+    document.getElementById("step1").style.color = "black";
+
     document.getElementById("firststep").style.display = "none";
     document.getElementById("redirect").style.display = "none";
     document.getElementById("secondstep").style.display = "block";
@@ -99,8 +103,12 @@ function checkSpecific()
 }
 function loadthird()
 {
-    document.getElementById("step2").style.backgroundColor = "#76D7C4";
-    document.getElementById("step2").style.fonStyle = "italic";
+    document.getElementById("step3").style.backgroundColor = "#76D7C4";
+    document.getElementById("step3").style.color = "white";
+
+    document.getElementById("step2").style.backgroundColor = "white";
+    document.getElementById("step2").style.color = "black";
+
     document.getElementById("secondstep").style.display = "none";
     document.getElementById("thirdstep").style.display = "block";
     //document.getElementById("secondstep").innerHTML = "Your account has been successfully created!";
