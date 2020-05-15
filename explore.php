@@ -1,22 +1,17 @@
 <?php 
 
-include("dbconnect.php");
 if(!isset($_SESSION))
 {
   session_start();
 }
+include("dbconnect.php");
 include("session_check.php");
 $userid=$_SESSION["userid"]; //this is the userid of the user currently logged in
 $name = $_SESSION['name'];
 $usertype = $_SESSION['usertype'];
 
-$query="select Name,usertype from users where userid=$userid";
-$result=mysqli_query($conn,$query);
-$resultforusername=mysqli_fetch_assoc($result);
-
-
 //if user type is a startup then show mentor request accepted notifications in notifications box
-if($resultforusername["usertype"]==="startup")
+if($usertype==="startup")
 {
 $mentornotiquery="select mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$userid and status='accepted' order by timeelapsed limit 50";
 $mentornotiresult=mysqli_query($conn,$mentornotiquery);
@@ -93,9 +88,9 @@ $result=mysqli_query($conn,$query);
 $count=mysqli_num_rows($result);
 
 
-//echo $resultforusername["usertype"].",".$count.",".$mentornoticount;
+//echo $usertype.",".$count.",".$mentornoticount;
 
-if( ($resultforusername["usertype"]==="mentor"&&$count===0) || ($count===0&&$resultforusername["usertype"]==="startup"&&$mentornoticount===0) )
+if( ($usertype==="mentor"&&$count===0) || ($count===0&&$usertype==="startup"&&$mentornoticount===0) )
 {
 ?>
 <div id="nonoti" style="margin-top:20px">No notifications!</div>
@@ -105,7 +100,7 @@ if( ($resultforusername["usertype"]==="mentor"&&$count===0) || ($count===0&&$res
 else
 {
 
-if($resultforusername["usertype"]==="startup")
+if($usertype==="startup")
 {
 
 while($row=mysqli_fetch_assoc($mentornotiresult))
@@ -200,11 +195,11 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 
 <div id="sidenavbar">
     <!--<div id="dummy"></div>-->
-    <a href="dashboard.php?userid=<?php echo $userid ?>">
+    <a href="dashboard.php">
     <svg class="bi bi-columns-gap" style="margin-right:15px" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" d="M6 1H1v3h5V1zM1 0a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 00-1 1v3a1 1 0 001 1h5a1 1 0 001-1v-3a1 1 0 00-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V8a1 1 0 00-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 00-1 1v7a1 1 0 001 1h5a1 1 0 001-1V1a1 1 0 00-1-1h-5z" clip-rule="evenodd"/>
     </svg>Dashboard</a>
-    <a href="#">
+    <a href="profile.php?userid=<?php echo $userid?>">
     <svg class="bi bi-person-square" style="margin-right:15px"  width="1em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" d="M14 1H2a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V2a1 1 0 00-1-1zM2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2z" clip-rule="evenodd"/>
     <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
@@ -225,13 +220,13 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
   <path fill-rule="evenodd" d="M15.5 3a.5.5 0 01.5.5V14a1.5 1.5 0 01-1.5 1.5h-3v-1h3a.5.5 0 00.5-.5V3.5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
   <path d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z"/>
 </svg>News</a>
-    <a href="polls.php?userid=<?php echo $userid?>">
+    <a href="polls.php">
     <svg class="bi bi-clipboard-data" style="margin-right:15px" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M4 1.5H3a2 2 0 00-2 2V14a2 2 0 002 2h10a2 2 0 002-2V3.5a2 2 0 00-2-2h-1v1h1a1 1 0 011 1V14a1 1 0 01-1 1H3a1 1 0 01-1-1V3.5a1 1 0 011-1h1v-1z" clip-rule="evenodd"/>
   <path fill-rule="evenodd" d="M9.5 1h-3a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h3a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5zm-3-1A1.5 1.5 0 005 1.5v1A1.5 1.5 0 006.5 4h3A1.5 1.5 0 0011 2.5v-1A1.5 1.5 0 009.5 0h-3z" clip-rule="evenodd"/>
   <path d="M4 11a1 1 0 112 0v1a1 1 0 11-2 0v-1zm6-4a1 1 0 112 0v5a1 1 0 11-2 0V7zM7 9a1 1 0 012 0v3a1 1 0 11-2 0V9z"/>
 </svg>Polls</a>
-    <a href="contests.php?userid=<?php echo $userid?>">
+    <a href="contests.php">
     <svg class="bi bi-award" style="margin-right:15px" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l-1.51-.229L8 1.126l-1.355.702-1.51.229-.684 1.365-1.086 1.072L3.614 6l-.25 1.506 1.087 1.072.684 1.365 1.51.229L8 10.874l1.356-.702 1.509-.229.684-1.365 1.086-1.072L12.387 6l.248-1.506-1.086-1.072-.684-1.365z" clip-rule="evenodd"/>
   <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
