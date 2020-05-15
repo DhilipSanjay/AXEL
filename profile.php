@@ -59,6 +59,21 @@ html
 {
   overflow-y: scroll;
 }
+
+#logout
+{
+    cursor:pointer;
+    background-color:#35A18C;
+    color:white;
+    border:none;
+    font-size:1.2rem;
+    text-align:center;
+    position:fixed;
+    bottom:0;
+    width:22.5%;
+    padding:10px 0;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -306,10 +321,7 @@ else
   <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
 </svg>Contests</a>
     <!--<div id="dummy"></div>-->
-    <div>
-    <form id="logout" action="logout.php" method ="post">
-    <button type="submit" name="logout" class="btn btn-primary">Logout</button>
-    </div>
+    <div id="logout" onclick="logout()">Logout</div>
 </form>
 </div>
 
@@ -914,6 +926,11 @@ function closesearch()
     reqboxopen=0;
     /*$('.searchlist').fadeOut();*/
     $('.searchlist').css("visibility","hidden"); 
+}
+
+function logout() {
+
+  window.location.href="logout.php";
 }
 
 </script>
