@@ -70,6 +70,19 @@ $temp=1;
 
 <div class="label pollstitle">Poll of the day</div>
 
+<?php if(mysqli_num_rows($result)===0)
+{
+?>
+
+<div style="font-size:1.2rem;margin-top:30px">No polls to show! </div>
+
+<?php
+}
+
+else
+{
+?>
+
 <div id="polls">
 
 <?php
@@ -108,6 +121,8 @@ Want to cast your opinion in the poll?&nbsp<a href="login.php">Sign in</a>&nbspn
 </div>
 
 <?php
+}
+
 $query="SELECT Name, DATE_FORMAT(createdtime,'%d %M %Y') as newcreatedtime, Announcement FROM post inner join users WHERE users.userID=post.PuserID ORDER BY createdtime DESC LIMIT 4";
 $result=mysqli_query($conn,$query);
 ?>

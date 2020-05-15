@@ -1,0 +1,117 @@
+#holder
+{
+    width:100%;
+    display:none;
+    margin-top:20px;
+}
+
+#topinfo
+{
+    margin-top:25px;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content: flex-start;
+    height:fit-content;
+}
+
+
+#topinfo #dp
+{
+    border-radius:50%;
+    width:150px;
+    overflow:hidden;
+    align-self:flex-start;
+    height:150px;
+}
+
+#topinfo #dp img
+{
+    height:150px;
+}
+
+#topinfo #maindetails
+{
+    text-align: left;
+    display:block;
+    line-height: 10px;
+    font-size:1.2rem;
+    height:fit-content;
+    padding:0 20px;
+}
+
+#topinfo #enlightenbut
+{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin:auto;
+    margin-top:0;
+    margin-right:0;
+}
+
+.value
+{
+    color:#76D7C4;
+}
+
+#select
+{
+    font-size:1.2rem;
+    width:100%;
+    height:fit-content;
+    margin-top:20px;
+    display:flex;
+}
+
+#select #s1,#select #s2
+{
+    text-align:center;
+    width:50%;
+    padding:10px 0;
+    cursor:pointer;
+}
+
+#select #s1
+{
+    border-bottom:2px solid #76D7C4;
+}
+
+#otherinfo
+{
+    font-size:1.2rem;
+    width:100%;
+    height:fit-content;
+    margin-top:20px;
+    padding:15px 0;
+}
+
+#membergrid
+{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#membergrid .member,#contactgrid .contact
+{
+    text-align:center;
+    font-family:'Roboto',sans-serif;
+    font-size:1.1rem;
+    height:fit-content;
+    margin:2px;
+    padding:10px 0;
+    -webkit-box-shadow: 0 3px 8px -2px #c0c0c0;
+    -moz-box-shadow: 0 3px 8px -2px #c0c0c0;
+    box-shadow: 0 3px 8px -2px #c0c0c0;
+}
+
+#otherinfo .contents
+{
+    margin-top:35px;
+}
+
+#contactgrid
+{
+    display:grid;
+    grid-template-columns: 1fr;
+}
