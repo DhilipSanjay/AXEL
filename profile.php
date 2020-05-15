@@ -23,7 +23,7 @@ $sessionusertype = $_SESSION["usertype"];
 //if user type is a startup then show mentor request accepted notifications in notifications box
 if($sessionusertype==="startup")
 {
-$mentornotiquery="select mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$userid and status='accepted' order by timeelapsed limit 50";
+$mentornotiquery="select mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$sessionuserid and status='accepted' order by timeelapsed limit 50";
 $mentornotiresult=mysqli_query($conn,$mentornotiquery);
 $mentornoticount=mysqli_num_rows($mentornotiresult);
 }
@@ -51,7 +51,15 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
 
 <link rel="stylesheet" href = "search.css"> 
 <script src="search.js" type="text/javascript"></script>
+<script src="profile.js" type="text/javascript"></script>
 </head>
+
+<style>
+html
+{
+  overflow-y: scroll;
+}
+</style>
 
 <script type="text/javascript">
 
@@ -352,8 +360,10 @@ $isenlightened=$exres["count"];
 <?php if($userid!==$_SESSION["userid"]&&$isenlightened!=1) //not profile of logged in user and not already enlightened
 {?>
 <div id="enlightenbut">
+<div style="display:flex;flex-direction:column;align-items:center;cursor:pointer" onclick="enlreq(<?php echo $sessionuserid.','.$userid ?>)">
     <img src="eng.png" height="35px" alt="enlighten">
     <p>Enlighten</p>
+      </div>
 </div>
 
 <?php } ?>
@@ -439,6 +449,15 @@ $ex = mysqli_query($conn,$query);
 <p style="font-size:1.5rem;color:#76D7C4">Mentors</p>
 <hr width="100%" style="margin:20px 0px;border:none;border-bottom:0.5px solid #76D7C4">
 
+  <?php if(mysqli_num_rows($ex)===0)
+    {
+    ?>
+    No mentors have been assigned yet!
+    <?php
+    }
+    ?>
+
+
 <div id="membergrid">
 
 <?php while($res = mysqli_fetch_assoc($ex))
@@ -502,22 +521,26 @@ else if($usertype==="mentor")
     <?php if($userid!==$_SESSION["userid"]) //not profile of logged in user
     {
     ?>
+
     <div id="enlightenbut">
     <?php if($isenlightened!=1){?>
-
+      <div style="display:flex;flex-direction:column;align-items:center;cursor:pointer" onclick="enlreq(<?php echo $sessionuserid.','.$userid ?>)">
     <img src="eng.png" height="35px" alt="enlighten">
     <p>Enlighten</p>
+      </div>
 
     <?php } 
     
     if($ismentor!=1&&$_SESSION["usertype"]!=="general"){
     ?>
 
+    <div style="display:flex;flex-direction:column;align-items:center;cursor:pointer;margin-top:5px" onclick="mentorreq(<?php echo $sessionuserid.','.$userid ?>)">
     <svg class="bi bi-person-plus-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 100-6 3 3 0 000 6zm7.5-3a.5.5 0 01.5.5v2a.5.5 0 01-.5.5h-2a.5.5 0 010-1H13V5.5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
      <path fill-rule="evenodd" d="M13 7.5a.5.5 0 01.5-.5h2a.5.5 0 010 1H14v1.5a.5.5 0 01-1 0v-2z" clip-rule="evenodd"/>
     </svg>
     <p>Request</p>
+    </div>
 
     <?php }?>
     </div>
@@ -606,7 +629,15 @@ else if($usertype==="mentor")
     <div class="contents">
     <p style="font-size:1.5rem;color:#76D7C4">Startups mentoring</p>
     <hr width="100%" style="margin:20px 0px;border:none;border-bottom:0.5px solid #76D7C4">
-    
+
+    <?php if(mysqli_num_rows($ex)===0)
+    {
+    ?>
+    No startups being mentored yet!
+    <?php
+    }
+    ?>
+
     <div id="membergrid">
     
     <?php while($res = mysqli_fetch_assoc($ex))
@@ -886,8 +917,6 @@ function closesearch()
 }
 
 </script>
-
-<script src="profile.js" type="text/javascript"></script>
 
 </body>
 </html>

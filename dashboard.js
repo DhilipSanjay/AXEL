@@ -7,7 +7,7 @@ var createdann=0; //for now no announcement created
 var newannbox=0;
 var newcontestbox=0;
 
-function opennewcontestbox(userid)
+function opennewcontestbox()
 {
   if(newcontestbox===0)
   {

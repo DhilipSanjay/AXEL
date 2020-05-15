@@ -186,7 +186,7 @@ $(function() {
       </div>
 
       <div id="hostcontest" onclick="hostcontest(<?php echo $userid ?>)">Host contest</div>
-      <div id="close" onclick="opennewcontestbox(<?php echo $userid ?>)">Close</div>
+      <div id="close" onclick="opennewcontestbox()">Close</div>
 </div>
 
 
