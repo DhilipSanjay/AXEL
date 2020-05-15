@@ -15,7 +15,7 @@ if($reqtype==="enlighten")
     $ex1 = mysqli_query($conn,$checkquery);
     $res1 = mysqli_fetch_assoc($ex1);
 
-    if(mysqli_num_rows($ex1)===0&&$res1["status"]!=="accepted") //there is no request already given
+    if(mysqli_num_rows($ex1)===0) //there is no request already given
     {
         $insertq = "insert into enlighten(requestorid,acceptorid,status) values ($reqid,$accid,'pending')";
         $exec = mysqli_query($conn,$insertq);
@@ -46,7 +46,7 @@ else
     $ex1 = mysqli_query($conn,$checkquery);
     $res1 = mysqli_fetch_assoc($ex1);
 
-    if(mysqli_num_rows($ex1)===0&&$res1["status"]!=="accepted") //there is no request already given
+    if(mysqli_num_rows($ex1)===0) //there is no request already given
     {
         $insertq = "insert into mentorship(mentorid,startupid,status) values ($mid,$sid,'pending')";
         $exec = mysqli_query($conn,$insertq);

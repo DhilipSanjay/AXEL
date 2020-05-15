@@ -49,6 +49,24 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
 
 <script src="search.js" type="text/javascript"></script>
 
+<style>
+
+#logout
+{
+    cursor:pointer;
+    background-color:#35A18C;
+    color:white;
+    border:none;
+    font-size:1.2rem;
+    text-align:center;
+    position:fixed;
+    bottom:0;
+    width:22.5%;
+    padding:10px 0;
+}
+
+</style>
+
 <script type="text/javascript">
 
 var reqboxopen=0;
@@ -245,6 +263,7 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
   <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
 </svg>Contests</a>
     <!--<div id="dummy"></div>-->
+    <div id="logout" onclick="logout()">Logout</div>
 </div>
 
 <div id="maindash">
@@ -476,6 +495,12 @@ function participate(participantID, contestID, hostID)
 
   });
 }
+
+function logout() {
+
+window.location.href="logout.php";
+}
+
 </script>
 
 </body>
