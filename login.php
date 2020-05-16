@@ -37,14 +37,9 @@ if(isset($_POST["login"]))
 <link rel="stylesheet" href="https://unpkg.com/@clr/ui/clr-ui.min.css" />
 <link rel="stylesheet" href="https://unpkg.com/@clr/ui@0.12.5/clr-ui.min.css" />
 </head>
-<style>
-body
-{
-    overflow-y:hidden;
-}
-</style>
+
 <body>
-    <div class="login-wrapper">
+    <div class="login-wrapper" style="background:url('regbg.jpg');background-position:center;background-attachment:fixed;background-repeat: no-repeat;background-size: cover">
         <form class="login" action="" method="post">
             <section class="title">
                 <h1 class="welcome">Login</h1>
@@ -71,7 +66,7 @@ body
                 <br>
                 <input type ="radio" id = "general" name="radio" value="general" required> General User
                 </clr-checkbox-wrapper>
-                <button type="submit" name="login" style="margin-top:25px;width:80%" class="btn btn-primary">Login</button>
+                <button type="submit" name="login" style="margin-top:25px;width:80%;border:none" class="btn btn-primary">Login</button>
                 <a href="register.html"  style="margin-top:15px;width:80%" class="signup">I want to create a new account!</a>
             </div>
         </form>
