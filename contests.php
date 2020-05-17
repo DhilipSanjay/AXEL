@@ -302,7 +302,7 @@ while($row = mysqli_fetch_assoc($active_result))
 <div class = "contest">
 
 <div class="hostedby">
-Contest hosted by <a href="#"><?php echo $hostname; ?></a>
+Contest hosted by <a href="profile.php?userid= <?php echo $hostid ?>"><?php echo $hostname; ?></a>
 </div>
 
 <div class="description"> 
@@ -381,7 +381,7 @@ while($row = mysqli_fetch_assoc($upcoming_result))
 <div class = "contest">
 
 <div class="hostedby">
-Contest hosted by <a href="#"><?php echo $hostname; ?></a>
+Contest hosted by <a href="profile.php?userid= <?php echo $hostid ?>"><?php echo $hostname; ?></a>
 </div>
 
 <div class="description"> 
@@ -428,7 +428,7 @@ while($row = mysqli_fetch_assoc($archived_result))
 <div class = "contest">
 
 <div class="hostedby">
-Contest hosted by <a href="#"><?php echo $hostname; ?></a>
+Contest hosted by <a href="profile.php?userid= <?php echo $hostid ?>"><?php echo $hostname; ?></a>
 </div>
 
 <div class="description"> 

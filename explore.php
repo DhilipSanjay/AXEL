@@ -41,7 +41,9 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
 
 <link rel="stylesheet" href = "search.css"> 
+<link rel="stylesheet" href="explore.css">
 <script src="search.js" type="text/javascript"></script>
+<script src="explore.js" type="text/javascript"></script>
 
 <style>
 
@@ -262,8 +264,85 @@ $temp=0;
 
 
 <div id="maindash">
-This is explore site
+<div id="select">
+    <div id="s1" onclick="toggle(1)">Popular Startups</div>
+    <div id="s2" onclick="toggle(2)">Popular Mentors</div>
+    <div id="s3" onclick="toggle(3)">Startups/Mentors Nearby</div>
+    </div>
 
+    <div id="popular_startups">
+    <?php
+      $startup_query = "SELECT dp,userid,name,usertype,count(*) as count FROM users JOIN enlighten WHERE userid = acceptorid AND userid != $userid AND usertype = 'startup' GROUP BY name ORDER BY count DESC";
+      $startup_result = mysqli_query($conn, $startup_query);
+      if(mysqli_num_rows($startup_result) > 0)
+      {
+        while($startup_row = mysqli_fetch_array($startup_result))
+        {
+          $output = "";
+          $output .= '<div class="queryitem" onclick= "selectuser(\''.$startup_row['userid'].'\')">'; 
+          /*$output .= '<img class="DP" src= "'.$startup_row['dp'] . '" alt="defaultimgholder.png">';*/
+          $output .= '<img class="DP" src= "'."avatar.png". '" alt="defaultimgholder.png">';
+          $output .= '<span class="profile"><div class = "username">' .$startup_row['name'].'</div>';
+          $output .= '<div class="usertype">' .$startup_row['usertype'].'</div></span></div>';
+          echo $output;
+        }
+      }
+      else
+      {
+        echo '<div style="text-align:center;margin:15px 0px">No results found!</div>';
+      }
+      
+    ?>
+    </div>
+
+    <div id="popular_mentors">
+    <?php
+      $mentor_query = "SELECT dp,userid,name,usertype,count(*) as count FROM users JOIN enlighten WHERE userid = acceptorid AND userid != $userid AND usertype = 'mentor' GROUP BY name ORDER BY count DESC";
+      $mentor_result = mysqli_query($conn, $mentor_query);
+      if(mysqli_num_rows($mentor_result) > 0)
+      {
+        while($mentor_row = mysqli_fetch_array($mentor_result))
+        {
+          $output = "";
+          $output .= '<div class="queryitem" onclick= "selectuser(\''.$mentor_row['userid'].'\')">'; 
+          /*$output .= '<img class="DP" src= "'.$startup_row['dp'] . '" alt="defaultimgholder.png">';*/
+          $output .= '<img class="DP" src= "'."avatar.png". '" alt="defaultimgholder.png">';
+          $output .= '<span class="profile"><div class = "username">' .$mentor_row['name'].'</div>';
+          $output .= '<div class="usertype">' .$mentor_row['usertype'].'</div></span></div>';
+          echo $output;
+        }
+      }
+      else
+      {
+          echo '<div style="text-align:center;margin:15px 0px">No results found!</div>';
+      }
+    ?>
+    </div>
+
+    <div id="nearby">
+    <?php
+      $nearby_query = "SELECT userid,name,usertype,location FROM users WHERE userid != $userid AND LOWER(location) = (SELECT LOWER(location) FROM users WHERE userid = $userid)";
+      $nearby_result = mysqli_query($conn, $nearby_query);
+      if(mysqli_num_rows($nearby_result) > 0)
+      {
+        while($nearby_row = mysqli_fetch_array($nearby_result))
+        {
+          $output = "";
+          $output .= '<div class="queryitem" onclick= "selectuser(\''.$nearby_row['userid'].'\')">'; 
+          /*$output .= '<img class="DP" src= "'.$startup_row['dp'] . '" alt="defaultimgholder.png">';*/
+          $output .= '<img class="DP" src= "'."avatar.png". '" alt="defaultimgholder.png">';
+          $output .= '<span class="profile"><div class = "username">' .$nearby_row['name'].'</div>';
+          $output .= '<div class="usertype">' .$nearby_row['usertype'].'</div></span></div>';
+          echo $output;
+        }
+      }
+      else
+      {
+        echo '<div style="text-align:center;margin:15px 0px">No results found!</div>';
+      }
+    
+    ?>
+    </div>
 </div>
 
 

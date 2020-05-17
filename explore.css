@@ -1,0 +1,86 @@
+#select
+{
+    font-size:1.2rem;
+    width:100%;
+    height:fit-content;
+    margin-top:20px;
+    display:flex;
+}
+
+#select #s1,#select #s2, #select #s3
+{
+    text-align:center;
+    width:50%;
+    padding:10px 0;
+    cursor:pointer;
+}
+
+#select #s1
+{
+    border-bottom:2px solid #76D7C4;
+}
+
+#popular_startups
+{
+    font-size:1.2rem;
+    width:100%;
+    height:fit-content;
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+#popular_mentors
+{
+    font-size:1.2rem;
+    width:100%;
+    height:fit-content;
+    margin-top:20px;
+    padding-bottom:20px;
+    display:none;
+}
+
+#nearby
+{
+    font-size:1.2rem;
+    width:100%;
+    height:fit-content;
+    margin-top:20px;
+    padding-bottom:20px;
+    display: none;
+}
+
+.queryitem
+{
+    cursor: pointer;
+    border:2px solid white;
+    background-color: white;
+    padding: 5px;
+    border-radius:8px;
+    /*-webkit-box-shadow: 0 3px 8px -2px #c0c0c0;
+    -moz-box-shadow: 0 3px 8px -2px #c0c0c0;
+    box-shadow: 0 3px 8px -2px #c0c0c0;*/
+    margin:5px 0px;
+}
+
+.DP
+{
+    width: 35px;
+}
+.profile
+{
+    padding: 10px;
+}
+.username
+{
+    font-weight: 400;
+    color: black;
+}
+.usertype
+{
+    color: gray;
+    font-style:italic;
+}
+
+.queryitem:hover{
+    border: 2px solid #76D7C4;
+}
