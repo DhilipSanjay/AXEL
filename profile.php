@@ -453,7 +453,7 @@ while($res = mysqli_fetch_assoc($ex))
 
 
 <?php
-$query = "select name,field from mentorship inner join users inner join mentor where mentorship.mentorid=mentor.mentorid and userid=mentor.mentorid and startupid=$userid";
+$query = "select name,field from mentorship inner join users inner join mentor where mentorship.mentorid=mentor.mentorid and userid=mentor.mentorid and startupid=$userid and status='accepted'";
 $ex = mysqli_query($conn,$query);
 ?>
 
@@ -634,7 +634,7 @@ else if($usertype==="mentor")
     
     
     <?php
-    $query = "select name,field from mentorship inner join users inner join startup where startup.startupid=mentorship.startupid and userid=startup.startupid and mentorid=$userid";
+    $query = "select name,field from mentorship inner join users inner join startup where startup.startupid=mentorship.startupid and userid=startup.startupid and mentorid=$userid and status='accepted'";
     $ex = mysqli_query($conn,$query);
     ?>
     
