@@ -3,6 +3,11 @@
     --maincolor: #76D7C4;
 }
 
+html
+{
+    overflow-y:scroll;
+}
+
 body
 {
     background: url("regbg.jpg");
@@ -10,6 +15,10 @@ body
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
 }
 
 .main-container
@@ -93,7 +102,7 @@ body
 {
     font-size: 16px;
     font-weight: 600;
-    margin:20px auto;
+    margin:0 auto;
     padding: 20px;
     text-align: center;
 }
