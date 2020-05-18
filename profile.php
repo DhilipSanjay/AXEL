@@ -543,7 +543,7 @@ else if($usertype==="mentor")
 
     <?php } 
     
-    if($ismentor!=1&&$_SESSION["usertype"]!=="general"){
+    if($ismentor!=1&&$_SESSION["usertype"]!=="general"&&$_SESSION["usertype"]!=="mentor"){
     ?>
 
     <div style="display:flex;flex-direction:column;align-items:center;cursor:pointer;margin-top:5px" onclick="mentorreq(<?php echo $sessionuserid.','.$userid ?>)">
