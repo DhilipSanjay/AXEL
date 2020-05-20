@@ -505,8 +505,5 @@ window.location.href="logout.php";
 
 
 </script>
-
-<script src="news.js" type="text/javascript"></script>
-
 </body>
 </html>

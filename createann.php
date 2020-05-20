@@ -3,10 +3,10 @@
 include("dbconnect.php");
 
 $userid = $_POST["userid"];
-$ann = $_POST["ann"];
+
+$ann = mysqli_real_escape_string($conn,$_POST["ann"]);
 
 $query="insert into post(Puserid,Announcement) values ($userid,'$ann')";
-
 
 if(!mysqli_query($conn,$query))
 {
@@ -17,5 +17,4 @@ else
 {
     echo "success";
 }
-
 ?>

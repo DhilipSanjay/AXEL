@@ -9,7 +9,7 @@ $todo=$_GET["todo"];
 
 if($todo==="insertapplaud")
 {
-    $query="insert into applaud values ($userid,$postid,$postuserid)";
+    $query="insert into applaud(applauderid,postid,puserid) values ($userid,$postid,$postuserid)";
     mysqli_query($conn,$query);
 }
 

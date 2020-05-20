@@ -119,6 +119,7 @@ function createann(userid)
 
   else
   {
+  ann=encodeURIComponent(ann);  //used to have & and other symbols in announcement
   var param="userid="+userid+"&ann="+ann;
   createann.open("POST", "createann.php", true);
   createann.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
@@ -151,6 +152,7 @@ function hostcontest(hostid)
 
   else
   {
+  desc=encodeURIComponent(desc);  //used to have & and other symbols in description
   var param="hostid="+hostid+"&date="+date+"&desc="+desc+"&link="+link;
   hostcontest.open("POST", "hostcontest.php", true);
   hostcontest.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 

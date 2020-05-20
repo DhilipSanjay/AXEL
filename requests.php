@@ -25,7 +25,7 @@ else
 while($row=mysqli_fetch_assoc($result))
 { 
 
-$output .= '<div class="reqbox"><div class="content"><a href="#">'.'Request from '.$row["Name"]."</a>".$row["Name"].' wants to be enlightened by you!</div><div class="acceptbutton"'."onclick='accept(".$row["requestorid"].",".$userid.",event)'>Accept</div></div>";
+$output .= '<div class="reqbox"><div class="content"><a href="profile.php?userid='.$row["requestorid"].'">Request from '.$row["Name"]."</a>".$row["Name"].' wants to be enlightened by you!</div><div class="acceptbutton"'."onclick='accept(".$row["requestorid"].",".$userid.",event)'>Accept</div></div>";
 
 }
 
@@ -57,7 +57,7 @@ else
 while($row=mysqli_fetch_assoc($result))
 { 
 
-$output .= '<div class="reqbox"><div class="content"><a href="#">'.'Request from '.$row["Name"]."</a>".$row["Name"].' wants you to be their mentor!</div><div class="acceptbutton"'."onclick='acceptasmentor(".$row["startupid"].",".$userid.",event)'>Accept as Mentor</div></div>";
+$output .= '<div class="reqbox"><div class="content"><a href="profile.php?userid='.$row["startupid"].'">Request from '.$row["Name"]."</a>".$row["Name"].' wants you to be their mentor!</div><div class="acceptbutton"'."onclick='acceptasmentor(".$row["startupid"].",".$userid.",event)'>Accept as Mentor</div></div>";
 
 }
 

@@ -94,7 +94,7 @@ if($temp==1)
 ?>
 
 <div class="createdby">
-Poll hosted by <a href="#"><?php echo $row["hostname"]; ?></a>
+Poll hosted by <a href="login.php"><?php echo $row["hostname"]; ?></a>
 </div>
 
 <?php
@@ -147,7 +147,7 @@ $result=mysqli_query($conn,$query);
 
 </div>
 
-<div class="loadmore" onclick="openlink('announcements.php')">
+<div class="loadmore" onclick="openlink('login.php')">
 Load More
 </div>
 
@@ -230,7 +230,7 @@ if($temp==3){
 </div>
 
 <div id="loadmoreflex">
-<div class="loadmore contestloadmore" onclick="openlink('contests.php')">
+<div class="loadmore contestloadmore" onclick="openlink('login.php')">
 Load More
 </div>
 </div>
