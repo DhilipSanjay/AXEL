@@ -34,10 +34,17 @@ function validate_step1()
         if(validateEmail())
         {
             loadsecond();
+            document.getElementById("step1").setAttribute("onclick","loadfirstfromanother()"); //coming back to step 1 if needed
+            document.getElementById("step1").style.cursor="pointer";
+
+            document.getElementById("step2").setAttribute("onclick","loadsecondfromanother()");
+            document.getElementById("step2").style.cursor="pointer";
         } 
     }
 
 }
+
+
 function loadsecond()
 {
     document.getElementById("step2").style.backgroundColor = "#76D7C4";
@@ -49,18 +56,28 @@ function loadsecond()
     document.getElementById("firststep").style.display = "none";
     document.getElementById("redirect").style.display = "none";
     document.getElementById("secondstep").style.display = "block";
+
+
     if(document.getElementById("startup").checked)
     {
         document.getElementById("startup_form").style.display = "block";
+        document.getElementById("mentor_form").style.display = "none";
+        document.getElementById("general_form").style.display = "none";
     }
     else if(document.getElementById("mentor").checked)
     {
         document.getElementById("mentor_form").style.display = "block";
+        document.getElementById("startup_form").style.display = "none";
+        document.getElementById("general_form").style.display = "none";
     }
     else if(document.getElementById("general").checked)
     {
         document.getElementById("general_form").style.display = "block";
+        document.getElementById("startup_form").style.display = "none";
+        document.getElementById("mentor_form").style.display = "none";
     }  
+
+
 }
 function checkSpecific()
 {
@@ -124,6 +141,12 @@ function validate_step2()
     else
     {
         loadthird();
+        document.getElementById("step2").setAttribute("onclick","loadsecondfromanother()"); //coming back to step 2 if needed
+        document.getElementById("step2").style.cursor="pointer";
+
+        document.getElementById("step3").setAttribute("onclick","loadthirdfromanother()");
+        document.getElementById("step3").style.cursor="pointer";
+
         return true;
     }
 }
@@ -161,4 +184,97 @@ function addLinks()
     link.innerHTML = '<label for="link'+link_count+'">Link '+link_count+'</label><input type="text" class="form-control" id="link'+link_count+'" name="link'+link_count+'" placeholder="Link '+link_count+'">';
 
     document.getElementById('link_details').appendChild(link);
+}
+
+function loadfirstfromanother()
+{
+    document.getElementById("step1").style.backgroundColor = "#76D7C4";
+    document.getElementById("step1").style.color = "white";
+
+    document.getElementById("firststep").style.display = "block";
+    document.getElementById("redirect").style.display = "block";
+    document.getElementById("secondstep").style.display = "none";
+    document.getElementById("thirdstep").style.display = "none";
+
+    document.getElementById("step2").style.backgroundColor = "white";
+    document.getElementById("step2").style.color = "black";
+
+
+    document.getElementById("step3").style.backgroundColor = "white";
+    document.getElementById("step3").style.color = "black";
+}
+
+function loadsecondfromanother()
+{
+    if(document.getElementById("firststep").style.display==="block")
+    {
+        validate_step1();
+    }
+
+    else
+    {
+    document.getElementById("step2").style.backgroundColor = "#76D7C4";
+    document.getElementById("step2").style.color = "white";
+
+    document.getElementById("firststep").style.display = "none";
+    document.getElementById("redirect").style.display = "none";
+    document.getElementById("secondstep").style.display = "block";
+
+    if(document.getElementById("startup").checked)
+    {
+        document.getElementById("startup_form").style.display = "block";
+        document.getElementById("mentor_form").style.display = "none";
+        document.getElementById("general_form").style.display = "none";
+    }
+    else if(document.getElementById("mentor").checked)
+    {
+        document.getElementById("mentor_form").style.display = "block";
+        document.getElementById("startup_form").style.display = "none";
+        document.getElementById("general_form").style.display = "none";
+    }
+    else if(document.getElementById("general").checked)
+    {
+        document.getElementById("general_form").style.display = "block";
+        document.getElementById("startup_form").style.display = "none";
+        document.getElementById("mentor_form").style.display = "none";
+    }  
+    
+    document.getElementById("thirdstep").style.display = "none";
+
+    document.getElementById("step1").style.backgroundColor = "white";
+    document.getElementById("step1").style.color = "black";
+
+    document.getElementById("step3").style.backgroundColor = "white";
+    document.getElementById("step3").style.color = "black";
+    }
+}
+
+function loadthirdfromanother()
+{
+    if(document.getElementById("firststep").style.display==="block")
+    {
+        validate_step1();
+    }
+
+    else if(document.getElementById("secondstep").style.display==="block")
+    {
+        validate_step2();
+    }
+
+    else
+    {
+    document.getElementById("step3").style.backgroundColor = "#76D7C4";
+    document.getElementById("step3").style.color = "white";
+
+    document.getElementById("firststep").style.display = "none";
+    document.getElementById("redirect").style.display = "none";
+    document.getElementById("secondstep").style.display = "none";
+    document.getElementById("thirdstep").style.display = "block";
+
+    document.getElementById("step1").style.backgroundColor = "white";
+    document.getElementById("step1").style.color = "black";
+
+    document.getElementById("step2").style.backgroundColor = "white";
+    document.getElementById("step2").style.color = "black";
+    }
 }

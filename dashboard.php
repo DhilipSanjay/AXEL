@@ -419,7 +419,7 @@ $temp=0;
     {
     ?>
 
-        <div id="noposts">No announcements to show!&nbsp<a href="explore.php?userid=<?php echo $userid?>">Click here</a>&nbspto explore startups and mentors!</div>
+        <div id="noposts">No announcements to show!&nbsp<a href="explore.php">Click here</a>&nbspto explore startups and mentors!</div>
 
     <?php
     }
