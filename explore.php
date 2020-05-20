@@ -321,7 +321,7 @@ $temp=0;
 
     <div id="nearby">
     <?php
-      $nearby_query = "SELECT userid,name,usertype,location FROM users WHERE userid != $userid AND LOWER(location) = (SELECT LOWER(location) FROM users WHERE userid = $userid)";
+      $nearby_query = "SELECT userid,name,usertype,location FROM users WHERE userid != $userid AND usertype != 'general' AND LOWER(location) = (SELECT LOWER(location) FROM users WHERE userid = $userid)";
       $nearby_result = mysqli_query($conn, $nearby_query);
       if(mysqli_num_rows($nearby_result) > 0)
       {

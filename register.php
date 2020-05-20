@@ -1,5 +1,6 @@
 <?php
 include("dbconnect.php");
+$retval = false;
 if(isset($_POST['Submit']))
 {
     $user_insert = "INSERT INTO users(dp, username, password, name, location, phoneno, email, usertype) VALUES (?,?,?,?,?,?,?,?)";
@@ -205,7 +206,7 @@ if(isset($_POST['Submit']))
             {
                 if($link_insert !== '')
                 {
-                    if(mysqli_query($conn, $link_insert))
+                    if($retval = mysqli_query($conn, $link_insert))
                     {
                         echo "Link inserted successfully";
                     }
@@ -217,7 +218,7 @@ if(isset($_POST['Submit']))
             }
             else if($link_count > 1)
             {
-                if(mysqli_multi_query($conn, $link_insert))
+                if($retval = mysqli_multi_query($conn, $link_insert))
                 {
                     echo "Links inserted successfully";
                 }
@@ -227,14 +228,17 @@ if(isset($_POST['Submit']))
                 }
             }
             //Session creation
-            session_start();
-            $_SESSION['userid'] = $userid;
-            $_SESSION['name'] = $name;       
-            $_SESSION['email'] = $email;
-            $_SESSION['usertype'] = $usertype;
-            $_SESSION['logged_in'] = true;
+            if($retval)
+            {
+                session_start();
+                $_SESSION['userid'] = $userid;
+                $_SESSION['name'] = $name;       
+                $_SESSION['email'] = $email;
+                $_SESSION['usertype'] = $usertype;
+                $_SESSION['logged_in'] = true;
 
-            header("location: dashboard.php");
+                header("location: dashboard.php");
+            } 
         }
         else
         {
