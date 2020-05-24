@@ -447,6 +447,7 @@ $temp=0;
     <p><?php echo $row['Announcement']; ?></p>
     </div>
 
+
     <?php
     $temp++; 
     } ?>
