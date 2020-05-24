@@ -45,7 +45,7 @@ window.onscroll = function(){
     contests.style.transform="translateX(100px)";
     contests.style.opacity="0";
 
-    if(window.scrollY>=(getPosition(poll)-600))   
+    if(window.scrollY>=(getPosition(poll)-650))   
     {
         poll.style.animationName="contentcomingin";
         poll.style.animationDuration="0.5s";

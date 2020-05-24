@@ -1,4 +1,7 @@
 <?php
+
+$type=$_REQUEST["type"];
+
 if(isset($_POST["login"]))
 {
     include('dbconnect.php');
@@ -109,11 +112,37 @@ if(isset($_POST["login"]))
 
                 <label><b>User type:</b></label>
                 <br>
+                <?php if($type==="startup")
+                {
+                ?>
+                <input type ="radio" id = "startup" name="radio" value="startup" checked> Startup
+                <br>
+                <input type ="radio" id = "mentor" name="radio" value="mentor" required> Mentor
+
+                <?php
+                }
+                else if($type==="mentor") 
+                {
+                ?>
+
+                <input type ="radio" id = "startup" name="radio" value="startup" required> Startup
+                <br>
+                <input type ="radio" id = "mentor" name="radio" value="mentor" checked> Mentor
+
+                <?php
+                }
+                else
+                {
+                ?>
                 <input type ="radio" id = "startup" name="radio" value="startup" required> Startup
                 <br>
                 <input type ="radio" id = "mentor" name="radio" value="mentor" required> Mentor
-                <br>
+                <?php
+                 } 
+                 ?>
+                 <br>
                 <input type ="radio" id = "general" name="radio" value="general" required> General User
+
                 </clr-checkbox-wrapper>
                 <button type="submit" name="login" style="margin-top:25px;width:80%;border:none" class="btn btn-primary loginbut">Login</button>
                 <a href="register.html"  style="margin-top:15px;width:80%;color:#76D7C4 !important" class="signup">I want to create a new account!</a>
