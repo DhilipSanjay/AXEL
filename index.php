@@ -14,7 +14,7 @@ include("dbconnect.php");
 <link rel="icon" href="logo.png">
 <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-<script src="home.js" type="text/javascript"></script>
+<script async src="home.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="overlay" onclick="closesidebar()"></div>
