@@ -74,6 +74,11 @@ if(isset($_POST["login"]))
     animation-fill-mode:forwards !important;
 }
 
+#email,#pass
+{
+    color:black !important;
+}
+
 #email:focus,#pass:focus
 {
     background:none !important;

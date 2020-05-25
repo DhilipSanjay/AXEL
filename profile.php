@@ -144,7 +144,7 @@ function gotodash()
 
 </script>
 
-<body onload=fillrequests(<?php echo $userid.',"'.$usertype.'"'?>)>
+<body onload=fillrequests(<?php echo $sessionuserid.',"'.$sessionusertype.'"'?>)>
 
 <div id="overlay" onclick="closesearch()"></div>
 <div id="overlay" class="fortopbuttons"></div>
@@ -250,7 +250,7 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 
 <div id="userdetails">
 
-  <?php if($usertype!=="general")
+  <?php if($sessionusertype!=="general")
     {
   ?>
   <svg onclick="openclosereqbox()" style="cursor:pointer" class="bi bi-person-plus" width="1.7em" height="1.7em" viewBox="0 0 16 16" fill="#76D7C4" xmlns="http://www.w3.org/2000/svg">
@@ -370,7 +370,7 @@ $isenlightened=$exres["count"];
 ?>
 
 
-<div id=topinfo>
+<div id="topinfo">
 
 <div id="dp">
 <img src="<?php echo $res1["dp"] ?>" style="object-fit:cover">
@@ -532,7 +532,7 @@ else if($usertype==="mentor")
 ?>
     
     
-    <div id=topinfo>
+    <div id="topinfo">
     
     <div id="dp">
     <img src="<?php echo $res1["dp"] ?>" style="object-fit:cover">
@@ -702,7 +702,7 @@ else
 ?>
     
     
-    <div id=topinfo>
+    <div id="topinfo">
     
     <div id="dp">
     <img src="<?php echo $res1["dp"] ?>" style="object-fit:cover">
@@ -756,15 +756,6 @@ else
     
     </div>
     
-    </div>
-    
-    
-    
-    
-    
-    </div>
-
-
 <?php
 }
 ?>
@@ -827,6 +818,9 @@ $temp++;
 
 
 
+<?php if($sessionusertype!=="general")
+{
+?>
 
 <div id="otherarea">
 
@@ -834,7 +828,7 @@ $temp++;
 
 <div id="enlightenormentor">
 
-<?php if($usertype==="mentor")
+<?php if($sessionusertype==="mentor")
 {
 ?>
 <div id="enlightenbox">Enlighten</div>
@@ -853,6 +847,8 @@ $temp++;
 </div>
 
 </div>
+
+<?php } ?>
 
 
 
