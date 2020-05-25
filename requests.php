@@ -15,7 +15,7 @@ $output='';
 if($count==0)
 {
 
-$output .= '<div id="noreq" style="margin-top:20px">No requests!</div>';
+$output .= '<div id="noreq" style="margin-top:10px">No requests to show!</div>';
 
 }
 
@@ -46,7 +46,7 @@ $output='';
 if($count==0)
 {
     
-$output .= '<div id="noreq" style="margin-top:20px">No requests from startups!</div>';
+$output .= '<div id="noreq" style="margin-top:10px">No requests from startups!</div>';
     
 }
 

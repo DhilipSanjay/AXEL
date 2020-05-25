@@ -497,6 +497,8 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
    text-align:left;
 }
 
+
+
 #dashboard #otherarea
 {
     font-family: 'Roboto', sans-serif;
@@ -624,4 +626,5 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     padding:10px 0px;
     cursor:pointer;
 }
+
 

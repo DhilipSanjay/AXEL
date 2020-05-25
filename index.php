@@ -14,7 +14,7 @@ include("dbconnect.php");
 <link rel="icon" href="logo.png">
 <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-<script src="home.js" type="text/javascript"></script>
+<script async src="home.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="overlay" onclick="closesidebar()"></div>
@@ -24,14 +24,14 @@ include("dbconnect.php");
     <a id="active">Home</a>
     <a href="about.php">What we do</a>
     <a href="contact.php">Get in touch</a>
-    <a href="login.php">Login</a>
+    <a href="login.php?type=any">Login</a>
 </div>
 
 <div id="home">
 
 <img id="logo" src="logo.png" height="47px" width="45px" alt="logo">
 <div id="title">AXEL</div>
-<img onclick="openlink('login.php')" id="user" src="user.png" alt="login">
+<img onclick="openlink('login.php?type=any')" id="user" src="user.png" alt="login">
 <img id="listicon" onclick="opensidebar();" src="list.PNG" alt="picture">
 
 <div id="maininfo">
@@ -43,8 +43,8 @@ include("dbconnect.php");
         </div>
 
         <div id="buttonholder">
-        <div class="button" onmouseover="highlightevolve()" onmouseout="dehighlightevolve()" onclick="openlink('login.php')">I am a startup</div>
-        <div class="button" onmouseover="highlightevolve()" onmouseout="dehighlightevolve()" onclick="openlink('login.php')">I am a mentor</div>
+        <div class="button" onmouseover="highlightevolve()" onmouseout="dehighlightevolve()" onclick="openlink('login.php?type=startup')">I am a startup</div>
+        <div class="button" onmouseover="highlightevolve()" onmouseout="dehighlightevolve()" onclick="openlink('login.php?type=mentor')">I am a mentor</div>
         </div>
 
     </div>
@@ -94,7 +94,7 @@ if($temp==1)
 ?>
 
 <div class="createdby">
-Poll hosted by <a href="login.php"><?php echo $row["hostname"]; ?></a>
+Poll hosted by <a href="login.php?type=any"><?php echo $row["hostname"]; ?></a>
 </div>
 
 <?php
@@ -116,7 +116,7 @@ $temp++;
 <?php } ?>
 
 <div id="signin">
-Want to cast your opinion in the poll?&nbsp<a href="login.php">Sign in</a>&nbspnow!
+Want to cast your opinion in the poll?&nbsp<a href="login.php?type=any">Sign in</a>&nbspnow!
 </div>
 </div>
 
@@ -147,7 +147,7 @@ $result=mysqli_query($conn,$query);
 
 </div>
 
-<div class="loadmore" onclick="openlink('login.php')">
+<div class="loadmore" onclick="openlink('login.php?type=any')">
 Load More
 </div>
 
@@ -230,7 +230,7 @@ if($temp==3){
 </div>
 
 <div id="loadmoreflex">
-<div class="loadmore contestloadmore" onclick="openlink('login.php')">
+<div class="loadmore contestloadmore" onclick="openlink('login.php?type=any')">
 Load More
 </div>
 </div>

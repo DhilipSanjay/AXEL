@@ -276,14 +276,15 @@ function fillmentorreq(userid)
   
 function applaud(userid,postid,postuserid,count,event)
 {
-  var src=event.target.src;
+  var status=event.target.getAttribute("status");
   var applaudobj=createreqobj(); //ajax object for applaud
 
-  if(src==="http://localhost:8000/Axel/clapping.svg") //not yet applauded
+  if(status==="0") //not yet applauded
   {
   applaudobj.onreadystatechange = function() {
 
     if (this.readyState == 4 && this.status == 200) {
+      event.target.setAttribute("status","1");
       event.target.src="clapping_enabled.svg";
       checkapplaudcount(postid,count);
     }
@@ -296,11 +297,12 @@ function applaud(userid,postid,postuserid,count,event)
     applaudobj.send();
   }
 
-  else
+  else //applauded already
   {
     applaudobj.onreadystatechange = function() {
 
       if (this.readyState == 4 && this.status == 200) {
+        event.target.setAttribute("status","0");
         event.target.src="clapping.svg";
         checkapplaudcount(postid,count);
       }

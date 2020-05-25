@@ -116,8 +116,20 @@ function checkifapplauded(userid,postid,postuserid,count)
   checkapplaudobj.onreadystatechange = function() {
 
   if (this.readyState == 4 && this.status == 200 && this.responseText==="Already applauded") {
+     document.getElementsByClassName("clap")[count].setAttribute("status","1");
      document.getElementsByClassName("clap")[count].src="clapping_enabled.svg";
   }
+
+  else if(this.readyState == 4 && this.status == 200 && this.responseText==="Not applauded")
+  {
+    document.getElementsByClassName("clap")[count].setAttribute("status","0");
+  }
+
+  else
+  {
+    //nothing
+  }
+  
   };
 
   var url="checkifapplauded.php?userid="+userid+"&postid="+postid+"&postuserid="+postuserid;
@@ -446,6 +458,7 @@ $temp=0;
     <span id="createdtime"><?php echo $row['createdtime']; ?></span>
     <p><?php echo $row['Announcement']; ?></p>
     </div>
+
 
     <?php
     $temp++; 
