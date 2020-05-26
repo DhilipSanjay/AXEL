@@ -23,6 +23,10 @@ body
 
 .main-container
 {
+    transform:translateY(-100px);
+    animation-name:backgroundcomingin;
+    animation-duration:1s;
+    animation-fill-mode: forwards;
     font-size: 16px;
     font-weight: 600;
     margin:20px auto;
@@ -112,4 +116,29 @@ body
 {
     text-align: center;
     margin: 15px auto;
+}
+
+@media only screen and  (max-width: 768px)
+{
+    .main-container
+    {
+    width: 80%; 
+    }  
+}
+
+@media only screen and  (max-width: 380px)
+{
+    .main-container
+    {
+    width: 100%; 
+    }  
+}
+
+@keyframes backgroundcomingin{
+    100%
+    {
+        transform:translateY(0);
+        opacity:1;
+    }
+
 }
