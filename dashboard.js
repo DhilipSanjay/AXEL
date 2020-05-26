@@ -1,4 +1,13 @@
-var newheight=window.innerHeight-90;
+    if(window.innerWidth<=769)
+    {
+      var newheight=window.innerHeight;
+    }
+
+    else
+    {
+      var newheight=window.innerHeight-90;
+    }
+
 /*document.getElementById("sidenavbar").style.height=newheight+"px";*/
 document.getElementById("otherarea").style.height=newheight+"px";
 
@@ -15,7 +24,15 @@ function opennewcontestbox()
     document.getElementsByClassName("fortopbuttons")[0].style.zIndex="3";
     
     document.getElementById("createnewcontest").style.zIndex="10";
-    document.getElementById("createnewcontest").style.height="85%";
+    if(window.innerWidth<=769)
+    {
+      document.getElementById("createnewcontest").style.height="100%";
+    }
+    else
+    {
+      document.getElementById("createnewcontest").style.height="85%";
+    }
+
     document.getElementById("createnewcontest").style.visibility="visible";
 
     newcontestbox=1;
@@ -58,7 +75,15 @@ function opennewannouncementbox(userid)
     document.getElementsByClassName("fortopbuttons")[0].style.zIndex="3";
     
     document.getElementById("createnewannouncementbox").style.zIndex="10";
-    document.getElementById("createnewannouncementbox").style.height="70%";
+
+    if(window.innerWidth<=769)
+    {
+      document.getElementById("createnewannouncementbox").style.height="100%";
+    }
+    else
+    {
+      document.getElementById("createnewannouncementbox").style.height="70%";
+    }
     document.getElementById("createnewannouncementbox").style.visibility="visible";
 
     newannbox=1;

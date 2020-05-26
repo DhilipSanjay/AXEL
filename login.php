@@ -10,10 +10,10 @@ if(isset($_POST["login"]))
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $usertype = mysqli_real_escape_string($conn, $_POST['radio']);
     
-    $query = "SELECT userid,name,usertype FROM users WHERE email = '$email' AND password = '$password'";
+    $query = "SELECT userid,name,usertype,verified FROM users WHERE email = '$email' AND password = '$password'";
     $result = mysqli_query($conn, $query);
     $row = mysqli_fetch_assoc($result);
-    if(mysqli_num_rows($result) === 1 and $row['usertype'] === $usertype)
+    if(mysqli_num_rows($result) === 1 and $row['usertype'] === $usertype and $row['verified']==="1")
     {
         $_SESSION['userid'] = $row['userid'];
         $_SESSION['name'] = $row['name'];       
@@ -23,10 +23,17 @@ if(isset($_POST["login"]))
 
         header("location: dashboard.php");
     }
+
+    else if(mysqli_num_rows($result) === 1 and $row['usertype'] === $usertype and $row['verified']!=="1")
+    {
+        session_abort();
+        header("location:login.php?type=notverified");
+    }
+
     else
     {
         session_abort();
-        echo "<script> alert(\"Invalid email or password or usertype\")</script>";
+        header("location:login.php?type=redirect");
     }
 }
 ?>
@@ -102,7 +109,22 @@ if(isset($_POST["login"]))
                 <h1 class="welcome">Login</h1>
                 <h4>Now is your time to <span style="color:#76D7C4">evolve.</span></h4>
             </section>
-            <div class="login-group">
+            <div class="login-group" style="padding-top:25px">
+                <?php if($type==="redirect") { ?>
+                
+                <span style="color:red;margin-bottom:10px">Username, password or user type is incorrect! Try again!</span>
+                
+                <?php }
+                
+                else if($type==="notverified") //not a verified acct
+                {
+                ?>
+
+                <span style="color:red;margin-bottom:10px">Your account has not been verified yet! Please check your email!</span>
+
+                <?php
+                }?>
+
                 <clr-input-container>
                 <label class="clr-sr-only">Email Address</label>
                 <input type="email" name="email" id="email" style="padding:20px 0;margin-bottom:20px;width:80%" clrInput placeholder="Email" [(ngModel)]="form.email" required/>

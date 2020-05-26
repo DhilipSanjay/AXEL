@@ -525,7 +525,14 @@ function openclosereqbox()
   {
     document.getElementById("overlay").style.opacity="0.5";
     document.getElementById("overlay").style.zIndex="1"; 
+    if(window.innerWidth<=769)
+    {
+    document.getElementById("otherarea").style.width="100%";
+    }
+    else
+    {
     document.getElementById("otherarea").style.width="450px";
+    }
     reqboxopen=1;
   }
 

@@ -349,9 +349,8 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
 
 #dashboard #noposts {
     font-size:1.2rem;
-    display:flex;
-    flex-direction:row;
     margin-top:20px;
+    text-align:center;
 }
 
 #dashboard #noposts a,#dashboard #noposts a:visited
@@ -611,3 +610,103 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     cursor:pointer;
 }
 
+@media screen and (max-width: 769px) {
+
+
+    #dashboard #sidenavbar
+    {
+        display:none;
+    }
+
+    #dashboard #maindash
+    {
+    margin-left:0;
+    width:90%;
+    /*background-color:aqua;*/
+    }
+    #dashboard #maindash .announcementsholder .announcementsinfo
+    {
+        font-size:1rem;
+    }
+
+
+    #createnewannouncementbox,#createnewcontest
+    {
+       
+    }
+
+    #dashboard #maindash .topbuttons
+    {
+        font-size:1rem;
+    }
+
+    #createnewannouncementbox #title,#createnewcontest #title
+    {
+        font-size:1.2rem;
+        width:80%;
+    }
+
+    #dashboard #maindash #welcomeuser
+    {
+        width:80%;
+        font-size:1.4rem;
+    }
+
+    #maindash .announcementsholder .announcementsinfo #idname .clap  
+    {
+        height:22.5px;
+    }
+
+    #dashboard #maindash .label 
+    {
+        font-size:1.5rem !important;
+    }
+
+    #createnewannouncementbox,#createnewcontest
+    {
+        width:100% !important;
+        margin:auto;
+        padding:0;
+    }
+
+    .holder
+    {
+        margin:15px 0;
+    }
+
+    .holder,#createnewannouncementbox #createann,
+    #createnewannouncementbox #close,
+    #createnewcontest #hostcontest,
+    #createnewcontest #close
+    {
+        min-width:90%;
+        max-width:90%;
+        font-size:1rem;
+    }
+
+    input[type="text"],#createnewannouncementbox .holder #ann,#createnewcontest .holder #contdesc
+    {
+        font-size:1rem;
+    }
+    
+
+    #header #otherholder #userdetails
+    {
+        padding-right:10px;
+    }
+
+    #header #logoholder #logo
+    {
+        margin-left:10px;
+    }
+
+    #dashboard #otherarea
+    {
+        margin:0;
+    }
+
+    #dashboard #noposts {
+        font-size:1.1rem;
+        margin-top:10px;
+    }
+}
