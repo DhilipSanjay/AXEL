@@ -2,11 +2,11 @@
 include("dbconnect.php");
 if(isset($_POST['Submit']))
 {
-    $user_insert = "INSERT INTO users(dp, username, password, name, location, phoneno, email, usertype) VALUES (?,?,?,?,?,?,?,?)";
+    $user_insert = "INSERT INTO users(dp, username, password, name, location, phoneno, email, usertype, vkey) VALUES (?,?,?,?,?,?,?,?,?)";
     
     if($stmt= mysqli_prepare($conn, $user_insert) )
     {
-        mysqli_stmt_bind_param($stmt, "ssssssss", $dp, $username, $password, $name, $location, $phoneno, $email, $usertype);
+        mysqli_stmt_bind_param($stmt, "sssssssss", $dp, $username, $password, $name, $location, $phoneno, $email, $usertype, $vkey);
         $dp= "avatar.png"; //as of now let this be the profile pic
         $username = mysqli_real_escape_string($conn, $_POST['username']);
         $email = mysqli_real_escape_string($conn, $_POST['email']);
@@ -15,7 +15,8 @@ if(isset($_POST['Submit']))
         $name = mysqli_real_escape_string($conn, $_POST['profilename']);
         $phoneno = mysqli_real_escape_string($conn, $_POST['phoneno']);
         $location = mysqli_real_escape_string($conn, $_POST['location']);
-        
+        $vkey = md5(time().$username); //md5 hash of username and time
+         
         if(mysqli_stmt_execute($stmt))
         {
             echo "Inserted successfully";
@@ -226,15 +227,25 @@ if(isset($_POST['Submit']))
                     echo "Error: Could not execute the query: " . mysqli_error($conn);
                 }
             }
-            //Session creation
-            session_start();
-            $_SESSION['userid'] = $userid;
-            $_SESSION['name'] = $name;       
-            $_SESSION['email'] = $email;
-            $_SESSION['usertype'] = $usertype;
-            $_SESSION['logged_in'] = true;
 
-            header("location: dashboard.php");
+
+            //Sending verification email
+            $subject = "Axel - Email Verification";
+            $message = "Hello $c_name, you are one step away from using Axel! <a href= 'https://localhost/AXEL/verify.php?vkey=$vkey'>Click Here</a> to verify your email address and activate your account!";
+            $headers = "From: thisisourprojectx@gmail.com" . "\r\n";
+            // Always set content-type when sending HTML email
+            $headers .= "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            if(mail($email,$subject,$message,$headers))
+            {
+            header("Location: thankyou.php");
+            }
+            else
+            {
+            header("Location: error.php");
+            }
+
+
         }
         else
         {

@@ -138,6 +138,12 @@ function validate_step2()
         alert('Please Fill all the details!');
         return false;
     }
+
+    else if(document.getElementById("phoneno").value < 0)
+    {
+        alert("Enter a valid phone number!");
+    }
+
     else
     {
         loadthird();

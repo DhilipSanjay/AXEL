@@ -10,10 +10,10 @@ if(isset($_POST["login"]))
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $usertype = mysqli_real_escape_string($conn, $_POST['radio']);
     
-    $query = "SELECT userid,name,usertype FROM users WHERE email = '$email' AND password = '$password'";
+    $query = "SELECT userid,name,usertype,verified FROM users WHERE email = '$email' AND password = '$password'";
     $result = mysqli_query($conn, $query);
     $row = mysqli_fetch_assoc($result);
-    if(mysqli_num_rows($result) === 1 and $row['usertype'] === $usertype)
+    if(mysqli_num_rows($result) === 1 and $row['usertype'] === $usertype and $row['verified']==="1")
     {
         $_SESSION['userid'] = $row['userid'];
         $_SESSION['name'] = $row['name'];       
@@ -23,6 +23,13 @@ if(isset($_POST["login"]))
 
         header("location: dashboard.php");
     }
+
+    else if(mysqli_num_rows($result) === 1 and $row['usertype'] === $usertype and $row['verified']!=="1")
+    {
+        session_abort();
+        header("location:login.php?type=notverified");
+    }
+
     else
     {
         session_abort();
@@ -107,7 +114,16 @@ if(isset($_POST["login"]))
                 
                 <span style="color:red;margin-bottom:10px">Username, password or user type is incorrect! Try again!</span>
                 
-                <?php } ?>
+                <?php }
+                
+                else if($type==="notverified") //not a verified acct
+                {
+                ?>
+
+                <span style="color:red;margin-bottom:10px">Your account has not been verified yet! Please check your email!</span>
+
+                <?php
+                }?>
 
                 <clr-input-container>
                 <label class="clr-sr-only">Email Address</label>
