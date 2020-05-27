@@ -1,6 +1,5 @@
 <?php
 include("dbconnect.php");
-$retval = false;
 if(isset($_POST['Submit']))
 {
     $user_insert = "INSERT INTO users(dp, username, password, name, location, phoneno, email, usertype, vkey) VALUES (?,?,?,?,?,?,?,?,?)";
@@ -8,7 +7,7 @@ if(isset($_POST['Submit']))
     if($stmt= mysqli_prepare($conn, $user_insert) )
     {
         mysqli_stmt_bind_param($stmt, "sssssssss", $dp, $username, $password, $name, $location, $phoneno, $email, $usertype, $vkey);
-        $dp= "avatar.png"; //as of now let this be the profile pic
+        $dp= "avatar.png"; 
         $username = mysqli_real_escape_string($conn, $_POST['username']);
         $email = mysqli_real_escape_string($conn, $_POST['email']);
         $password = mysqli_real_escape_string($conn, $_POST['password']);
@@ -27,6 +26,49 @@ if(isset($_POST['Submit']))
             $info = mysqli_fetch_array($userid_result, MYSQLI_ASSOC);
             $userid = $info['userid'];  
 
+            if(isset($_FILES['profilepic']))
+            {
+                $profilepic = $_FILES['profilepic'];
+
+                $fileName = $profilepic['name'];
+                $fileType = $profilepic['type'];
+                $fileTmpName = $profilepic['tmp_name'];
+                $fileError = $profilepic['error'];
+                
+                $fileExt = explode('.', $fileName);
+                $fileActExt = strtolower(end($fileExt));
+
+                $allowed = array('jpg', 'jpeg', 'png'); 
+                if(in_array($fileActExt, $allowed))
+                {
+                    if($fileError === 0)
+                    {
+                        $fileNewName = "profilepic". $userid . "." . $fileActExt;
+                        $fileDest = 'profilepic/'. $fileNewName;
+                        move_uploaded_file($fileTmpName, $fileDest); 
+                        $dp_upload = "UPDATE users SET dp = '$fileDest' WHERE userid = $userid";
+                        if(mysqli_query($conn, $dp_upload))
+                        {
+                            echo "DP inserted successfully";
+                        }
+                        else
+                        {
+                            echo "Error: Could not execute the query: " . mysqli_error($conn);
+                            header('location:error.php');
+                        }                 
+                    }
+                    else
+                    {
+                        echo "Sorry! There was an error uploading your file!";
+                        header('location:error.php');
+                    }
+                }
+                else
+                {
+                    echo "Sorry! You cannot upload files of this type!";
+                    header('location:error.php');
+                }
+            }
             if($usertype === "startup") //For startup 
             {   
                 $founder= mysqli_real_escape_string($conn, $_POST['founder']);
