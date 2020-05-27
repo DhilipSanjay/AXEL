@@ -16,6 +16,26 @@ var createdann=0; //for now no announcement created
 var newannbox=0;
 var newcontestbox=0;
 
+var listisopen=0;
+
+function openlist()
+{
+  if(listisopen===0)
+  {
+    document.getElementById("sidenavbar").style.width="100%";
+    document.getElementById("logout").style.width="100%";
+    listisopen=1;
+  }
+
+  else
+  {
+    document.getElementById("sidenavbar").style.width="0";
+    document.getElementById("logout").style.width="0";
+    listisopen=0;
+  }
+
+}
+
 function opennewcontestbox()
 {
   if(newcontestbox===0)
