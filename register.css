@@ -51,6 +51,20 @@ body
     }
 }
 
+.input-icons
+{
+    display:flex;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.fa{
+    position: absolute;
+    color:black;
+    padding-top: 11px;
+    right: 80px;
+    cursor: pointer;
+  }
 .text
 {
     margin:0 auto;
@@ -135,4 +149,20 @@ body
 {
     text-align: center;
     margin: 15px auto;
+}
+
+@media only screen and  (max-width: 768px)
+{
+    .main-container
+    {
+    width: 80%; 
+    }  
+}
+
+@media only screen and  (max-width: 380px)
+{
+    .main-container
+    {
+    width: 100%; 
+    }  
 }

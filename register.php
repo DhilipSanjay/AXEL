@@ -7,7 +7,7 @@ if(isset($_POST['Submit']))
     if($stmt= mysqli_prepare($conn, $user_insert) )
     {
         mysqli_stmt_bind_param($stmt, "sssssssss", $dp, $username, $password, $name, $location, $phoneno, $email, $usertype, $vkey);
-        $dp= "avatar.png"; //as of now let this be the profile pic
+        $dp= "avatar.png"; 
         $username = mysqli_real_escape_string($conn, $_POST['username']);
         $email = mysqli_real_escape_string($conn, $_POST['email']);
         $password = mysqli_real_escape_string($conn, $_POST['password']);
@@ -26,6 +26,49 @@ if(isset($_POST['Submit']))
             $info = mysqli_fetch_array($userid_result, MYSQLI_ASSOC);
             $userid = $info['userid'];  
 
+            if(isset($_FILES['profilepic']))
+            {
+                $profilepic = $_FILES['profilepic'];
+
+                $fileName = $profilepic['name'];
+                $fileType = $profilepic['type'];
+                $fileTmpName = $profilepic['tmp_name'];
+                $fileError = $profilepic['error'];
+                
+                $fileExt = explode('.', $fileName);
+                $fileActExt = strtolower(end($fileExt));
+
+                $allowed = array('jpg', 'jpeg', 'png'); 
+                if(in_array($fileActExt, $allowed))
+                {
+                    if($fileError === 0)
+                    {
+                        $fileNewName = "profilepic". $userid . "." . $fileActExt;
+                        $fileDest = 'profilepic/'. $fileNewName;
+                        move_uploaded_file($fileTmpName, $fileDest); 
+                        $dp_upload = "UPDATE users SET dp = '$fileDest' WHERE userid = $userid";
+                        if(mysqli_query($conn, $dp_upload))
+                        {
+                            echo "DP inserted successfully";
+                        }
+                        else
+                        {
+                            echo "Error: Could not execute the query: " . mysqli_error($conn);
+                            header('location:error.php');
+                        }                 
+                    }
+                    else
+                    {
+                        echo "Sorry! There was an error uploading your file!";
+                        header('location:error.php');
+                    }
+                }
+                else
+                {
+                    echo "Sorry! You cannot upload files of this type!";
+                    header('location:error.php');
+                }
+            }
             if($usertype === "startup") //For startup 
             {   
                 $founder= mysqli_real_escape_string($conn, $_POST['founder']);
@@ -43,7 +86,6 @@ if(isset($_POST['Submit']))
                 
                 //inserting the members of startup
                 $member_count = 1;
-                $member_insert = "";
                 $member = "";
                 $desgination_member = "";
                 if(isset($_POST['member'.$member_count.'']))
@@ -54,52 +96,42 @@ if(isset($_POST['Submit']))
                 {
                     $desgination_member = mysqli_real_escape_string($conn,$_POST['designation_member'.$member_count.'']);
                 }
-                
-                while($member !== '' && $desgination_member !== '')
+                $member_insert = "INSERT INTO members VALUES (?,?,?)";
+                if($stmt = mysqli_prepare($conn, $member_insert))
                 {
-                    $member_insert .= "INSERT INTO members VALUES ($userid, '$member', '$desgination_member');";
-                    $member_count++;
-                    $member = "";
-                    $desgination_member = "";
-                    if(isset($_POST['member'.$member_count.'']))
+                    while($member !== '' && $desgination_member !== '')
                     {
-                        $member = mysqli_real_escape_string($conn,$_POST['member'.$member_count.'']);
-                    }
-                    if(isset($_POST['designation_member'.$member_count.'']))
-                    {
-                        $desgination_member = mysqli_real_escape_string($conn,$_POST['designation_member'.$member_count.'']);
-                    }
-                        if($member === '' || $desgination_member === '')
+                        mysqli_stmt_bind_param($stmt, "iss", $userid, $member, $desgination_member);
+                        if(mysqli_stmt_execute($stmt))
                         {
-                            $member_count--;
+                            echo "Member $member_count Inserted successfully";
+                            $member_count++;
+                            $member = "";
+                            $desgination_member = "";
+                            if(isset($_POST['member'.$member_count.'']))
+                            {
+                                $member = mysqli_real_escape_string($conn,$_POST['member'.$member_count.'']);
+                            }
+                            if(isset($_POST['designation_member'.$member_count.'']))
+                            {
+                                $desgination_member = mysqli_real_escape_string($conn,$_POST['designation_member'.$member_count.'']);
+                            }
+                            if($member === '' || $desgination_member === '')
+                            {
+                                $member_count--;
+                            }
+                        }
+                        else
+                        {
+                            echo "Error: Could not execute the query: " . mysqli_error($conn);
                         }
                     }
-                
-                if($member_count === 1)
-                {
-                    if($member_insert !== '')
-                    {
-                        if(mysqli_query($conn, $member_insert))
-                    {
-                        echo "Member inserted successfully";
-                    }
-                    else
-                    {
-                        echo "Error: Could not execute the query: " . mysqli_error($conn);
-                    }
-                    }
                 }
-                else if($member_count > 1)
+                else
                 {
-                    if(mysqli_multi_query($conn, $member_insert))
-                    {
-                        echo "Members  inserted successfully";
-                    }
-                    else
-                    {
-                        echo "Error: Could not execute the query: " . mysqli_error($conn);
-                    }
+                    echo "Error: Could not prepare the query: " . mysqli_error($conn);
                 }
+            
             }
             else if($usertype === "mentor") //For mentor
             {
@@ -116,53 +148,41 @@ if(isset($_POST['Submit']))
                 }
                 //inserting mentor qualifications
                 $qual_count = 1;
-                $qual_insert = "";
                 $qual = "";
                 if(isset($_POST['qualification'.$qual_count.'']))
                 {
                     $qual = mysqli_real_escape_string($conn,$_POST['qualification'.$qual_count.'']);
                 }
-                
-                while($qual !== '')
+                $qual_insert = "INSERT INTO mentorqual VALUES (?,?)";
+                if($stmt = mysqli_prepare($conn, $qual_insert))
                 {
-                    $qual_insert .= "INSERT INTO mentorqual VALUES ($userid, '$qual');";
-                    $qual_count++;
-                    $qual = "";
-                    if(isset($_POST['qualification'.$qual_count.'']))
+                    while($qual !== '')
                     {
-                        $qual = mysqli_real_escape_string($conn,$_POST['qualification'.$qual_count.'']);
-                    }
-                    if($qual === '')
-                    {
-                        $qual_count--;
+                        mysqli_stmt_bind_param($stmt,"is", $userid, $qual);
+                        if(mysqli_stmt_execute($stmt))
+                        {
+                            echo "Qualification $qual_count Inserted successfully";
+                            $qual_count++;
+                            $qual = "";
+                            if(isset($_POST['qualification'.$qual_count.'']))
+                            {
+                                $qual = mysqli_real_escape_string($conn,$_POST['qualification'.$qual_count.'']);
+                            }
+                            if($qual === '')
+                            {
+                                $qual_count--;
+                            }
+                        }
+                        else
+                        {
+                            echo "Error: Could not execute the query: " . mysqli_error($conn);
+                        }
                     }
                 }
-                
-                if($qual_count === 1)
+                else
                 {
-                    if($qual_insert !== '')
-                    {
-                        if(mysqli_query($conn, $qual_insert))
-                    {
-                        echo "Qualification inserted successfully";
-                    }
-                    else
-                    {
-                        echo "Error: Could not execute the query: " . mysqli_error($conn);
-                    }
-                    }
-                }
-                else if($qual_count > 1)
-                {
-                    if(mysqli_multi_query($conn, $qual_insert))
-                    {
-                        echo "Qualifications inserted successfully";
-                    }
-                    else
-                    {
-                        echo "Error: Could not execute the query: " . mysqli_error($conn);
-                    }
-                }
+                    echo "Error: Could not prepare the query: " . mysqli_error($conn);
+                }                
             }
             else if ($usertype === "general") //For general user
             {   
@@ -180,35 +200,30 @@ if(isset($_POST['Submit']))
             }
             //inserting user links
             $link_count = 1;
-            $link_insert = "";
             $link = "";
             if(isset($_POST['link'.$link_count.'']))
             {
                 $link = mysqli_real_escape_string($conn,$_POST['link'.$link_count.'']);
             }
-            
-            while($link !== '')
+            $link_insert = "INSERT INTO userlinks VALUES (?,?)"; 
+            if($stmt = mysqli_prepare($conn, $link_insert))
             {
-                $link_insert .= "INSERT INTO userlinks VALUES ($userid, '$link');";
-                $link_count++;
-                $link = "";
-                if(isset($_POST['link'.$link_count.'']))
+                mysqli_stmt_bind_param($stmt, "is", $userid, $link);
+                while($link !== '')
                 {
-                    $link = mysqli_real_escape_string($conn,$_POST['link'.$link_count.'']);
-                }
-                if($link === '')
-                {
-                    $link_count--;
-                }
-            }
-            
-            if($link_count === 1)
-            {
-                if($link_insert !== '')
-                {
-                    if(mysqli_query($conn, $link_insert))
+                    if(mysqli_stmt_execute($stmt))
                     {
-                        echo "Link inserted successfully";
+                        echo "Link $link_count Inserted successfully";
+                        $link_count++;
+                        $link = "";
+                        if(isset($_POST['link'.$link_count.'']))
+                        {
+                            $link = mysqli_real_escape_string($conn,$_POST['link'.$link_count.'']);
+                        }
+                        if($link === '')
+                        {
+                            $link_count--;
+                        }
                     }
                     else
                     {
@@ -216,7 +231,7 @@ if(isset($_POST['Submit']))
                     }
                 }
             }
-            else if($link_count > 1)
+            else
             {
                 if(mysqli_multi_query($conn, $link_insert))
                 {
