@@ -51,6 +51,20 @@ body
     }
 }
 
+.input-icons
+{
+    display:flex;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.fa{
+    position: absolute;
+    color:black;
+    padding-top: 11px;
+    right: 80px;
+    cursor: pointer;
+  }
 .text
 {
     margin:0 auto;

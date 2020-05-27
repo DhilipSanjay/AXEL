@@ -4,7 +4,7 @@
     <title>Account Verification - Axel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
-    <link rel="icon" href="icon.ico">
+    <link rel="icon" href="logo.png">
     <!--BOOTSTRAP CDN-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
@@ -76,14 +76,14 @@ if(isset($_GET['vkey']))
     include("dbconnect.php");
     $vkey = mysqli_real_escape_string($conn,$_GET['vkey']);
 
-    $customer_query = "SELECT * FROM users WHERE vkey = '$vkey' AND verified = 0 LIMIT 1";
-    $customer_result = mysqli_query($conn, $customer_query);
-    $row = mysqli_fetch_array($customer_result, MYSQLI_ASSOC);
+    $query = "SELECT * FROM users WHERE vkey = '$vkey' AND verified = 0 LIMIT 1";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-    if(mysqli_num_rows($customer_result) == 1)
+    if(mysqli_num_rows($result) == 1)
     {
-        $customer_update = "UPDATE users SET verified = 1 WHERE vkey = '$vkey' AND verified = 0";
-        if(mysqli_query($conn, $customer_update))
+        $update = "UPDATE users SET verified = 1 WHERE vkey = '$vkey' AND verified = 0";
+        if(mysqli_query($conn, $update))
         {
 
 ?>
