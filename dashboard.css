@@ -2,7 +2,7 @@ hr
 {
     border:none;
     height:0;
-    border-bottom:0.5px solid #76D7C4;/*for fucking internet explorer which does not support css variables*/
+    border-bottom:1px solid #76D7C4;/*for fucking internet explorer which does not support css variables*/
     margin:auto;
     margin-bottom:30px;
     margin-left:2.5%;
@@ -649,6 +649,7 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
         transition:width 0.2s ease-in-out;
         overflow: hidden;
         width:0%;
+        z-index:50;
     }
 
     #dashboard #maindash
@@ -678,6 +679,7 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     {
         width:80%;
         font-size:1.4rem;
+        border-bottom:1px solid #76D7C4;
     }
 
     #maindash .announcementsholder .announcementsinfo #idname .clap  
@@ -726,6 +728,11 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     #header #logoholder #title
     {
         margin-left:50px;
+    }
+
+    #header #otherholder #userdetails #round
+    {
+        right:135px;
     }
 
     #dashboard #otherarea

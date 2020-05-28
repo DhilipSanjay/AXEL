@@ -86,7 +86,14 @@ function opennotiholder()
   if(isopen==0)
   {
     document.getElementById("notiholder").style.visibility="visible";
-    document.getElementById("notiholder").style.height="400px";
+    if(window.innerWidth<=769)
+    {
+      document.getElementById("notiholder").style.height="100%";
+    }
+    else
+    { 
+      document.getElementById("notiholder").style.height="400px";
+    }
     document.getElementById("notiholder").style.opacity="1";
     /*document.getElementById("round").style.visibility="hidden";*/
     isopen=1;
@@ -198,6 +205,9 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 
 
 <div id="logoholder">
+<svg class="bi bi-list" id="list" onclick="openlist()" width="2rem" height="2rem" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+</svg>
 <img id="logo" src="logo.png" onclick="gotodash()" height="42px" width="41px" alt="logo">
 <div id="title" style="cursor:pointer" onclick="gotodash()">AXEL</div>
 </div>
@@ -556,7 +566,14 @@ function openclosereqbox()
   {
     document.getElementById("overlay").style.opacity="0.5";
     document.getElementById("overlay").style.zIndex="1"; 
+    if(window.innerWidth<=769)
+    {
+    document.getElementById("otherarea").style.width="100%";
+    }
+    else
+    {
     document.getElementById("otherarea").style.width="450px";
+    }
     reqboxopen=1;
   }
 
