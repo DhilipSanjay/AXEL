@@ -56,15 +56,27 @@
     background-color: white;
     padding: 5px;
     border-radius:8px;
-    /*-webkit-box-shadow: 0 3px 8px -2px #c0c0c0;
+    margin-bottom:15px;
+    -webkit-box-shadow: 0 3px 8px -2px #c0c0c0;
     -moz-box-shadow: 0 3px 8px -2px #c0c0c0;
-    box-shadow: 0 3px 8px -2px #c0c0c0;*/
-    margin:5px 0px;
+    box-shadow: 0 3px 8px -2px #c0c0c0;
+    animation:slidein 0.5s forwards;
+    opacity:0;
+    transform:translateX(-100px);
+}
+
+@keyframes slidein {
+    100%
+    {
+        transform: translateX(0);
+        opacity:1;
+    }
 }
 
 .DP
 {
-    width: 35px;
+    width: 65px;
+    border-radius:50%;
 }
 .profile
 {
@@ -72,6 +84,7 @@
 }
 .username
 {
+    font-size:1.2rem;
     font-weight: 400;
     color: black;
 }
@@ -79,6 +92,13 @@
 {
     color: gray;
     font-style:italic;
+    font-size:1.1rem;
+}
+
+.loc
+{
+    font-size:1.1rem;
+    color:#76D7C4;
 }
 
 .queryitem:hover{

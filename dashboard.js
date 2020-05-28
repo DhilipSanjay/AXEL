@@ -172,6 +172,29 @@ function createann(userid)
   }
 }
 
+var errorurl=0;
+
+function checkURL()
+{
+  var regex = /^(http:\/\/|https:\/\/)(www\.)(\w+)(\.\w+)([\w\/=!@#\$%^&*()+{}\[\]\'\"\\:;.,<>\.\-\?]+)$/gim;
+  var url = document.getElementById("conlink").value;
+  var res = regex.test(url);
+  
+  if(res==false)
+  {
+    errorurl=1;
+    document.getElementById("errorURL").style.display="block";
+  }
+
+  else
+  {
+    errorurl=0;
+    document.getElementById("errorURL").style.display="none";
+  }
+
+  //console.log(regex.test(url));
+}
+
 function hostcontest(hostid)
 {
   var hostcontest=createreqobj();
@@ -193,6 +216,11 @@ function hostcontest(hostid)
   if(desc===""||link===""||date==="")
   {
     alert("Please fill in all the fields!");
+  }
+
+  else if(errorurl===1)
+  {
+    alert("Incorrect link specified!");
   }
 
   else
@@ -276,6 +304,22 @@ function fillrequests(userid,usertype)
 
     if (this.readyState == 4 && this.status == 200) {
      document.getElementById("enlightenholder").innerHTML=this.responseText;
+
+
+     if(usertype==="startup") //this is only for mentors
+     {
+
+     if(document.getElementsByClassName("reqbox").length>=1)
+     {
+       document.getElementById("round").style.visibility="visible";
+     }
+
+     }
+
+     else if(usertype==="mentor")
+     {
+       fillmentorreq(userid);
+     }
     }
 
   };
@@ -309,6 +353,11 @@ function fillmentorreq(userid)
 
     if (this.readyState == 4 && this.status == 200) {
      document.getElementById("mentorreqholder").innerHTML=this.responseText;
+
+     if(document.getElementsByClassName("reqbox").length>=1)
+     {
+     document.getElementById("round").style.visibility="visible";
+     }
     }
 
   };

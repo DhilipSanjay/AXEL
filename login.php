@@ -101,19 +101,7 @@ if(isset($_POST["login"]))
         opacity:1;
     }
 }
-.input-icons
-{
-    display:flex;
-    width: 100%;
-}
 
-.fa{
-    position: relative;
-    color:black;
-    padding-top: 11px;
-    right: 2.5rem;
-    cursor: pointer;
-  }
 </style>
 
 <body>
@@ -145,10 +133,7 @@ if(isset($_POST["login"]))
                 </clr-input-container>
                 <clr-password-container>
                 <label class="clr-sr-only">Password</label>
-                <div class = "input-icons">
                 <input type="password" name="password" id="pass" style="padding:20px 0;margin-bottom:20px;width:80%"  clrPassword placeholder="Password" [(ngModel)]="form.password" required/>
-                <i id="pass-status" class="fa fa-eye" aria-hidden="true" onClick="viewPassword()"></i>
-                </div>
                 </clr-password-container>
                 <clr-checkbox-wrapper>
                 <!--<label>Remember me</label>
@@ -194,24 +179,4 @@ if(isset($_POST["login"]))
         </form>
     </div>
 </body>
-<script>
-function viewPassword()
-{
-    var passwordInput = document.getElementById("password");
-    var passStatus = document.getElementById("pass-status");
-    
-    if(passwordInput.type == "password")
-    {
-        passwordInput.type = "text";
-        passStatus.className = "fa fa-eye-slash";
-    }
-    else
-    {
-        passwordInput.type = "password";
-        passStatus.className = "fa fa-eye";
-    }
-}
-
-
-</script>
 </html>
