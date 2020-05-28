@@ -2,7 +2,7 @@ hr
 {
     border:none;
     height:0;
-    border-bottom:0.5px solid #76D7C4;/*for fucking internet explorer which does not support css variables*/
+    border-bottom:1px solid #76D7C4;/*for fucking internet explorer which does not support css variables*/
     margin:auto;
     margin-bottom:30px;
     margin-left:2.5%;
@@ -115,6 +115,8 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     margin-left:5px;
     cursor:pointer;
 }
+
+
 
 #notiholder
 {
@@ -249,6 +251,7 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     cursor:pointer;
 }
 
+
 #header #otherholder #userdetails #round
 {
     visibility:hidden;
@@ -256,8 +259,8 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     height:5px;
     width:5px;
     z-index:2;
-    top:20px;
-    right:90px;
+    top:50px;
+    right:155px;
     background-color:white;
     color:black;
     border-radius: 50%;
@@ -291,7 +294,7 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     flex-direction: column;
     align-items:center !important;
     justify-content:center !important;
-    height:100%;
+    height:92.5%;
     color:white;
     width:22.5%;
 }
@@ -400,8 +403,20 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     color:#76D7C4;
 }
 
+@keyframes slidein {
+    100%
+    {
+        transform: translateY(0);
+        opacity:1;
+    }
+}
+
+
 #dashboard #maindash .announcementsholder
 {
+    opacity:0;
+    transform:translateY(-50px);
+    animation:slidein 0.5s forwards;
     display:flex;
     flex-direction: column;
     align-items: flex-start;
@@ -574,7 +589,7 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     padding:10px 10px;
     min-height:fit-content !important;
     max-height:fit-content;
-    width:350px;
+    width:90% !important;
 }
 
 
@@ -610,12 +625,31 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     cursor:pointer;
 }
 
+#list
+{
+    display:none;
+}
 @media screen and (max-width: 769px) {
-
-
-    #dashboard #sidenavbar
+    #list
     {
-        display:none;
+    display:block;
+    position:absolute;
+    left:10px;
+    cursor:pointer;
+    }
+
+    #logo
+    {
+    display:none;
+    }
+
+    #dashboard #sidenavbar,#dashboard #sidenavbar #logout
+    {
+        /*display:none;*/
+        transition:width 0.2s ease-in-out;
+        overflow: hidden;
+        width:0%;
+        z-index:50;
     }
 
     #dashboard #maindash
@@ -629,11 +663,6 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
         font-size:1rem;
     }
 
-
-    #createnewannouncementbox,#createnewcontest
-    {
-       
-    }
 
     #dashboard #maindash .topbuttons
     {
@@ -650,6 +679,7 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     {
         width:80%;
         font-size:1.4rem;
+        border-bottom:1px solid #76D7C4;
     }
 
     #maindash .announcementsholder .announcementsinfo #idname .clap  
@@ -695,9 +725,14 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
         padding-right:10px;
     }
 
-    #header #logoholder #logo
+    #header #logoholder #title
     {
-        margin-left:10px;
+        margin-left:50px;
+    }
+
+    #header #otherholder #userdetails #round
+    {
+        right:135px;
     }
 
     #dashboard #otherarea
@@ -709,4 +744,22 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
         font-size:1.1rem;
         margin-top:10px;
     }
+
+    #dashboard #otherarea #enlightenholder,
+    #dashboard #otherarea #mentorreqholder
+    {
+        width:85% !important;
+    }
+
+    #notiholder
+    {
+    right:0;
+    top:70px;
+    width:100%;
+    -webkit-box-shadow:  none;
+    -moz-box-shadow:  none;
+    box-shadow: none;
+    padding:10px 0;
+    }
+    
 }

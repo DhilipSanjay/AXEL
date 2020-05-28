@@ -1,8 +1,19 @@
 #holder
 {
+    animation:slidein 0.5s forwards;
+    opacity:0;
+    transform:translateY(-50px);
     width:100%;
     display:none;
     margin-top:20px;
+}
+
+@keyframes slidein {
+    100%
+    {
+        transform: translateY(0);
+        opacity:1;
+    }
 }
 
 #topinfo
@@ -46,8 +57,10 @@
     flex-direction: column;
     align-items: center;
     margin:auto;
+    font-family:'Roboto', sans-serif;
     margin-top:0;
     margin-right:0;
+    color:#76D7C4;
 }
 
 .value
@@ -79,6 +92,9 @@
 
 #otherinfo
 {
+    animation:slidein 0.5s forwards;
+    opacity:0;
+    transform:translateY(-50px);
     font-size:1.2rem;
     width:100%;
     height:fit-content;

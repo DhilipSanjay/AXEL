@@ -276,8 +276,8 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     height:5px;
     width:5px;
     z-index:2;
-    top:20px;
-    right:90px;
+    top:50px;
+    right:155px;
     background-color:white;
     color:black;
     border-radius: 50%;
@@ -311,7 +311,7 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     flex-direction: column;
     align-items:center !important;
     justify-content:center !important;
-    height:100%;
+    height:92.5%;
     color:white;
     width:22.5%;
 }
@@ -591,7 +591,7 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     padding:10px 10px;
     min-height:fit-content !important;
     max-height:fit-content;
-    width:350px;
+    width:90% !important;
 }
 
 
@@ -625,6 +625,146 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     text-align:center;  
     padding:10px 0px;
     cursor:pointer;
+}
+
+#list
+{
+    display:none;
+}
+
+@media screen and (max-width: 769px) {
+    #list
+    {
+    display:block;
+    position:absolute;
+    left:10px;
+    cursor:pointer;
+    }
+
+    #logo
+    {
+    display:none;
+    }
+
+    #dashboard #sidenavbar,#dashboard #sidenavbar #logout
+    {
+        /*display:none;*/
+        transition:width 0.2s ease-in-out;
+        overflow: hidden;
+        width:0%;
+        z-index:50;
+    }
+
+    #dashboard #maindash
+    {
+    margin-left:0;
+    width:90%;
+    /*background-color:aqua;*/
+    }
+    #dashboard #maindash .announcementsholder .announcementsinfo
+    {
+        font-size:1rem;
+    }
+
+
+    #dashboard #maindash .topbuttons
+    {
+        font-size:1rem;
+    }
+
+    #createnewannouncementbox #title,#createnewcontest #title
+    {
+        font-size:1.2rem;
+        width:80%;
+    }
+
+    #dashboard #maindash #welcomeuser
+    {
+        width:80%;
+        font-size:1.4rem;
+        border-bottom:1px solid #76D7C4;
+    }
+
+    #maindash .announcementsholder .announcementsinfo #idname .clap  
+    {
+        height:22.5px;
+    }
+
+    #dashboard #maindash .label 
+    {
+        font-size:1.5rem !important;
+    }
+
+    #createnewannouncementbox,#createnewcontest
+    {
+        width:100% !important;
+        margin:auto;
+        padding:0;
+    }
+
+    .holder
+    {
+        margin:15px 0;
+    }
+
+    .holder,#createnewannouncementbox #createann,
+    #createnewannouncementbox #close,
+    #createnewcontest #hostcontest,
+    #createnewcontest #close
+    {
+        min-width:90%;
+        max-width:90%;
+        font-size:1rem;
+    }
+
+    input[type="text"],#createnewannouncementbox .holder #ann,#createnewcontest .holder #contdesc
+    {
+        font-size:1rem;
+    }
+    
+
+    #header #otherholder #userdetails
+    {
+        padding-right:10px;
+    }
+
+    #header #logoholder #title
+    {
+        margin-left:50px;
+    }
+
+    #header #otherholder #userdetails #round
+    {
+        right:135px;
+    }
+
+    #dashboard #otherarea
+    {
+        margin:0;
+    }
+
+    #dashboard #noposts {
+        font-size:1.1rem;
+        margin-top:10px;
+    }
+
+    #dashboard #otherarea #enlightenholder,
+    #dashboard #otherarea #mentorreqholder
+    {
+        width:85% !important;
+    }
+
+    #notiholder
+    {
+    right:0;
+    top:70px;
+    width:100%;
+    -webkit-box-shadow:  none;
+    -moz-box-shadow:  none;
+    box-shadow: none;
+    padding:10px 0;
+    }
+    
 }
 
 

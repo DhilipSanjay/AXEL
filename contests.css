@@ -4,6 +4,9 @@
     font-weight:lighter;
     margin-top:25px;
     align-self:center;
+    animation:slidein 0.5s forwards;
+    opacity:0;
+    transform:translateY(-50px);
 }
 
 a
@@ -11,8 +14,20 @@ a
     color:#76D7C4;
 }
 
+@keyframes slidein {
+    100%
+    {
+        transform: translateY(0);
+        opacity:1;
+    }
+}
+
+
 .contest
 {
+    animation:slidein 0.5s forwards;
+    opacity:0;
+    transform:translateY(-50px);
     display:flex;
     flex-wrap:wrap;
     flex-direction: column;

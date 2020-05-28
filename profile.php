@@ -103,7 +103,14 @@ function opennotiholder()
   if(isopen==0)
   {
     document.getElementById("notiholder").style.visibility="visible";
-    document.getElementById("notiholder").style.height="400px";
+    if(window.innerWidth<=769)
+    {
+      document.getElementById("notiholder").style.height="100%";
+    }
+    else
+    { 
+      document.getElementById("notiholder").style.height="400px";
+    }
     document.getElementById("notiholder").style.opacity="1";
     /*document.getElementById("round").style.visibility="hidden";*/
     isopen=1;
@@ -144,7 +151,7 @@ function gotodash()
 
 </script>
 
-<body onload=fillrequests(<?php echo $sessionuserid.',"'.$sessionusertype.'"'?>)>
+<body onload="fillrequests(<?php echo $sessionuserid.',\''.$sessionusertype.'\''?>)">
 
 <div id="overlay" onclick="closesearch()"></div>
 <div id="overlay" class="fortopbuttons"></div>
@@ -227,6 +234,9 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 <div id="header"> <!--fixed header-->
 
 <div id="logoholder">
+<svg class="bi bi-list" id="list" onclick="openlist()" width="2rem" height="2rem" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+</svg>
 <img id="logo" src="logo.png" onclick="gotodash()" height="42px" width="41px" alt="logo">
 <div id="title" style="cursor:pointer" onclick="gotodash()">AXEL</div>
 </div>
@@ -260,6 +270,7 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 
     <?php } ?>
 
+    <div id="round"></div>
   <svg  id="noti" onclick="opennotiholder()" class="bi bi-bell" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="#76D7C4" xmlns="http://www.w3.org/2000/svg">
   <path d="M8 16a2 2 0 002-2H6a2 2 0 002 2z"/>
   <path fill-rule="evenodd" d="M8 1.918l-.797.161A4.002 4.002 0 004 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 00-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 111.99 0A5.002 5.002 0 0113 6c0 .88.32 4.2 1.22 6z" clip-rule="evenodd"/>
@@ -389,8 +400,8 @@ $isenlightened=$exres["count"];
 {?>
 <div id="enlightenbut">
 <div style="display:flex;flex-direction:column;align-items:center;cursor:pointer" onclick="enlreq(<?php echo $sessionuserid.','.$userid ?>)">
-    <img src="eng.png" height="35px" alt="enlighten">
-    <p>Enlighten</p>
+    <img src="eng.png" height="30px" alt="enlighten">
+    <p>Be Enlightened</p>
       </div>
 </div>
 
@@ -553,8 +564,8 @@ else if($usertype==="mentor")
     <div id="enlightenbut">
     <?php if($isenlightened!=1){?>
       <div style="display:flex;flex-direction:column;align-items:center;cursor:pointer" onclick="enlreq(<?php echo $sessionuserid.','.$userid ?>)">
-    <img src="eng.png" height="35px" alt="enlighten">
-    <p>Enlighten</p>
+    <img src="eng.png" height="30px" alt="enlighten">
+    <p>Be Enlightened</p>
       </div>
 
     <?php } 
@@ -563,11 +574,11 @@ else if($usertype==="mentor")
     ?>
 
     <div style="display:flex;flex-direction:column;align-items:center;cursor:pointer;margin-top:5px" onclick="mentorreq(<?php echo $sessionuserid.','.$userid ?>)">
-    <svg class="bi bi-person-plus-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <svg class="bi bi-person-plus-fill" width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 100-6 3 3 0 000 6zm7.5-3a.5.5 0 01.5.5v2a.5.5 0 01-.5.5h-2a.5.5 0 010-1H13V5.5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
      <path fill-rule="evenodd" d="M13 7.5a.5.5 0 01.5-.5h2a.5.5 0 010 1H14v1.5a.5.5 0 01-1 0v-2z" clip-rule="evenodd"/>
     </svg>
-    <p>Request</p>
+    <p>Mentor request</p>
     </div>
 
     <?php }?>
@@ -795,7 +806,7 @@ while($row=mysqli_fetch_assoc($anex))
 <div class="imgholder"><img src="avatar.png"></div>
 <?php echo $row['Name']; ?>
 <div class="countbox"></div>
-<img class="clap" src="clapping.svg" height="25px" width="25px" style="cursor:default">
+<img class="clap" src="clapping_enabled.svg" height="25px" width="25px" style="cursor:default">
 </span>
 
 <?php echo '<script type="text/javascript">checkapplaudcount('.$row['postid'].",".$temp.')</script>';?>
@@ -917,7 +928,14 @@ function openclosereqbox()
   {
     document.getElementById("overlay").style.opacity="0.5";
     document.getElementById("overlay").style.zIndex="1"; 
+    if(window.innerWidth<=769)
+    {
+    document.getElementById("otherarea").style.width="100%";
+    }
+    else
+    {
     document.getElementById("otherarea").style.width="450px";
+    }
     reqboxopen=1;
   }
 

@@ -73,7 +73,14 @@ function opennotiholder()
   if(isopen==0)
   {
     document.getElementById("notiholder").style.visibility="visible";
-    document.getElementById("notiholder").style.height="400px";
+    if(window.innerWidth<=769)
+    {
+      document.getElementById("notiholder").style.height="100%";
+    }
+    else
+    { 
+      document.getElementById("notiholder").style.height="400px";
+    }
     document.getElementById("notiholder").style.opacity="1";
     /*document.getElementById("round").style.visibility="hidden";*/
     isopen=1;
@@ -111,7 +118,7 @@ function gotodash()
 </head>
 
 
-<body onload=fillrequests(<?php echo $userid.',"'.$usertype.'"'?>)>
+<body onload="fillrequests(<?php echo $userid.',\''.$usertype.'\''?>);toggle(3);">
 
 <div id="overlay" onclick="closesearch()"></div>
 
@@ -198,6 +205,9 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 <div id="header"> <!--fixed header-->
 
 <div id="logoholder">
+<svg class="bi bi-list" id="list" onclick="openlist()" width="2rem" height="2rem" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+</svg>
 <img id="logo" src="logo.png" onclick="gotodash()" height="42px" width="41px" alt="logo">
 <div id="title" style="cursor:pointer" onclick="gotodash()">AXEL</div>
 </div>
@@ -228,6 +238,7 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 
     <?php } ?>
 
+    <div id="round"></div>
   <svg  id="noti" onclick="opennotiholder()" class="bi bi-bell" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="#76D7C4" xmlns="http://www.w3.org/2000/svg">
   <path d="M8 16a2 2 0 002-2H6a2 2 0 002 2z"/>
   <path fill-rule="evenodd" d="M8 1.918l-.797.161A4.002 4.002 0 004 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 00-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 111.99 0A5.002 5.002 0 0113 6c0 .88.32 4.2 1.22 6z" clip-rule="evenodd"/>
@@ -294,14 +305,14 @@ $temp=0;
 
 <div id="maindash">
 <div id="select">
+    <div id="s3" onclick="toggle(3)">Startups / Mentors Nearby</div>
     <div id="s1" onclick="toggle(1)">Popular Startups</div>
     <div id="s2" onclick="toggle(2)">Popular Mentors</div>
-    <div id="s3" onclick="toggle(3)">Startups/Mentors Nearby</div>
     </div>
 
     <div id="popular_startups">
     <?php
-      $startup_query = "SELECT dp,userid,name,usertype,count(*) as count FROM users JOIN enlighten WHERE userid = acceptorid AND userid != $userid AND usertype = 'startup' GROUP BY name ORDER BY count DESC";
+      $startup_query = "SELECT dp,userid,name,usertype,location,count(*) as count FROM users JOIN enlighten WHERE userid = acceptorid AND userid != $userid AND usertype = 'startup' GROUP BY name ORDER BY count DESC";
       $startup_result = mysqli_query($conn, $startup_query);
       if(mysqli_num_rows($startup_result) > 0)
       {
@@ -310,15 +321,16 @@ $temp=0;
           $output = "";
           $output .= '<div class="queryitem" onclick= "selectuser(\''.$startup_row['userid'].'\')">'; 
           /*$output .= '<img class="DP" src= "'.$startup_row['dp'] . '" alt="defaultimgholder.png">';*/
-          $output .= '<img class="DP" src= "'."avatar.png". '" alt="defaultimgholder.png">';
+          $output .= '<img class="DP" src= "'.$startup_row['dp']. '" alt="defaultimgholder.png">';
           $output .= '<span class="profile"><div class = "username">' .$startup_row['name'].'</div>';
-          $output .= '<div class="usertype">' .$startup_row['usertype'].'</div></span></div>';
+          $output .= '<div class="usertype">' .$startup_row['usertype'].'</div>';
+          $output .= '<div class="loc">' .$startup_row['location'].'</div></span></div>';
           echo $output;
         }
       }
       else
       {
-        echo '<div style="text-align:center;margin:15px 0px">No results found!</div>';
+        echo '<div style="text-align:center;margin:15px 0px">Oops! Sorry, but no results were found!</div>';
       }
       
     ?>
@@ -326,7 +338,7 @@ $temp=0;
 
     <div id="popular_mentors">
     <?php
-      $mentor_query = "SELECT dp,userid,name,usertype,count(*) as count FROM users JOIN enlighten WHERE userid = acceptorid AND userid != $userid AND usertype = 'mentor' GROUP BY name ORDER BY count DESC";
+      $mentor_query = "SELECT dp,userid,name,usertype,location,count(*) as count FROM users JOIN enlighten WHERE userid = acceptorid AND userid != $userid AND usertype = 'mentor' GROUP BY name ORDER BY count DESC";
       $mentor_result = mysqli_query($conn, $mentor_query);
       if(mysqli_num_rows($mentor_result) > 0)
       {
@@ -335,22 +347,23 @@ $temp=0;
           $output = "";
           $output .= '<div class="queryitem" onclick= "selectuser(\''.$mentor_row['userid'].'\')">'; 
           /*$output .= '<img class="DP" src= "'.$startup_row['dp'] . '" alt="defaultimgholder.png">';*/
-          $output .= '<img class="DP" src= "'."avatar.png". '" alt="defaultimgholder.png">';
+          $output .= '<img class="DP" src= "'.$mentor_row['dp']. '" alt="defaultimgholder.png">';
           $output .= '<span class="profile"><div class = "username">' .$mentor_row['name'].'</div>';
-          $output .= '<div class="usertype">' .$mentor_row['usertype'].'</div></span></div>';
+          $output .= '<div class="usertype">' .$mentor_row['usertype'].'</div>';
+          $output .= '<div class="loc">' .$mentor_row['location'].'</div></span></div>';
           echo $output;
         }
       }
       else
       {
-          echo '<div style="text-align:center;margin:15px 0px">No results found!</div>';
+          echo '<div style="text-align:center;margin:15px 0px">Oops! Sorry, but no results were found!</div>';
       }
     ?>
     </div>
 
     <div id="nearby">
     <?php
-      $nearby_query = "SELECT userid,name,usertype,location FROM users WHERE userid != $userid AND usertype != 'general' AND LOWER(location) = (SELECT LOWER(location) FROM users WHERE userid = $userid)";
+      $nearby_query = "SELECT dp,userid,name,usertype,location FROM users WHERE userid != $userid AND usertype != 'general' AND LOWER(location) = (SELECT LOWER(location) FROM users WHERE userid = $userid)";
       $nearby_result = mysqli_query($conn, $nearby_query);
       if(mysqli_num_rows($nearby_result) > 0)
       {
@@ -359,15 +372,17 @@ $temp=0;
           $output = "";
           $output .= '<div class="queryitem" onclick= "selectuser(\''.$nearby_row['userid'].'\')">'; 
           /*$output .= '<img class="DP" src= "'.$startup_row['dp'] . '" alt="defaultimgholder.png">';*/
-          $output .= '<img class="DP" src= "'."avatar.png". '" alt="defaultimgholder.png">';
+          $output .= '<img class="DP" src= "'.$nearby_row['dp']. '" alt="defaultimgholder.png">';
           $output .= '<span class="profile"><div class = "username">' .$nearby_row['name'].'</div>';
-          $output .= '<div class="usertype">' .$nearby_row['usertype'].'</div></span></div>';
+          $output .= '<div class="usertype">' .$nearby_row['usertype'].'</div>';
+          $output .= '<div class="loc">' .$nearby_row['location'].'</div></span></div>';
+          
           echo $output;
         }
       }
       else
       {
-        echo '<div style="text-align:center;margin:15px 0px">No results found!</div>';
+        echo '<div style="text-align:center;margin:15px 0px">Oops! Sorry, but no results were found!</div>';
       }
     
     ?>
@@ -433,7 +448,14 @@ function openclosereqbox()
   {
     document.getElementById("overlay").style.opacity="0.5";
     document.getElementById("overlay").style.zIndex="1"; 
+    if(window.innerWidth<=769)
+    {
+    document.getElementById("otherarea").style.width="100%";
+    }
+    else
+    {
     document.getElementById("otherarea").style.width="450px";
+    }
     reqboxopen=1;
   }
 
