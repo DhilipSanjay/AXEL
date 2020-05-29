@@ -42,7 +42,7 @@ window.onscroll = function(){
     news.style.transform="translateY(-100px)";
     news.style.opacity="0";
 
-    contests.style.transform="translateX(100px)";
+    contests.style.transform="translateX(-100px)";
     contests.style.opacity="0";
 
     if(window.scrollY>=(getPosition(poll)-650))   

@@ -245,6 +245,11 @@ function accept(reqid,accid,event)
         if (this.readyState == 4 && this.status == 200) {
           event.target.style.backgroundColor ="#c0c0c0";
           event.target.innerHTML="Accepted";
+
+          if(document.getElementsByClassName("reqbox").length===0)
+          {
+          document.getElementById("round").style.visibility="hidden";
+          }
         }
 
       };
@@ -269,7 +274,15 @@ function acceptasmentor(startupid,accid,event)
         if (this.readyState == 4 && this.status == 200) {
           event.target.style.backgroundColor ="#c0c0c0";
           event.target.innerHTML="Accepted as mentor";
+
+
+          if(document.getElementsByClassName("reqbox").length===0)
+          {
+          document.getElementById("round").style.visibility="hidden";
+          }
+
         }
+
 
       };
 
