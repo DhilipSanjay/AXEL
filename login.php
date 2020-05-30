@@ -82,9 +82,16 @@ if(isset($_POST["login"]))
     animation-fill-mode:forwards !important;
 }
 
+#holder
+{
+    margin-left:40px;
+    width:75% !important;
+}
+
 #email,#pass
 {
     color:black !important;
+    width:100% !important;
 }
 
 #email:focus,#pass:focus
@@ -107,6 +114,7 @@ if(isset($_POST["login"]))
 <body>
     <div class="login-wrapper" style="background:url('regbg.jpg');background-position:center;background-attachment:fixed;background-repeat: no-repeat;background-size: cover">
         <form class="login" action="" method="post">
+        <div id="holder">
             <section class="title">
                 <h1 class="welcome">Login</h1>
                 <h4>Now is your time to <span style="color:#76D7C4">evolve.</span></h4>
@@ -173,9 +181,10 @@ if(isset($_POST["login"]))
                 <input type ="radio" id = "general" name="radio" value="general" required> General User
 
                 </clr-checkbox-wrapper>
-                <button type="submit" name="login" style="margin-top:25px;width:80%;border:none" class="btn btn-primary loginbut">Login</button>
-                <a href="register.html"  style="margin-top:15px;width:80%;color:#76D7C4 !important" class="signup">I want to create a new account!</a>
+                <button type="submit" name="login" style="margin-top:25px;width:100%;border:none" class="btn btn-primary loginbut">Login</button>
+                <a href="register.html"  style="margin-top:15px;width:100%;color:#76D7C4 !important" class="signup">I want to create a new account!</a>
             </div>
+        </div>
         </form>
     </div>
 </body>

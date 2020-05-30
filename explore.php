@@ -118,7 +118,7 @@ function gotodash()
 </head>
 
 
-<body onload="fillrequests(<?php echo $userid.',\''.$usertype.'\''?>);toggle(3);">
+<body onload="fillrequests(<?php echo $userid.',\''.$usertype.'\''?>)">
 
 <div id="overlay" onclick="closesearch()"></div>
 
