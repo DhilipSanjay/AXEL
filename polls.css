@@ -173,6 +173,65 @@ a
     transform:translateY(-50px);
 }
 
+#title
+{
+    font-size:1.4rem;
+    font-weight: lighter;
+    letter-spacing: 2px;
+    margin-left:5px;
+}
+
+#createpoll,
+#close
+{
+    min-width:60%;
+    max-width:60%;
+    box-sizing: border-box;
+    padding:10px 0px;
+    font-size:1rem;
+    color:white;
+    text-align:center;
+    border-radius:5px;
+    background-color:#76D7C4;
+    cursor:pointer;
+}
+
+#close
+{
+    margin-top:10px;
+    background-color:#DC143C;
+}
+
+
+input[type="text"],#pollcreatebox .holder #polldesc
+{
+    font-family:'Nunito Sans',sans-serif;
+    box-sizing:border-box;
+    font-size:1.1rem;
+    margin-top:10px;
+    width:100%;
+    padding:5px 5px;
+    border:1px solid black;
+}
+
+input[type="text"]:focus,#pollcreatebox .holder #polldesc:focus
+{
+    outline:none;
+    border-color:#76D7C4;
+}
+.holder
+{
+    min-width:90%;
+    max-width:90%;
+    font-size:1rem;
+    margin:15px 0;
+}
+
+.option
+{
+    width: 100%;
+    margin-top: 20px;
+}
 @keyframes pollboxreveal {
     100%
     {
