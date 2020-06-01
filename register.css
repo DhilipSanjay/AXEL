@@ -3,6 +3,11 @@
     --maincolor: #76D7C4;
 }
 
+#profilepic
+{
+    padding-top:3.5px;
+}
+
 body
 {
     background: url("regbg.jpg");
@@ -94,7 +99,7 @@ body
 
 #secondstep
 {
-    display: none;
+    display:none;
     transform: translateX(-100px);
     opacity:0;
     animation:contentcomingin2 0.5s forwards;

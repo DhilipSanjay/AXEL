@@ -25,10 +25,18 @@ function validateEmail()
 
 function validate_step1()
 {
+    var passregex=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/gm;
+
     if(document.getElementById("email").value == '' || document.getElementById("username").value == '' || document.getElementById("password").value == '' || !CheckedRadio)
     {
         alert('Please Fill all the details!');
     }
+
+    else if(passregex.test(document.getElementById("password").value)===false)
+    {
+        alert('Enter a valid password!');
+    }
+
     else
     {
         if(validateEmail())
