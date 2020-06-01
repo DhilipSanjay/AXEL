@@ -325,7 +325,7 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
       <input type="text"  maxlength="200"  id="polloption2" name="polloption2" placeholder="Poll option 2 (max length - 200)" required>
     </div>
     </div>
-    <div  style="text-align:center;margin-bottom:10px;"><a href="javascript:void(0);" onclick="addPollOption();">+Add Qualification</a></div>
+    <div  style="text-align:center;margin-bottom:10px;"><a href="javascript:void(0);" onclick="addPollOption();">+Add Poll Option</a></div>
     <div id="error" style="display:none;color:red;font-size:1rem;margin-bottom:10px">Cannot add more than 4 options!</div>
     <div id="createpoll" onclick="createpoll()">Create Poll</div>
   <div id="close" onclick="openpollbox()">Close</div>
@@ -683,6 +683,7 @@ function createpoll()
 var desc =  document.getElementById("polldesc").value;
 var count = 1;
 var flag = 1;
+
 while(count <= polloption_count)
 {
   id = "polloption"+polloption_count;
@@ -702,7 +703,7 @@ if(flag === 1)
   var param="desc="+desc;
   while(count <= polloption_count)
   {
-    id = "polloption"+polloption_count;
+    id = "polloption"+count;
     var option = document.getElementById(id).value;
     param += "&option"+count+"="+option;
     count++;
