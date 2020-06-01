@@ -158,3 +158,25 @@ a
     border-radius:5px;
     color:white;   
 }
+
+#pollcreatebox
+{
+    font-size:1.1rem;
+    border:2px solid #76D7C4;
+    display:none;
+    height:fit-content;
+    opacity:0;
+    width:90%;
+    align-items:center;
+    justify-content:center;
+    padding:10px 0;
+    transform:translateY(-50px);
+}
+
+@keyframes pollboxreveal {
+    100%
+    {
+        transform:translateY(0);
+        opacity: 1;
+    }
+}
