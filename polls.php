@@ -309,12 +309,26 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 
 
 <div id="pollcreatebox">
+  <div id="title">Create a new Poll</div>
+      <div class="holder">
+      Description
+      <textarea id="polldesc" maxlength="200" rows="5" style="resize:none" placeholder="Description of the Poll(max length - 200)"></textarea>
+    </div>
 
-
-
-      Poll creation content goes here!
-
-
+    <div class="holder" id = "polloption_details">
+      <div class="option">
+      Poll Option 1
+      <input type="text"  maxlength="200"  id="polloption1" name="polloption1" placeholder="Poll option 1 (max length - 200)" required>
+    </div>
+    <div class="option">
+      Poll Option 2
+      <input type="text"  maxlength="200"  id="polloption2" name="polloption2" placeholder="Poll option 2 (max length - 200)" required>
+    </div>
+    </div>
+    <div  style="text-align:center;margin-bottom:10px;"><a href="javascript:void(0);" onclick="addPollOption();">+Add Poll Option</a></div>
+    <div id="error" style="display:none;color:red;font-size:1rem;margin-bottom:10px">Cannot add more than 4 options!</div>
+    <div id="createpoll" onclick="createpoll()">Create Poll</div>
+  <div id="close" onclick="openpollbox()">Close</div>
       
 </div>
 
@@ -621,6 +635,7 @@ function openpollbox() {
   if(pollboxopen===0)
   {
       pollbox.style.display="flex";
+      pollbox.style.flexDirection = "column";
       pollbox.style.animation="pollboxreveal 0.25s forwards";
       pollboxopen=1;
   }
@@ -630,11 +645,75 @@ function openpollbox() {
       pollbox.style.display="none";
       pollboxopen=0;
   }
-
-
 }
 
+var polloption_count =2;
+function addPollOption()
+{
+  if(polloption_count <= 3) //adds until 4
+  {
+    polloption_count++;
+    var polls = document.createElement('div');
+    polls.setAttribute('class', 'option');
+    polls.innerHTML = 'Poll Option '+polloption_count+' <input type="text"  maxlength="200"  id="polloption'+polloption_count+'" name="polloption'+polloption_count+'" placeholder="Poll option '+polloption_count+' (max length - 200)" required>';
 
+    document.getElementById('polloption_details').appendChild(polls);
+  }
+  else
+  {
+    document.getElementById("error").style.display="block";
+  }
+   
+}
+
+function createpoll()
+{
+  var createpoll=createreqobj();
+
+  createpoll.onreadystatechange = function() {
+
+    if (this.readyState == 4 && this.status == 200) {
+        
+        //alert(this.responseText);
+        location.reload(true); //to reload the page
+    } 
+
+  };
+
+var desc =  document.getElementById("polldesc").value;
+var count = 1;
+var flag = 1;
+
+while(count <= polloption_count)
+{
+  id = "polloption"+polloption_count;
+  var option = document.getElementById(id).value;
+  if(desc===""|| option==="")
+  {
+    alert("Please fill in all the fields!");
+    flag = 0;
+    break;
+  }
+  count++;
+}
+count =1;
+if(flag === 1)
+{
+  desc=encodeURIComponent(desc);  //used to have & and other symbols in description
+  var param="desc="+desc;
+  while(count <= polloption_count)
+  {
+    id = "polloption"+count;
+    var option = document.getElementById(id).value;
+    param += "&option"+count+"="+option;
+    count++;
+  }
+  createpoll.open("POST", "createpoll.php", true);
+  createpoll.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+  createpoll.send(param);
+}
+  
+}
 </script>
 
 
