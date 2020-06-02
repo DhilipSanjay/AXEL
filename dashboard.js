@@ -386,6 +386,8 @@ function applaud(userid,postid,postuserid,count,event)
   var status=event.target.getAttribute("status");
   var applaudobj=createreqobj(); //ajax object for applaud
 
+  document.getElementsByClassName("countbox")[count].style.animation="slideout 0.25s forwards";
+
   if(status==="0") //not yet applauded
   {
   applaudobj.onreadystatechange = function() {
@@ -413,7 +415,7 @@ function applaud(userid,postid,postuserid,count,event)
         event.target.src="clapping.svg";
         checkapplaudcount(postid,count);
       }
-  
+
     };
   
     var url="applaud.php?userid="+userid+"&postid="+postid+"&postuserid="+postuserid+"&todo=deleteapplaud&datetime="+Date();

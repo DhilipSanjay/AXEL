@@ -159,7 +159,15 @@ function checkapplaudcount(postid,count)
   checkapplaudcount.onreadystatechange = function() {
 
   if (this.readyState == 4 && this.status == 200) {
+
       document.getElementsByClassName("countbox")[count].innerHTML=this.responseText;
+      
+      setTimeout(()=>
+      {
+      document.getElementsByClassName("countbox")[count].style.transform="translateY(-10px)";
+      document.getElementsByClassName("countbox")[count].style.animation="slidein 0.25s forwards";
+      },75);
+
   }
   };
 
@@ -623,7 +631,6 @@ function logout() {
 
 window.location.href="logout.php";
 }
-
 
 </script>
 

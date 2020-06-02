@@ -108,6 +108,15 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     font-size:1.1rem;
 }
 
+@keyframes slideout
+{
+    100%
+    {
+        transform: translateY(10px);
+        opacity:0;
+    }
+}
+
 #maindash .announcementsholder .announcementsinfo #idname .clap  
 {
     margin:auto;
