@@ -252,7 +252,7 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
 }
 
 
-#header #otherholder #userdetails #round
+#header #otherholder #userdetails #round,#header #otherholder #userdetails #roundnoti
 {
     visibility:hidden;
     position:absolute;
@@ -264,6 +264,11 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     background-color:white;
     color:black;
     border-radius: 50%;
+}
+
+#header #otherholder #userdetails #roundnoti
+{
+right:101px;
 }
 
 #header #otherholder #userdetails #userdp
