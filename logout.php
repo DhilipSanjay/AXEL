@@ -1,8 +1,18 @@
 <?php
 session_start();
 
+include("dbconnect.php");
+
+$userid=$_SESSION["userid"]; //this is the userid of the user currently logged in
+
+$logoutquery = "update users set lastloggedtime=CURRENT_TIMESTAMP() where userid=$userid";
+$result=mysqli_query($conn,$logoutquery);
+
+if($result)
+{
 if(session_destroy()) {
         header("Location: index.php");
+}
 }
 ?>
 

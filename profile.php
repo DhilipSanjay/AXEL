@@ -20,10 +20,17 @@ $sessionuserid = $_SESSION["userid"];
 $sessionusertype = $_SESSION["usertype"];
 $sessionuserdp = $_SESSION["dp"];
 
+
+$timequery = "select lastloggedtime from users where userid=$sessionuserid";
+$result=mysqli_query($conn,$timequery);
+$timeres=mysqli_fetch_assoc($result);
+
+$lastloggedtime=$timeres["lastloggedtime"];
+
 //if user type is a startup then show mentor request accepted notifications in notifications box
 if($sessionusertype==="startup")
 {
-$mentornotiquery="select mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$sessionuserid and status='accepted' order by timeelapsed limit 50";
+$mentornotiquery="select statuschangetime,mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$sessionuserid and status='accepted' order by timeelapsed limit 50";
 $mentornotiresult=mysqli_query($conn,$mentornotiquery);
 $mentornoticount=mysqli_num_rows($mentornotiresult);
 }
@@ -112,7 +119,10 @@ function opennotiholder()
       document.getElementById("notiholder").style.height="400px";
     }
     document.getElementById("notiholder").style.opacity="1";
-    /*document.getElementById("round").style.visibility="hidden";*/
+    document.getElementById("roundnoti").style.visibility="hidden";
+
+    localStorage.setItem("notistatus","seen"); //user has seen the notification
+    
     isopen=1;
   }
 
@@ -154,82 +164,6 @@ function gotodash()
 <body onload="fillrequests(<?php echo $sessionuserid.',\''.$sessionusertype.'\''?>)">
 
 <div id="overlay" onclick="closesearch()"></div>
-<div id="overlay" class="fortopbuttons"></div>
-
-<div id="notiholder">
-
-<?php 
-
-$query="select userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$sessionuserid and status='accepted' order by timeelapsed limit 50";
-$result=mysqli_query($conn,$query);
-$count=mysqli_num_rows($result);
-
-
-if( ($sessionusertype==="mentor"&&$count===0) || ($count===0&&$sessionusertype==="startup"&&$mentornoticount===0) )
-{
-?>
-<div id="nonoti" style="margin-top:20px">No notifications!</div>
-<?php
-}
-
-else
-{
-
-if($sessionusertype==="startup")
-{
-
-while($row=mysqli_fetch_assoc($mentornotiresult))
-{?>
-
-<div class="notibox">
-<?php echo $row["Name"]?> accepted to be your mentor!
-<div class="notitime"><?php echo $row["time"] ?></div>
-</div>
-
-<?php
-}
-
-if($mentornoticount!==0)
-{
-?>
-
-<div style="border:none;border-bottom:0.5px solid #c0c0c0;width:90%;margin:10px 0"></div>
-
-<?php
-}
-
-}
-
-if($count===0)
-{
-?>
-
-<div id="nonoti" style="margin-top:20px">No enlighten notifications!</div>
-
-<?php
-}
-
-while($row=mysqli_fetch_assoc($result))
-{ ?>
-
-<div class="notibox">
-
-You were enlightened by <?php echo $row["Name"]."!" ?>
-<div class="notitime"><?php echo $row["time"] ?></div>
-
-</div>
-
-<?php 
-}
-?>
-<div style="border:none;border-bottom:0.5px solid #f2f3f4;width:90%;margin:10px 0"></div>
-
-<?php
-} 
-?>
-
-</div>
-
 
 <div id="header"> <!--fixed header-->
 
@@ -275,6 +209,8 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
   <path d="M8 16a2 2 0 002-2H6a2 2 0 002 2z"/>
   <path fill-rule="evenodd" d="M8 1.918l-.797.161A4.002 4.002 0 004 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 00-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 111.99 0A5.002 5.002 0 0113 6c0 .88.32 4.2 1.22 6z" clip-rule="evenodd"/>
   </svg>
+  <div id="roundnoti"></div>
+
 
   <img id="userdp" src="<?php echo $sessionuserdp ?>" alt="avatar.png">
 </div>
@@ -879,9 +815,128 @@ $temp++;
 
 
 
+<div id="notiholder">
+
+<?php 
+
+$query="select statuschangetime,userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$sessionuserid and status='accepted' order by timeelapsed limit 50";
+$result=mysqli_query($conn,$query);
+$count=mysqli_num_rows($result);
 
 
+if( ($usertype==="mentor"&&$count===0) || ($count===0&&$usertype==="startup"&&$mentornoticount===0) )
+{
+?>
+<div id="nonoti" style="margin-top:20px">No notifications!</div>
+<?php
+}
 
+else
+{
+
+if($usertype==="startup")
+{
+
+$firstitem=0;
+
+while($row=mysqli_fetch_assoc($mentornotiresult))
+{
+  
+if($firstitem===0)//this is the first item
+{
+  if($row["statuschangetime"]>=$lastloggedtime)
+  {
+?>
+   <script>
+
+var notistatus=localStorage.getItem("notistatus");
+
+if(notistatus==="not seen")
+{
+  document.getElementById("roundnoti").style.visibility="visible";
+}
+ 
+ </script>
+<?php
+  }
+  $firstitem=1;
+}
+?>
+
+<div class="notibox">
+<?php echo $row["Name"]?> accepted to be your mentor!
+<div class="notitime"><?php echo $row["time"] ?></div>
+</div>
+
+<?php
+}
+
+if($mentornoticount!==0)
+{
+?>
+
+<div style="border:none;border-bottom:0.5px solid #c0c0c0;width:90%;margin:10px 0"></div>
+
+<?php
+}
+
+}
+
+if($count===0)
+{
+?>
+
+<div id="nonoti" style="margin-top:20px">No enlighten notifications!</div>
+
+<?php
+}
+
+$firstitem=0;
+
+while($row=mysqli_fetch_assoc($result))
+{ 
+  
+  if($firstitem===0)//this is the first item
+  {
+    if($row["statuschangetime"]>=$lastloggedtime)
+    {
+?>
+     <script>
+
+var notistatus=localStorage.getItem("notistatus");
+
+if(notistatus==="not seen")
+{
+  document.getElementById("roundnoti").style.visibility="visible";
+}
+ 
+ </script>
+  
+<?php
+    }
+    $firstitem=1;
+  }
+  
+?>
+
+<div class="notibox">
+
+You were enlightened by <?php echo $row["Name"]."!" ?>
+<div class="notitime"><?php echo $row["time"] ?></div>
+
+</div>
+
+<?php 
+}
+?>
+<div style="border:none;border-bottom:0.5px solid #f2f3f4;width:90%;margin:10px 0"></div>
+
+<?php
+}
+
+?>
+
+</div>
 
 
 

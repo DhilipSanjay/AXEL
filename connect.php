@@ -12,10 +12,17 @@ $name = $_SESSION['name'];
 $usertype = $_SESSION['usertype'];
 $dp = $_SESSION['dp'];
 
+
+$timequery = "select lastloggedtime from users where userid=$userid";
+$result=mysqli_query($conn,$timequery);
+$timeres=mysqli_fetch_assoc($result);
+
+$lastloggedtime=$timeres["lastloggedtime"];
+
 //if user type is a startup then show mentor request accepted notifications in notifications box
 if($usertype==="startup")
 {
-$mentornotiquery="select mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$userid and status='accepted' order by timeelapsed limit 50";
+$mentornotiquery="select statuschangetime,mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$userid and status='accepted' order by timeelapsed limit 50";
 $mentornotiresult=mysqli_query($conn,$mentornotiquery);
 $mentornoticount=mysqli_num_rows($mentornotiresult);
 }
@@ -27,8 +34,8 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
 <head>
 <meta charset="utf-8"> 
 <title>Connect - Axel</title>
-<!--<link rel="stylesheet" href="home.css">-->
 <link rel="stylesheet" href="common.css">
+<link rel="stylesheet" href="explore.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <link rel="icon" href="logo.png">
 <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i&display=swap" rel="stylesheet">
@@ -55,6 +62,110 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
     bottom:0;
     width:22.5%;
     padding:10px 0;
+}
+
+#dashboard #maindash .label 
+{
+  font-size:1.5rem;
+  font-weight:300;
+  align-self:flex-start;
+  margin-top:15px;
+  border-bottom:1px solid #76D7C4;
+  padding-bottom:8px;
+}
+
+
+.holder
+{
+    font-size:1.2rem;
+    min-width:100% !important;
+    height:fit-content;
+    margin:20px 0;
+}
+
+.queryitem
+{
+width:100%;
+box-sizing:border-box;
+}
+
+
+.queryitem2
+{
+  box-sizing:border-box;
+  width:100%;
+  padding:10px;
+  cursor:default;
+  border:none;
+  -webkit-box-shadow: 0 3px 8px -2px #c0c0c0;
+    -moz-box-shadow: 0 3px 8px -2px #c0c0c0;
+    box-shadow: 0 3px 8px -2px #c0c0c0;
+    animation:slidein 0.5s forwards;
+    opacity:0;
+    transform:translateX(-100px);
+    border-radius:8px;
+  margin-bottom:8px;
+}
+
+.queryitem2:hover{
+    border: none;
+}
+
+.queryitem2 .profile
+{
+  cursor:pointer;
+}
+
+
+.queryitem2 .chat
+{
+  position:absolute;
+  top:25px;
+  right:35px;
+  cursor:pointer;
+}
+
+.linkholder
+{
+  margin:0 auto;
+  width:90%;
+  font-family:'Roboto',sans-serif;
+  font-size:1.1rem;
+}
+
+.linkholder .contact
+{
+  background-color:#76D7C4;
+  padding:15px 0;
+  border-radius:5px;
+  color:white;
+  text-align:center;
+  margin:10px 0;
+}
+
+.linkholder .item
+{
+  cursor:pointer;
+  display:block;
+  padding:15px 0;
+  margin:10px 0;
+  text-align:center;
+  text-decoration:none;
+  color:black;
+  border-radius:5px;
+  border:1px solid #76D7C4;
+}
+
+.DP
+{
+    width: 40px;
+    border-radius:50%;
+}
+
+.linkholder .item:hover
+{
+  background-color:#76D7C4;
+  color:white;
 }
 
 </style>
@@ -91,7 +202,10 @@ function opennotiholder()
       document.getElementById("notiholder").style.height="400px";
     }
     document.getElementById("notiholder").style.opacity="1";
-    /*document.getElementById("round").style.visibility="hidden";*/
+    document.getElementById("roundnoti").style.visibility="hidden";
+
+    localStorage.setItem("notistatus","seen"); //user has seen the notification
+
     isopen=1;
   }
 
@@ -115,85 +229,6 @@ function gotodash()
 <body onload="fillrequests(<?php echo $userid.',\''.$usertype.'\''?>)">
 
 <div id="overlay" onclick="closesearch()"></div>
-
-
-<div id="notiholder">
-
-<?php 
-
-$query="select userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
-$result=mysqli_query($conn,$query);
-$count=mysqli_num_rows($result);
-
-
-//echo $usertype.",".$count.",".$mentornoticount;
-
-if( ($usertype==="mentor"&&$count===0) || ($count===0&&$usertype==="startup"&&$mentornoticount===0) )
-{
-?>
-<div id="nonoti" style="margin-top:20px">No notifications!</div>
-<?php
-}
-
-else
-{
-
-if($usertype==="startup")
-{
-
-while($row=mysqli_fetch_assoc($mentornotiresult))
-{?>
-
-<div class="notibox">
-<?php echo $row["Name"]?> accepted to be your mentor!
-<div class="notitime"><?php echo $row["time"] ?></div>
-</div>
-
-<?php
-}
-
-if($mentornoticount!==0)
-{
-?>
-
-<div style="border:none;border-bottom:0.5px solid #c0c0c0;width:90%;margin:10px 0"></div>
-
-<?php
-}
-
-}
-
-if($count===0)
-{
-?>
-
-<div id="nonoti" style="margin-top:20px">No enlighten notifications!</div>
-
-<?php
-}
-
-while($row=mysqli_fetch_assoc($result))
-{ ?>
-
-<div class="notibox">
-
-You were enlightened by <?php echo $row["Name"]."!" ?>
-<div class="notitime"><?php echo $row["time"] ?></div>
-
-</div>
-
-<?php 
-}
-?>
-<div style="border:none;border-bottom:0.5px solid #f2f3f4;width:90%;margin:10px 0"></div>
-
-<?php
-} 
-?>
-
-</div>
-
-
 
 <div id="header"> <!--fixed header-->
 
@@ -237,6 +272,7 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
   <path d="M8 16a2 2 0 002-2H6a2 2 0 002 2z"/>
   <path fill-rule="evenodd" d="M8 1.918l-.797.161A4.002 4.002 0 004 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 00-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 111.99 0A5.002 5.002 0 0113 6c0 .88.32 4.2 1.22 6z" clip-rule="evenodd"/>
   </svg>
+  <div id="roundnoti"></div>
 
   <img id="userdp" src="<?php echo $dp ?>" alt="avatar.png">
 </div>
@@ -293,8 +329,289 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 <div id="maindash">
 
 
+<?php if($usertype!=="general")
+{
 
-<!-- main code goes here -->
+if($usertype==="startup")
+{
+?>
+
+
+<div class="label">Your Mentors</div>
+
+<?php
+$query = "select location,phoneno,mentorship.mentorid as mentorid,name,field,dp from mentorship inner join users inner join mentor where mentorship.mentorid=mentor.mentorid and userid=mentor.mentorid and startupid=$userid
+and status='accepted'";
+$ex = mysqli_query($conn,$query);
+?>
+
+<?php if(mysqli_num_rows($ex)===0)
+{
+?>
+<div style="font-size:1.2rem;margin-top:35px">No mentors have been assigned yet! <a href="explore.php">Click here</a>&nbspto explore startups and mentors!</div>
+<?php
+}
+?>
+
+
+<div class="holder">
+
+
+<?php while($res = mysqli_fetch_assoc($ex))
+{
+  
+$querylink ="select links from userlinks where userid=".$res['mentorid'];
+$exlink = mysqli_query($conn,$querylink);
+?>
+
+
+
+
+<div class="queryitem2">
+<img class="DP" src= "<?php echo $res['dp'] ?>" alt="profile picture">
+
+<span class="profile" onclick= "selectuser(<?php echo $res['mentorid'] ?>)">
+  <div class = "username"><?php echo $res['name'] ?></div>
+  <div class="loc"><?php echo $res['field'] ?></div>
+</span>
+
+<span class="chat">
+
+<svg class="bi bi-chat-dots" width="1.2em" height="1.2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
+  <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+</svg>
+
+</span>
+
+<div class="linkholder">
+
+<div class="contact">Location - <?php echo $res["location"] ?> | Contact - <?php echo $res["phoneno"] ?></div>
+
+<?php while($res2 = mysqli_fetch_assoc($exlink))
+{
+?>
+<span class="item" onclick="goto(<?php echo '\''.$res2['links'].'\'' ?>)"><?php echo $res2["links"] ?></span>
+<?php } ?>
+</div>
+</div>
+
+
+
+
+<?php 
+} 
+?>
+
+</div>
+
+
+
+<?php
+}
+
+else
+{
+?>
+
+
+
+
+
+
+
+
+
+
+<div class="label">Startups mentoring</div>
+
+<?php
+$query = "select location,phoneno,mentorship.startupid as startupid,name,field,dp from mentorship inner join users inner join startup where mentorship.startupid=startup.startupid and userid=startup.startupid and mentorid=$userid
+and status='accepted'";
+$ex = mysqli_query($conn,$query);
+?>
+
+<?php if(mysqli_num_rows($ex)===0)
+{
+?>
+<div style="font-size:1.2rem;margin-top:35px">No startups mentoring yet! <a href="explore.php">Click here</a>&nbspto explore startups and mentors!</div>
+<?php
+}
+?>
+
+
+<div class="holder">
+
+
+<?php while($res = mysqli_fetch_assoc($ex))
+{
+  
+$querylink ="select links from userlinks where userid=".$res['startupid'];
+$exlink = mysqli_query($conn,$querylink);
+?>
+
+
+
+
+<div class="queryitem2">
+<img class="DP" src= "<?php echo $res['dp'] ?>" alt="profile picture">
+<span class="profile" onclick= "selectuser(<?php echo $res['startupid'] ?>)">
+  <div class = "username"><?php echo $res['name'] ?></div>
+  <div class="loc"><?php echo $res['field'] ?></div>
+</span>
+
+
+<span class="chat">
+
+<svg class="bi bi-chat-dots" width="1.2em" height="1.2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
+  <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+</svg>
+
+</span>
+
+<div class="linkholder">
+
+<div class="contact">Location - <?php echo $res["location"] ?> | Contact - <?php echo $res["phoneno"] ?></div>
+
+<?php while($res2 = mysqli_fetch_assoc($exlink))
+{
+?>
+<span class="item" onclick="goto(<?php echo '\''.$res2['links'].'\'' ?>)"><?php echo $res2["links"] ?></span>
+<?php } ?>
+</div>
+</div>
+
+
+
+
+<?php 
+} 
+?>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+} 
+}
+?>
+
+
+
+
+
+
+
+
+
+<div class="label">Startups enlightening you</div>
+
+<?php 
+
+$startupquery = "select dp,location,acceptorid,name,field from enlighten inner join users inner join startup where startupid=userid and
+userid=acceptorid and usertype='startup' and status='accepted' and requestorid=$userid order by statuschangetime desc limit 25";
+$startupexec = mysqli_query($conn,$startupquery);
+
+?>
+
+<?php if(mysqli_num_rows($startupexec)===0)
+{
+?>
+<div style="font-size:1.2rem;margin-top:35px">No startups enlightening you! <a href="explore.php">Click here</a>&nbspto explore startups and mentors!</div>
+<?php
+}
+?>
+
+
+<div class="holder">
+
+
+<?php while($res = mysqli_fetch_assoc($startupexec))
+{
+?>
+
+<div class="queryitem" onclick= "selectuser(<?php echo $res['acceptorid'] ?>)">
+<img class="DP" style="width:65px" src= "<?php echo $res['dp'] ?>" alt="profile picture">
+<span class="profile">
+  <div class = "username"><?php echo $res['name'] ?></div>
+  <div class="usertype"><?php echo $res['field'] ?></div>
+  <div class="loc"><?php echo $res['location'] ?></div>
+</span>
+</div> 
+
+<?php
+}
+?>
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="label">Mentors enlightening you</div>
+
+<?php 
+
+$mentorquery = "select dp,location,acceptorid,name,field from enlighten inner join users inner join mentor where mentorid=userid and
+userid=acceptorid and usertype='mentor' and status='accepted' and requestorid=$userid order by statuschangetime desc limit 25";
+$mentorexec = mysqli_query($conn,$mentorquery);
+
+?>
+
+<?php if(mysqli_num_rows($mentorexec)===0)
+{
+?>
+<div style="font-size:1.2rem;margin-top:35px">No mentors enlightening you! <a href="explore.php">Click here</a>&nbspto explore startups and mentors!</div>
+<?php
+}
+?>
+
+
+<div class="holder">
+
+
+<?php while($res = mysqli_fetch_assoc($mentorexec))
+{
+?>
+
+<div class="queryitem" onclick= "selectuser(<?php echo $res['acceptorid'] ?>)">
+<img class="DP" style="width:65px" src= "<?php echo $res['dp'] ?>" alt="profile picture">
+<span class="profile">
+  <div class = "username"><?php echo $res['name'] ?></div>
+  <div class="usertype"><?php echo $res['field'] ?></div>
+  <div class="loc"><?php echo $res['location'] ?></div>
+</span>
+</div> 
+
+<?php
+}
+?>
+
+</div>
+
+
+
+
+
+
+
 
 
 </div>
@@ -327,6 +644,133 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 
 
 </div>
+
+<div id="notiholder">
+
+<?php 
+
+$query="select statuschangetime,userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
+$result=mysqli_query($conn,$query);
+$count=mysqli_num_rows($result);
+
+
+if( ($usertype==="mentor"&&$count===0) || ($count===0&&$usertype==="startup"&&$mentornoticount===0) )
+{
+?>
+<div id="nonoti" style="margin-top:20px">No notifications!</div>
+<?php
+}
+
+else
+{
+
+if($usertype==="startup")
+{
+
+$firstitem=0;
+
+while($row=mysqli_fetch_assoc($mentornotiresult))
+{
+  
+if($firstitem===0)//this is the first item
+{
+  if($row["statuschangetime"]>=$lastloggedtime)
+  {
+?>
+    <script>
+
+var notistatus=localStorage.getItem("notistatus");
+
+if(notistatus==="not seen")
+{
+  document.getElementById("roundnoti").style.visibility="visible";
+}
+ 
+ </script>
+<?php
+  }
+  $firstitem=1;
+}
+?>
+
+<div class="notibox">
+<?php echo $row["Name"]?> accepted to be your mentor!
+<div class="notitime"><?php echo $row["time"] ?></div>
+</div>
+
+<?php
+}
+
+if($mentornoticount!==0)
+{
+?>
+
+<div style="border:none;border-bottom:0.5px solid #c0c0c0;width:90%;margin:10px 0"></div>
+
+<?php
+}
+
+}
+
+if($count===0)
+{
+?>
+
+<div id="nonoti" style="margin-top:20px">No enlighten notifications!</div>
+
+<?php
+}
+
+$firstitem=0;
+
+while($row=mysqli_fetch_assoc($result))
+{ 
+  
+  if($firstitem===0)//this is the first item
+  {
+    if($row["statuschangetime"]>=$lastloggedtime)
+    {
+?>
+     <script>
+
+var notistatus=localStorage.getItem("notistatus");
+
+if(notistatus==="not seen")
+{
+  document.getElementById("roundnoti").style.visibility="visible";
+}
+ 
+ </script>
+  
+<?php
+    }
+    $firstitem=1;
+  }
+  
+?>
+
+<div class="notibox">
+
+You were enlightened by <?php echo $row["Name"]."!" ?>
+<div class="notitime"><?php echo $row["time"] ?></div>
+
+</div>
+
+<?php 
+}
+?>
+<div style="border:none;border-bottom:0.5px solid #f2f3f4;width:90%;margin:10px 0"></div>
+
+<?php
+}
+
+/*$loginquery = "update users set lastloggedtime=CURRENT_TIMESTAMP() where userid=$userid";
+$loginresult=mysqli_query($conn,$loginquery);*/
+
+?>
+
+</div>
+
 
 
 <script type="text/javascript">
@@ -385,6 +829,15 @@ function logout() {
 window.location.href="logout.php";
 }
 
+function goto(url)
+{
+  window.open(url,'_blank');
+}
+
+function selectuser(userid)
+{
+    window.location.href="profile.php?userid="+userid;
+}
 
 </script>
 

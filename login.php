@@ -10,7 +10,7 @@ if(isset($_POST["login"]))
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $usertype = mysqli_real_escape_string($conn, $_POST['radio']);
     
-    $query = "SELECT dp,userid,name,usertype,verified FROM users WHERE email = '$email' AND password = '$password'";
+    $query = "SELECT dp,userid,name,usertype,verified,lastloggedtime FROM users WHERE email = '$email' AND password = '$password'";
     $result = mysqli_query($conn, $query);
     $row = mysqli_fetch_assoc($result);
     if(mysqli_num_rows($result) === 1 and $row['usertype'] === $usertype and $row['verified']==="1")
@@ -48,6 +48,10 @@ if(isset($_POST["login"]))
 <link rel="stylesheet" href="https://unpkg.com/@clr/ui/clr-ui.min.css" />
 <link rel="stylesheet" href="https://unpkg.com/@clr/ui@0.12.5/clr-ui.min.css" />
 </head>
+
+<script>
+localStorage.setItem("notistatus","not seen");
+</script>
 
 <style>
 .loginbut
