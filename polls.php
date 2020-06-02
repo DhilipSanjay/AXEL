@@ -309,10 +309,9 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 
 
 <div id="pollcreatebox">
-  <div id="title">Create a new Poll</div>
       <div class="holder">
-      Description
-      <textarea id="polldesc" maxlength="200" rows="5" style="resize:none" placeholder="Description of the Poll(max length - 200)"></textarea>
+      Question
+      <textarea id="polldesc" maxlength="200" rows="5" style="resize:none" placeholder="Type in your question here... (max length - 200)"></textarea>
     </div>
 
     <div class="holder" id = "polloption_details">
@@ -337,7 +336,7 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 <div class="label pollstitle">Recent polls</div>
 
 <?php
-$mainquery="select pollhostid,pollid from poll order by heldon desc limit 5";
+$mainquery="select pollhostid,pollid from poll order by heldon desc,pollid desc limit 25";
 $mainresult=mysqli_query($conn,$mainquery);
 
 if(mysqli_num_rows($mainresult)===0)
@@ -364,7 +363,7 @@ $pollid = $row["pollid"];
 $pollhostid = $row["pollhostid"];
 
 $query = "select Name as hostname,description,DATE_FORMAT(heldon,'%d %M %Y') as heldon,polloption.pollid,polloption.choiceid,choice,count(voterid) as votecount
-from poll inner join users inner join polloption left join vote on polloption.choiceid=vote.choiceid and polloption.pollhostid=vote.pollhostid 
+from poll inner join users inner join polloption left join vote on polloption.choiceid=vote.choiceid and polloption.pollhostid=vote.pollhostid and polloption.pollid=vote.pollid
 where poll.pollhostid=users.userid and poll.pollid=polloption.pollid group by polloption.pollid,polloption.choiceid having pollid=".$pollid;
 
 
