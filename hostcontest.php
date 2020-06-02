@@ -6,7 +6,8 @@ $hostid = $_POST["hostid"];
 $link = $_POST["link"];
 $date = $_POST["date"];
 
-$desc = mysqli_real_escape_string($conn,$_POST["desc"]);
+$desc = mysqli_real_escape_string($conn,$_POST["desc"]);//escapes characters like ','',` etc...
+$desc = htmlspecialchars($desc);//used to escape html characters like <,> etc...
 
 $query="insert into contest(Hostid,HeldOn,Description,ContestLink) values ($hostid,STR_TO_DATE('$date', '%d-%c-%Y'),'$desc','$link')";
 

@@ -354,7 +354,7 @@ if(strcmp($row["choice"],$selectedop)===0)
 
 <?php
 
-echo $row["choice"]
+echo $row["choice"];
 
 ?>
 
@@ -386,7 +386,7 @@ else
 <div class="polloption" pollhostid="<?php echo $pollhostid ?>" userid="<?php echo $userid ?>" poll-label="<?php echo $pollid?>" option-label="<?php echo $row["choiceid"]?>">
 
 <?php
-echo $row["choice"]
+echo $row["choice"];
 
 ?>
 
@@ -413,7 +413,7 @@ echo floor(($row["votecount"]/$totalnoofvotes["totalcount"])*100)."%";
 }
 }
 
-if($selectedop==="")//no option has been selected initially
+if($selectedop===""&&$pollhostid!==$userid)//no option has been selected initially and the host is not the current user
 {
 ?>
 

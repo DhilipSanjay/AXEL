@@ -155,11 +155,11 @@ function checkifapplauded(userid,postid,postuserid,count)
 function checkapplaudcount(postid,count)
 {
   var checkapplaudcount=createreqobj();
-  
+
   checkapplaudcount.onreadystatechange = function() {
 
   if (this.readyState == 4 && this.status == 200) {
-     document.getElementsByClassName("countbox")[count].innerHTML=this.responseText;
+      document.getElementsByClassName("countbox")[count].innerHTML=this.responseText;
   }
   };
 
