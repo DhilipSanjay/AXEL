@@ -29,7 +29,6 @@ if(isset($_POST['Submit']))
             if(isset($_FILES['profilepic']))
             {
                 $profilepic = $_FILES['profilepic'];
-
                 $fileName = $profilepic['name'];
                 $fileType = $profilepic['type'];
                 $fileTmpName = $profilepic['tmp_name'];
