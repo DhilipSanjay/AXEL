@@ -607,7 +607,7 @@ hr
     margin:20px;
     width:fit-content; 
     height:fit-content;
-    text-align:justify;
+    text-align:left;
     line-height:30px;
 }
 
@@ -704,7 +704,7 @@ hr
     margin-left:5%;
     margin-top:-10px;
     margin-right:5%;
-    text-align:justify;
+    text-align:left;
     width:90%;
 }
 

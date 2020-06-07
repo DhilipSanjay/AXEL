@@ -23,7 +23,7 @@ function openlist()
   if(listisopen===0)
   {
     document.getElementById("sidenavbar").style.width="100%";
-    document.getElementById("logout").style.width="100%";
+    document.getElementById("logout").style.width="80%";
     listisopen=1;
   }
 

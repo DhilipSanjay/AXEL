@@ -59,12 +59,14 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
     background-color:#35A18C;
     color:white;
     border:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     font-size:1.2rem;
     text-align:center;
-    position:fixed;
-    bottom:0;
-    width:22.5%;
-    padding:10px 0;
+    width:70%;
+    padding:10px;
+    border-radius:10px;
 }
 
 </style>
@@ -341,8 +343,15 @@ $(function() {
   <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
 </svg>Contests</a>
     <!--<div id="dummy"></div>-->
-    <div id="logout" onclick="logout()">Logout</div>
-</form>
+    <div style="border:none;border-bottom:0.5px solid white;width:80%;margin-bottom:15px"></div>
+
+    <div id="logout" onclick="logout()">
+    <svg class="bi bi-x-circle" width="1.2em" height="1.2em" style="margin-right:5px" viewBox="0 0 16 16" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+    <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
+    <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
+    </svg>
+    Logout</div>
 </div>
 
 <?php

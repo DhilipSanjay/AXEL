@@ -113,6 +113,14 @@ localStorage.setItem("notistatus","not seen");
     }
 }
 
+@media screen and (max-width:768px){
+    #holder
+    {
+        width:100% !important;
+        margin-left:0px;
+    }
+}
+
 </style>
 
 <body>
