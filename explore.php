@@ -48,8 +48,8 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
 
-<link rel="stylesheet" href = "search.css"> 
 <link rel="stylesheet" href="explore.css">
+<link rel="stylesheet" href = "search.css"> 
 <script src="search.js" type="text/javascript"></script>
 <script src="explore.js" type="text/javascript"></script>
 

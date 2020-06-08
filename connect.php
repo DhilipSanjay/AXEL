@@ -44,11 +44,16 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<link rel="stylesheet" href="polls.css">
+<!--<link rel="stylesheet" href="polls.css">-->
 <link rel="stylesheet" href = "search.css"> 
 <script src="search.js" type="text/javascript"></script>
 
 <style>
+
+a
+{
+    color:#76D7C4;
+}
 
 #logout
 {
