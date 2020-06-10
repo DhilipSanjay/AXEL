@@ -34,7 +34,7 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
 <head>
 <meta charset="utf-8"> 
 <title>Dashboard - Axel</title>
-<link rel="stylesheet" href="home.css"> 
+<link rel="stylesheet" href="home.css">
 <link rel="stylesheet" href="dashboard.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <link rel="icon" href="logo.png">

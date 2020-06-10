@@ -22,7 +22,18 @@ if(isset($_POST["login"]))
         $_SESSION['logged_in'] = true;
         $_SESSION['dp'] = $row['dp'];
 
-        header("location: dashboard.php");
+        $loginquery = "update users set lastloggedtime=CURRENT_TIMESTAMP() where userid=".$_SESSION['userid'];
+        $resultlogged =mysqli_query($conn,$loginquery);
+
+        if($resultlogged)
+        {
+            header("location: dashboard.php");
+        }
+
+        else
+        {
+            header("location: error.php");
+        }
     }
 
     else if(mysqli_num_rows($result) === 1 and $row['usertype'] === $usertype and $row['verified']!=="1")

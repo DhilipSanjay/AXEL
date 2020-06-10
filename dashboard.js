@@ -213,6 +213,13 @@ function hostcontest(hostid)
   var date = document.getElementById("datepicker").value;
   var desc = document.getElementById("contdesc").value;
 
+  /*var todaydate = new Date(); 
+  var dd = todaydate.getDate(); 
+  var mm = todaydate.getMonth()+1; 
+  var yyyy = todaydate.getFullYear();//January is 0! var yyyy = today.getFullYear(); if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm} var today = dd+'/'+mm+'/'+yyyy;
+
+  if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm} var todaysdate = dd+'-'+mm+'-'+yyyy;*/
+
   if(desc===""||link===""||date==="")
   {
     alert("Please fill in all the fields!");
