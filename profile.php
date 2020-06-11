@@ -21,11 +21,11 @@ $sessionusertype = $_SESSION["usertype"];
 $sessionuserdp = $_SESSION["dp"];
 
 
-$timequery = "select lastloggedtime from users where userid=$sessionuserid";
-$result=mysqli_query($conn,$timequery);
-$timeres=mysqli_fetch_assoc($result);
+// $timequery = "select lastloggedtime from users where userid=$sessionuserid";
+// $result=mysqli_query($conn,$timequery);
+// $timeres=mysqli_fetch_assoc($result);
 
-$lastloggedtime=$timeres["lastloggedtime"];
+// $lastloggedtime=$timeres["lastloggedtime"];
 
 //if user type is a startup then show mentor request accepted notifications in notifications box
 if($sessionusertype==="startup")
@@ -824,14 +824,17 @@ $temp++;
 
 
 
+
 <div id="notiholder">
 
 <?php 
 
-$query="select statuschangetime,userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$sessionuserid and status='accepted' order by timeelapsed limit 50";
+$query="select statuschangetime,userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
 $result=mysqli_query($conn,$query);
 $count=mysqli_num_rows($result);
 
+$mentorlatestnotitime=$_SESSION["latestnotificationtime"]; //arbitary setting
+$enlightenlatestnotitime=$_SESSION["latestnotificationtime"]; //arbitary setting
 
 if( ($usertype==="mentor"&&$count===0) || ($count===0&&$usertype==="startup"&&$mentornoticount===0) )
 {
@@ -853,21 +856,22 @@ while($row=mysqli_fetch_assoc($mentornotiresult))
   
 if($firstitem===0)//this is the first item
 {
-  if($row["statuschangetime"]>=$lastloggedtime)
+  if($row["statuschangetime"]>$_SESSION["latestnotificationtime"])
   {
-?>
-   <script>
 
-var notistatus=localStorage.getItem("notistatus");
+  // echo "inside mentor noti";
+  ?>
 
-if(notistatus==="not seen")
-{
+  <script>
+  localStorage.setItem("notistatus","not seen");
   document.getElementById("roundnoti").style.visibility="visible";
-}
- 
- </script>
+  </script>
+
 <?php
+
+  $mentorlatestnotitime=$row["statuschangetime"];
   }
+
   $firstitem=1;
 }
 ?>
@@ -907,23 +911,24 @@ while($row=mysqli_fetch_assoc($result))
   
   if($firstitem===0)//this is the first item
   {
-    if($row["statuschangetime"]>=$lastloggedtime)
-    {
-?>
-     <script>
 
-var notistatus=localStorage.getItem("notistatus");
+  if($row["statuschangetime"]>$_SESSION["latestnotificationtime"])
+  {
 
-if(notistatus==="not seen")
-{
+  // echo "inside enlighten noti";
+  ?>
+
+  <script>
+  localStorage.setItem("notistatus","not seen");
   document.getElementById("roundnoti").style.visibility="visible";
-}
- 
- </script>
-  
-<?php
-    }
-    $firstitem=1;
+  </script>
+
+  <?php
+
+  $enlightenlatestnotitime=$row["statuschangetime"];
+  }
+
+  $firstitem=1;
   }
   
 ?>
@@ -941,21 +946,35 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 <div style="border:none;border-bottom:0.5px solid #f2f3f4;width:90%;margin:10px 0"></div>
 
 <?php
+
+if($usertype==="startup")
+{
+  if($mentorlatestnotitime>$enlightenlatestnotitime)
+  {
+    $_SESSION["latestnotificationtime"]=$mentorlatestnotitime; 
+  }
+
+  else
+  {
+    $_SESSION["latestnotificationtime"]=$enlightenlatestnotitime;
+  }
+}
+
+else if(isset($enlightenlatestnotitime))
+{
+  $_SESSION["latestnotificationtime"]=$enlightenlatestnotitime; //setting session variable for notification time
+}
+
+else
+{
+  //dont do anything
+}
+// echo $_SESSION["latestnotificationtime"];
 }
 
 ?>
 
 </div>
-
-
-
-
-
-
-
-
-
-
 
 
 

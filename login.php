@@ -21,19 +21,22 @@ if(isset($_POST["login"]))
         $_SESSION['usertype'] = $usertype;
         $_SESSION['logged_in'] = true;
         $_SESSION['dp'] = $row['dp'];
+        $_SESSION["latestnotificationtime"]=$row['lastloggedtime']; //arbitarily setting latest notification time to be last logged out time
 
-        $loginquery = "update users set lastloggedtime=CURRENT_TIMESTAMP() where userid=".$_SESSION['userid'];
-        $resultlogged =mysqli_query($conn,$loginquery);
+        // $loginquery = "update users set lastloggedtime=CURRENT_TIMESTAMP() where userid=".$_SESSION['userid'];
+        // $resultlogged =mysqli_query($conn,$loginquery);
 
-        if($resultlogged)
-        {
-            header("location: dashboard.php");
-        }
+        // if($resultlogged)
+        // {
+        //     header("location: dashboard.php");
+        // }
 
-        else
-        {
-            header("location: error.php");
-        }
+        // else
+        // {
+        //     header("location: error.php");
+        // }
+
+        header("location: dashboard.php");
     }
 
     else if(mysqli_num_rows($result) === 1 and $row['usertype'] === $usertype and $row['verified']!=="1")
@@ -59,10 +62,6 @@ if(isset($_POST["login"]))
 <link rel="stylesheet" href="https://unpkg.com/@clr/ui/clr-ui.min.css" />
 <link rel="stylesheet" href="https://unpkg.com/@clr/ui@0.12.5/clr-ui.min.css" />
 </head>
-
-<script>
-localStorage.setItem("notistatus","not seen");
-</script>
 
 <style>
 .loginbut
