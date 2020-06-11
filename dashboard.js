@@ -431,3 +431,20 @@ function applaud(userid,postid,postuserid,count,event)
       applaudobj.send();
   }
 }
+
+function updatenotiread()
+{
+  // console.log(localStorage.getItem("notiupdated"));
+  var reqobj=createreqobj();
+
+  reqobj.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+    }
+  };
+
+  var url="updatenotiread.php";
+
+  reqobj.open("GET", url, true);  
+  reqobj.send();
+}

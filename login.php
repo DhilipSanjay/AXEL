@@ -10,7 +10,7 @@ if(isset($_POST["login"]))
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $usertype = mysqli_real_escape_string($conn, $_POST['radio']);
     
-    $query = "SELECT dp,userid,name,usertype,verified,lastloggedtime FROM users WHERE email = '$email' AND password = '$password'";
+    $query = "SELECT dp,userid,name,usertype,verified FROM users WHERE email = '$email' AND password = '$password'";
     $result = mysqli_query($conn, $query);
     $row = mysqli_fetch_assoc($result);
     if(mysqli_num_rows($result) === 1 and $row['usertype'] === $usertype and $row['verified']==="1")
@@ -21,7 +21,6 @@ if(isset($_POST["login"]))
         $_SESSION['usertype'] = $usertype;
         $_SESSION['logged_in'] = true;
         $_SESSION['dp'] = $row['dp'];
-        $_SESSION["latestnotificationtime"]=$row['lastloggedtime']; //arbitarily setting latest notification time to be last logged out time
 
         // $loginquery = "update users set lastloggedtime=CURRENT_TIMESTAMP() where userid=".$_SESSION['userid'];
         // $resultlogged =mysqli_query($conn,$loginquery);
@@ -132,6 +131,10 @@ if(isset($_POST["login"]))
 }
 
 </style>
+
+<script>
+localStorage.setItem("notiupdated","false");
+</script>
 
 <body>
     <div class="login-wrapper" style="background:url('regbg.jpg');background-position:center;background-attachment:fixed;background-repeat: no-repeat;background-size: cover">

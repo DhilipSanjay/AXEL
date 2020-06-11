@@ -107,7 +107,7 @@ function opennotiholder()
     document.getElementById("notiholder").style.opacity="1";
     document.getElementById("roundnoti").style.visibility="hidden";
 
-    localStorage.setItem("notistatus","seen"); //user has seen the notification
+    updatenotiread(); 
 
     isopen=1;
   }
@@ -485,17 +485,13 @@ Hope you enjoyed this contest!
 
 
 
-
 <div id="notiholder">
 
 <?php 
 
-$query="select statuschangetime,userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
+$query="select notificationread,statuschangetime,userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
 $result=mysqli_query($conn,$query);
 $count=mysqli_num_rows($result);
-
-$mentorlatestnotitime=$_SESSION["latestnotificationtime"]; //arbitary setting
-$enlightenlatestnotitime=$_SESSION["latestnotificationtime"]; //arbitary setting
 
 if( ($usertype==="mentor"&&$count===0) || ($count===0&&$usertype==="startup"&&$mentornoticount===0) )
 {
@@ -510,31 +506,19 @@ else
 if($usertype==="startup")
 {
 
-$firstitem=0;
-
 while($row=mysqli_fetch_assoc($mentornotiresult))
 {
   
-if($firstitem===0)//this is the first item
-{
-  if($row["statuschangetime"]>$_SESSION["latestnotificationtime"])
+  if($row["notificationread"]==0)
   {
-
-  // echo "inside mentor noti";
   ?>
 
   <script>
-  localStorage.setItem("notistatus","not seen");
   document.getElementById("roundnoti").style.visibility="visible";
   </script>
 
-<?php
-
-  $mentorlatestnotitime=$row["statuschangetime"];
+  <?php
   }
-
-  $firstitem=1;
-}
 ?>
 
 <div class="notibox">
@@ -565,33 +549,20 @@ if($count===0)
 <?php
 }
 
-$firstitem=0;
+// $firstitem=0;
 
 while($row=mysqli_fetch_assoc($result))
 { 
-  
-  if($firstitem===0)//this is the first item
+  if($row["notificationread"]==0)
   {
-
-  if($row["statuschangetime"]>$_SESSION["latestnotificationtime"])
-  {
-
-  // echo "inside enlighten noti";
   ?>
 
   <script>
-  localStorage.setItem("notistatus","not seen");
   document.getElementById("roundnoti").style.visibility="visible";
   </script>
 
   <?php
-
-  $enlightenlatestnotitime=$row["statuschangetime"];
   }
-
-  $firstitem=1;
-  }
-  
 ?>
 
 <div class="notibox">
@@ -607,35 +578,12 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 <div style="border:none;border-bottom:0.5px solid #f2f3f4;width:90%;margin:10px 0"></div>
 
 <?php
-
-if($usertype==="startup")
-{
-  if($mentorlatestnotitime>$enlightenlatestnotitime)
-  {
-    $_SESSION["latestnotificationtime"]=$mentorlatestnotitime; 
-  }
-
-  else
-  {
-    $_SESSION["latestnotificationtime"]=$enlightenlatestnotitime;
-  }
-}
-
-else if(isset($enlightenlatestnotitime))
-{
-  $_SESSION["latestnotificationtime"]=$enlightenlatestnotitime; //setting session variable for notification time
-}
-
-else
-{
-  //dont do anything
-}
-// echo $_SESSION["latestnotificationtime"];
 }
 
 ?>
 
 </div>
+
 
 
 
@@ -706,14 +654,6 @@ function logout() {
 
 window.location.href="logout.php";
 }
-
-var notiread=localStorage.getItem("notistatus");
-
-if(notiread==="not seen")
-{
-  document.getElementById("roundnoti").style.visibility="visible";
-}
-
 
 </script>
 
