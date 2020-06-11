@@ -247,7 +247,7 @@ $temp=0;
 
 <div id="maindash">
 <div id="select">
-    <div id="s3" onclick="toggle(3)">Startups / Mentors Nearby</div>
+    <div id="s3" onclick="toggle(3)">Startups and Mentors Nearby</div>
     <div id="s1" onclick="toggle(1)">Popular Startups</div>
     <div id="s2" onclick="toggle(2)">Popular Mentors</div>
     </div>
@@ -569,6 +569,14 @@ function logout() {
 
 window.location.href="logout.php";
 }
+
+var notiread=localStorage.getItem("notistatus");
+
+if(notiread==="not seen")
+{
+  document.getElementById("roundnoti").style.visibility="visible";
+}
+
 
 
 </script>

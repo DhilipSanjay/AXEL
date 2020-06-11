@@ -882,6 +882,13 @@ function selectuser(userid)
     window.location.href="profile.php?userid="+userid;
 }
 
+var notiread=localStorage.getItem("notistatus");
+
+if(notiread==="not seen")
+{
+  document.getElementById("roundnoti").style.visibility="visible";
+}
+
 </script>
 
 

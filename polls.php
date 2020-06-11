@@ -75,6 +75,7 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
 
 <script type="text/javascript">
 
+
 var reqboxopen=0;
 var isopen=0;
 
@@ -812,6 +813,13 @@ if(flag === 1)
   createpoll.send(param);
 }
   
+}
+
+var notiread=localStorage.getItem("notistatus");
+
+if(notiread==="not seen")
+{
+  document.getElementById("roundnoti").style.visibility="visible";
 }
 </script>
 

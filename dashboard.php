@@ -669,6 +669,14 @@ function logout() {
 window.location.href="logout.php";
 }
 
+var notiread=localStorage.getItem("notistatus");
+
+if(notiread==="not seen")
+{
+  document.getElementById("roundnoti").style.visibility="visible";
+}
+
+
 </script>
 
 
