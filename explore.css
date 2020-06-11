@@ -108,6 +108,12 @@
 
 @media screen and (max-width: 769px)
 {
+    .none
+    {
+      font-size:1rem !important;
+      text-align:center;
+    }
+    
     #select
     {
         font-size:0.9rem;

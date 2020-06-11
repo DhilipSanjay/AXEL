@@ -272,7 +272,7 @@ $temp=0;
       }
       else
       {
-        echo '<div style="text-align:center;margin:15px 0px">Oops! Sorry, but no results were found!</div>';
+        echo '<div class="none" style="text-align:center;margin:15px 0px">Oops! Sorry, but no results were found!</div>';
       }
       
     ?>
@@ -298,7 +298,7 @@ $temp=0;
       }
       else
       {
-          echo '<div style="text-align:center;margin:15px 0px">Oops! Sorry, but no results were found!</div>';
+          echo '<div class="none" style="text-align:center;margin:15px 0px">Oops! Sorry, but no results were found!</div>';
       }
     ?>
     </div>
@@ -324,7 +324,7 @@ $temp=0;
       }
       else
       {
-        echo '<div style="text-align:center;margin:15px 0px">Oops! Sorry, but no results were found!</div>';
+        echo '<div class="none" style="text-align:center;margin:15px 0px">Oops! Sorry, but no results were found!</div>';
       }
     
     ?>

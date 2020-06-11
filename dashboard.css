@@ -745,12 +745,16 @@ right:101px;
     }
 
     #header #otherholder #userdetails #round
-    {
+    {   
+        height:4px;
+        width:4.5px;
         right:135px;
     }
 
     #header #otherholder #userdetails #roundnoti
     {
+        height:4px;
+        width:4.5px;
         right:81px;
     }
 

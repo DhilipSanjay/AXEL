@@ -81,7 +81,6 @@ a
   padding-bottom:8px;
 }
 
-
 .holder
 {
     font-size:1.2rem;
@@ -143,11 +142,11 @@ box-sizing:border-box;
 .linkholder .contact
 {
   background-color:#76D7C4;
-  padding:15px 0;
+  padding:15px 10px;
   border-radius:5px;
   color:white;
   text-align:center;
-  margin:10px 0;
+  margin:10px 0px;
 }
 
 .linkholder .item
@@ -173,6 +172,38 @@ box-sizing:border-box;
 {
   background-color:#76D7C4;
   color:white;
+}
+
+@media screen and (max-width: 768px)
+{
+  #dashboard #maindash .label 
+  {
+  font-size:1.3rem !important;
+  }
+
+  .queryitem .DP
+  {
+    width:50px !important;
+  }
+
+  .linkholder
+  {
+    font-size:1rem;
+  }
+
+  .linkholder .item
+  {
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    padding:15px 10px;
+  }
+
+  .none
+  {
+    font-size:1rem !important;
+    text-align:center;
+  }
 }
 
 </style>
@@ -362,7 +393,7 @@ $ex = mysqli_query($conn,$query);
 <?php if(mysqli_num_rows($ex)===0)
 {
 ?>
-<div style="font-size:1.2rem;margin-top:35px">No mentors have been assigned yet! <a href="explore.php">Click here</a>&nbspto explore startups and mentors!</div>
+<div class="none" style="font-size:1.2rem;margin-top:35px">No mentors have been assigned yet! <a href="explore.php">Click here</a>&nbspto explore startups and mentors!</div>
 <?php
 }
 ?>
@@ -448,7 +479,7 @@ $ex = mysqli_query($conn,$query);
 <?php if(mysqli_num_rows($ex)===0)
 {
 ?>
-<div style="font-size:1.2rem;margin-top:35px">No startups mentoring yet! <a href="explore.php">Click here</a>&nbspto explore startups and mentors!</div>
+<div class="none" style="font-size:1.2rem;margin-top:35px">No startups mentoring yet! <a href="explore.php">Click here</a>&nbspto explore startups and mentors!</div>
 <?php
 }
 ?>
@@ -543,7 +574,7 @@ $startupexec = mysqli_query($conn,$startupquery);
 <?php if(mysqli_num_rows($startupexec)===0)
 {
 ?>
-<div style="font-size:1.2rem;margin-top:35px">No startups enlightening you! <a href="explore.php">Click here</a>&nbspto explore startups and mentors!</div>
+<div class="none" style="font-size:1.2rem;margin-top:35px">No startups enlightening you! <a href="explore.php">Click here</a>&nbspto explore startups and mentors!</div>
 <?php
 }
 ?>
@@ -592,7 +623,7 @@ $mentorexec = mysqli_query($conn,$mentorquery);
 <?php if(mysqli_num_rows($mentorexec)===0)
 {
 ?>
-<div style="font-size:1.2rem;margin-top:35px">No mentors enlightening you! <a href="explore.php">Click here</a>&nbspto explore startups and mentors!</div>
+<div class="none" style="font-size:1.2rem;margin-top:35px">No mentors enlightening you! <a href="explore.php">Click here</a>&nbspto explore startups and mentors!</div>
 <?php
 }
 ?>
