@@ -77,6 +77,7 @@
 {
     width: 65px;
     border-radius:50%;
+    margin-left:15px;
 }
 .profile
 {
@@ -103,4 +104,47 @@
 
 .queryitem:hover{
     border: 2px solid #76D7C4;
+}
+
+@media screen and (max-width: 769px)
+{
+    .none
+    {
+      font-size:1rem !important;
+      text-align:center;
+    }
+    
+    #select
+    {
+        font-size:0.9rem;
+    }
+
+    #select #s1,#select #s2, #select #s3
+    {
+    padding:10px;
+    }
+
+    .DP
+    {
+        position:relative;
+        float:left;
+        margin-top:12.5px;
+        width: 50px;
+        margin-left:10px;
+    }
+
+    .username
+    {
+    font-size:1.1rem;
+    }
+    
+    .usertype
+    {
+    font-size:1rem;
+    }
+
+    .loc
+    {
+    font-size:1rem;
+    }
 }

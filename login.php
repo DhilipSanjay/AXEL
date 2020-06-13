@@ -10,7 +10,7 @@ if(isset($_POST["login"]))
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $usertype = mysqli_real_escape_string($conn, $_POST['radio']);
     
-    $query = "SELECT dp,userid,name,usertype,verified,lastloggedtime FROM users WHERE email = '$email' AND password = '$password'";
+    $query = "SELECT dp,userid,name,usertype,verified FROM users WHERE email = '$email' AND password = '$password'";
     $result = mysqli_query($conn, $query);
     $row = mysqli_fetch_assoc($result);
     if(mysqli_num_rows($result) === 1 and $row['usertype'] === $usertype and $row['verified']==="1")
@@ -21,6 +21,19 @@ if(isset($_POST["login"]))
         $_SESSION['usertype'] = $usertype;
         $_SESSION['logged_in'] = true;
         $_SESSION['dp'] = $row['dp'];
+
+        // $loginquery = "update users set lastloggedtime=CURRENT_TIMESTAMP() where userid=".$_SESSION['userid'];
+        // $resultlogged =mysqli_query($conn,$loginquery);
+
+        // if($resultlogged)
+        // {
+        //     header("location: dashboard.php");
+        // }
+
+        // else
+        // {
+        //     header("location: error.php");
+        // }
 
         header("location: dashboard.php");
     }
@@ -48,10 +61,6 @@ if(isset($_POST["login"]))
 <link rel="stylesheet" href="https://unpkg.com/@clr/ui/clr-ui.min.css" />
 <link rel="stylesheet" href="https://unpkg.com/@clr/ui@0.12.5/clr-ui.min.css" />
 </head>
-
-<script>
-localStorage.setItem("notistatus","not seen");
-</script>
 
 <style>
 .loginbut
@@ -113,7 +122,19 @@ localStorage.setItem("notistatus","not seen");
     }
 }
 
+@media screen and (max-width:768px){
+    #holder
+    {
+        width:100% !important;
+        margin-left:0px;
+    }
+}
+
 </style>
+
+<script>
+localStorage.setItem("notiupdated","false");
+</script>
 
 <body>
     <div class="login-wrapper" style="background:url('regbg.jpg');background-position:center;background-attachment:fixed;background-repeat: no-repeat;background-size: cover">

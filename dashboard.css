@@ -108,6 +108,15 @@ input[type="text"]:focus,#createnewannouncementbox .holder #ann:focus,#createnew
     font-size:1.1rem;
 }
 
+@keyframes slideout
+{
+    100%
+    {
+        transform: translateY(10px);
+        opacity:0;
+    }
+}
+
 #maindash .announcementsholder .announcementsinfo #idname .clap  
 {
     margin:auto;
@@ -736,8 +745,17 @@ right:101px;
     }
 
     #header #otherholder #userdetails #round
-    {
+    {   
+        height:4px;
+        width:4.5px;
         right:135px;
+    }
+
+    #header #otherholder #userdetails #roundnoti
+    {
+        height:4px;
+        width:4.5px;
+        right:81px;
     }
 
     #dashboard #otherarea

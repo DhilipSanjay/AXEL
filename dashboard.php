@@ -13,16 +13,16 @@ $name = $_SESSION['name'];
 $usertype = $_SESSION['usertype'];
 $dp = $_SESSION['dp'];
 
-$timequery = "select lastloggedtime from users where userid=$userid";
-$result=mysqli_query($conn,$timequery);
-$timeres=mysqli_fetch_assoc($result);
+// $timequery = "select latestnotificationtime from users where userid=$userid";
+// $result=mysqli_query($conn,$timequery);
+// $timeres=mysqli_fetch_assoc($result);
 
-$lastloggedtime=$timeres["lastloggedtime"];
+// $latestnotificationtime=$timeres["latestnotificationtime"];
 
 //if user type is a startup then show mentor request accepted notifications in notifications box
 if($usertype==="startup")
 {
-$mentornotiquery="select statuschangetime,mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$userid and status='accepted' order by timeelapsed limit 50";
+$mentornotiquery="select notificationread,statuschangetime,mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$userid and status='accepted' order by timeelapsed limit 50";
 $mentornotiresult=mysqli_query($conn,$mentornotiquery);
 $mentornoticount=mysqli_num_rows($mentornotiresult);
 }
@@ -34,7 +34,7 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
 <head>
 <meta charset="utf-8"> 
 <title>Dashboard - Axel</title>
-<link rel="stylesheet" href="home.css"> 
+<link rel="stylesheet" href="home.css">
 <link rel="stylesheet" href="dashboard.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <link rel="icon" href="logo.png">
@@ -59,12 +59,14 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
     background-color:#35A18C;
     color:white;
     border:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     font-size:1.2rem;
     text-align:center;
-    position:fixed;
-    bottom:0;
-    width:22.5%;
-    padding:10px 0;
+    width:70%;
+    padding:10px;
+    border-radius:10px;
 }
 
 </style>
@@ -109,7 +111,7 @@ function opennotiholder()
     
     document.getElementById("roundnoti").style.visibility="hidden";
     
-    localStorage.setItem("notistatus","seen"); //user has seen the notification
+    updatenotiread();
     isopen=1;
   }
 
@@ -155,11 +157,19 @@ function checkifapplauded(userid,postid,postuserid,count)
 function checkapplaudcount(postid,count)
 {
   var checkapplaudcount=createreqobj();
-  
+
   checkapplaudcount.onreadystatechange = function() {
 
   if (this.readyState == 4 && this.status == 200) {
-     document.getElementsByClassName("countbox")[count].innerHTML=this.responseText;
+
+      document.getElementsByClassName("countbox")[count].innerHTML=this.responseText;
+      
+      setTimeout(()=>
+      {
+      document.getElementsByClassName("countbox")[count].style.transform="translateY(-10px)";
+      document.getElementsByClassName("countbox")[count].style.animation="slidein 0.25s forwards";
+      },75);
+
   }
   };
 
@@ -279,7 +289,7 @@ $(function() {
     <?php } ?>
 
   <div id="round"></div>
-  <svg  id="noti" onclick="opennotiholder()" class="bi bi-bell" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="#76D7C4" xmlns="http://www.w3.org/2000/svg">
+  <svg id="noti" onclick="opennotiholder()" class="bi bi-bell" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="#76D7C4" xmlns="http://www.w3.org/2000/svg">
   <path d="M8 16a2 2 0 002-2H6a2 2 0 002 2z"/>
   <path fill-rule="evenodd" d="M8 1.918l-.797.161A4.002 4.002 0 004 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 00-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 111.99 0A5.002 5.002 0 0113 6c0 .88.32 4.2 1.22 6z" clip-rule="evenodd"/>
   </svg>
@@ -333,8 +343,15 @@ $(function() {
   <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
 </svg>Contests</a>
     <!--<div id="dummy"></div>-->
-    <div id="logout" onclick="logout()">Logout</div>
-</form>
+    <div style="border:none;border-bottom:0.5px solid white;width:80%;margin-bottom:15px"></div>
+
+    <div id="logout" onclick="logout()">
+    <svg class="bi bi-x-circle" width="1.2em" height="1.2em" style="margin-right:5px" viewBox="0 0 16 16" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+    <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
+    <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
+    </svg>
+    Logout</div>
 </div>
 
 <?php
@@ -448,10 +465,9 @@ $temp=0;
 
 <?php 
 
-$query="select statuschangetime,userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
+$query="select notificationread,statuschangetime,userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
 $result=mysqli_query($conn,$query);
 $count=mysqli_num_rows($result);
-
 
 if( ($usertype==="mentor"&&$count===0) || ($count===0&&$usertype==="startup"&&$mentornoticount===0) )
 {
@@ -466,30 +482,19 @@ else
 if($usertype==="startup")
 {
 
-$firstitem=0;
-
 while($row=mysqli_fetch_assoc($mentornotiresult))
 {
   
-if($firstitem===0)//this is the first item
-{
-  if($row["statuschangetime"]>=$lastloggedtime)
+  if($row["notificationread"]==0)
   {
-?>
-   <script>
+  ?>
 
-  var notistatus=localStorage.getItem("notistatus");
+  <script>
+  document.getElementById("roundnoti").style.visibility="visible";
+  </script>
 
-  if(notistatus==="not seen")
-  {
-    document.getElementById("roundnoti").style.visibility="visible";
+  <?php
   }
-   
-   </script>
-<?php
-  }
-  $firstitem=1;
-}
 ?>
 
 <div class="notibox">
@@ -520,32 +525,20 @@ if($count===0)
 <?php
 }
 
-$firstitem=0;
+// $firstitem=0;
 
 while($row=mysqli_fetch_assoc($result))
 { 
-  
-  if($firstitem===0)//this is the first item
+  if($row["notificationread"]==0)
   {
-    if($row["statuschangetime"]>=$lastloggedtime)
-    {
-?>
-     <script>
-     
-     var notistatus=localStorage.getItem("notistatus");
+  ?>
 
-     if(notistatus==="not seen")
-      {
-      document.getElementById("roundnoti").style.visibility="visible";
-      }
+  <script>
+  document.getElementById("roundnoti").style.visibility="visible";
+  </script>
 
-     </script>
-  
-<?php
-    }
-    $firstitem=1;
+  <?php
   }
-  
 ?>
 
 <div class="notibox">
@@ -623,6 +616,13 @@ function logout() {
 
 window.location.href="logout.php";
 }
+
+// var notiread=localStorage.getItem("notistatus");
+
+// if(notiread==="not seen")
+// {
+//   document.getElementById("roundnoti").style.visibility="visible";
+// }
 
 
 </script>

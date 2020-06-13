@@ -28,7 +28,7 @@
                 $userid = $row["userID"];
                 $username = $row["Name"];
                 $output .= '<div class="searchlistitem" onclick= "selectuser(\''.$userid.'\')">'; 
-                $output .= '<img class="DP" src= "'.$row["DP"] . '" alt="avatar.png">';
+                $output .= '<img class="sDP" src= "'.$row["DP"] . '" alt="avatar.png">';
                 /*$output .= '<img class="DP" src= "'."avatar.png". '" alt="defaultimgholder.png">';*/
                 $output .= '<span class="profile"><div class = "uname">' .$username.'</div>';
                 $output .= '<div class="utype">' .$row["userType"].'</div></span></div>';

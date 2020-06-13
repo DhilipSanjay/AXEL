@@ -15,7 +15,7 @@ if($result)
 }
 else
 {
-    echo "Error";
+    echo "Error"; //error
 }
 
 ?>

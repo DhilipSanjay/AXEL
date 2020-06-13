@@ -23,7 +23,7 @@ function openlist()
   if(listisopen===0)
   {
     document.getElementById("sidenavbar").style.width="100%";
-    document.getElementById("logout").style.width="100%";
+    document.getElementById("logout").style.width="80%";
     listisopen=1;
   }
 
@@ -213,6 +213,13 @@ function hostcontest(hostid)
   var date = document.getElementById("datepicker").value;
   var desc = document.getElementById("contdesc").value;
 
+  /*var todaydate = new Date(); 
+  var dd = todaydate.getDate(); 
+  var mm = todaydate.getMonth()+1; 
+  var yyyy = todaydate.getFullYear();//January is 0! var yyyy = today.getFullYear(); if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm} var today = dd+'/'+mm+'/'+yyyy;
+
+  if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm} var todaysdate = dd+'-'+mm+'-'+yyyy;*/
+
   if(desc===""||link===""||date==="")
   {
     alert("Please fill in all the fields!");
@@ -386,6 +393,8 @@ function applaud(userid,postid,postuserid,count,event)
   var status=event.target.getAttribute("status");
   var applaudobj=createreqobj(); //ajax object for applaud
 
+  document.getElementsByClassName("countbox")[count].style.animation="slideout 0.25s forwards";
+
   if(status==="0") //not yet applauded
   {
   applaudobj.onreadystatechange = function() {
@@ -413,7 +422,7 @@ function applaud(userid,postid,postuserid,count,event)
         event.target.src="clapping.svg";
         checkapplaudcount(postid,count);
       }
-  
+
     };
   
     var url="applaud.php?userid="+userid+"&postid="+postid+"&postuserid="+postuserid+"&todo=deleteapplaud&datetime="+Date();
@@ -421,4 +430,21 @@ function applaud(userid,postid,postuserid,count,event)
       applaudobj.open("GET", url, true);
       applaudobj.send();
   }
+}
+
+function updatenotiread()
+{
+  // console.log(localStorage.getItem("notiupdated"));
+  var reqobj=createreqobj();
+
+  reqobj.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+    }
+  };
+
+  var url="updatenotiread.php";
+
+  reqobj.open("GET", url, true);  
+  reqobj.send();
 }

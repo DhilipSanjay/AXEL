@@ -447,6 +447,7 @@ hr
     height:fit-content;
     width:80%;
     padding:10px 0;    
+    text-align:left;
     margin-top:15px;
     border-radius:5px;
 }
@@ -457,10 +458,9 @@ hr
     display:flex;
     align-items:center;
     justify-content:center;
-    background-color:var(--buttoncol);
     background-color:#76D7C4;
     color:white;
-    width:fit-content;
+    min-width:fit-content;
     overflow:hidden;
     height:35px;
     padding:0 5px;
@@ -607,7 +607,7 @@ hr
     margin:20px;
     width:fit-content; 
     height:fit-content;
-    text-align:justify;
+    text-align:left;
     line-height:30px;
 }
 
@@ -704,7 +704,7 @@ hr
     margin-left:5%;
     margin-top:-10px;
     margin-right:5%;
-    text-align:justify;
+    text-align:left;
     width:90%;
 }
 

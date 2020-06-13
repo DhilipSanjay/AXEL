@@ -8,7 +8,8 @@ include("dbconnect.php");
 include("session_check.php");
 
 $userid=$_SESSION["userid"];
-$desc = mysqli_real_escape_string($conn,$_POST["desc"]);
+$desc = mysqli_real_escape_string($conn,$_POST["desc"]);//escapes characters like ','',` etc...
+$desc = htmlspecialchars($desc);//used to escape html characters like <,> etc...
 
 $poll_query = "INSERT into poll (pollhostid, description, heldon) VALUES ($userid, '$desc', curdate())";
 if(mysqli_query($conn, $poll_query))

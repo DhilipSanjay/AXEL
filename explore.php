@@ -12,11 +12,11 @@ $usertype = $_SESSION['usertype'];
 $dp = $_SESSION['dp'];
 
 
-$timequery = "select lastloggedtime from users where userid=$userid";
-$result=mysqli_query($conn,$timequery);
-$timeres=mysqli_fetch_assoc($result);
+// $timequery = "select lastloggedtime from users where userid=$userid";
+// $result=mysqli_query($conn,$timequery);
+// $timeres=mysqli_fetch_assoc($result);
 
-$lastloggedtime=$timeres["lastloggedtime"];
+// $lastloggedtime=$timeres["lastloggedtime"];
 
 //if user type is a startup then show mentor request accepted notifications in notifications box
 if($usertype==="startup")
@@ -48,8 +48,8 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
 
-<link rel="stylesheet" href = "search.css"> 
 <link rel="stylesheet" href="explore.css">
+<link rel="stylesheet" href = "search.css"> 
 <script src="search.js" type="text/javascript"></script>
 <script src="explore.js" type="text/javascript"></script>
 
@@ -61,12 +61,14 @@ $mentornoticount=mysqli_num_rows($mentornotiresult);
     background-color:#35A18C;
     color:white;
     border:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     font-size:1.2rem;
     text-align:center;
-    position:fixed;
-    bottom:0;
-    width:22.5%;
-    padding:10px 0;
+    width:70%;
+    padding:10px;
+    border-radius:10px;
 }
 
 </style>
@@ -92,8 +94,7 @@ function opennotiholder()
     document.getElementById("notiholder").style.opacity="1";
     document.getElementById("roundnoti").style.visibility="hidden";
 
-    localStorage.setItem("notistatus","seen"); //user has seen the notification
-
+    updatenotiread();
     isopen=1;
   }
 
@@ -224,8 +225,15 @@ function gotodash()
   <path fill-rule="evenodd" d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l-1.51-.229L8 1.126l-1.355.702-1.51.229-.684 1.365-1.086 1.072L3.614 6l-.25 1.506 1.087 1.072.684 1.365 1.51.229L8 10.874l1.356-.702 1.509-.229.684-1.365 1.086-1.072L12.387 6l.248-1.506-1.086-1.072-.684-1.365z" clip-rule="evenodd"/>
   <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
 </svg>Contests</a>
-    <!--<div id="dummy"></div>-->
-    <div id="logout" onclick="logout()">Logout</div>
+<div style="border:none;border-bottom:0.5px solid white;width:80%;margin-bottom:15px"></div>
+
+<div id="logout" onclick="logout()">
+<svg class="bi bi-x-circle" width="1.2em" height="1.2em" style="margin-right:5px" viewBox="0 0 16 16" fill="white" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+<path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
+<path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
+</svg>
+Logout</div>
 </div>
 
 <?php
@@ -238,7 +246,7 @@ $temp=0;
 
 <div id="maindash">
 <div id="select">
-    <div id="s3" onclick="toggle(3)">Startups / Mentors Nearby</div>
+    <div id="s3" onclick="toggle(3)">Startups and Mentors Nearby</div>
     <div id="s1" onclick="toggle(1)">Popular Startups</div>
     <div id="s2" onclick="toggle(2)">Popular Mentors</div>
     </div>
@@ -263,7 +271,7 @@ $temp=0;
       }
       else
       {
-        echo '<div style="text-align:center;margin:15px 0px">Oops! Sorry, but no results were found!</div>';
+        echo '<div class="none" style="text-align:center;margin:15px 0px">Oops! Sorry, but no results were found!</div>';
       }
       
     ?>
@@ -289,7 +297,7 @@ $temp=0;
       }
       else
       {
-          echo '<div style="text-align:center;margin:15px 0px">Oops! Sorry, but no results were found!</div>';
+          echo '<div class="none" style="text-align:center;margin:15px 0px">Oops! Sorry, but no results were found!</div>';
       }
     ?>
     </div>
@@ -315,7 +323,7 @@ $temp=0;
       }
       else
       {
-        echo '<div style="text-align:center;margin:15px 0px">Oops! Sorry, but no results were found!</div>';
+        echo '<div class="none" style="text-align:center;margin:15px 0px">Oops! Sorry, but no results were found!</div>';
       }
     
     ?>
@@ -353,14 +361,14 @@ $temp=0;
 </div>
 
 
+
 <div id="notiholder">
 
 <?php 
 
-$query="select statuschangetime,userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
+$query="select notificationread,statuschangetime,userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
 $result=mysqli_query($conn,$query);
 $count=mysqli_num_rows($result);
-
 
 if( ($usertype==="mentor"&&$count===0) || ($count===0&&$usertype==="startup"&&$mentornoticount===0) )
 {
@@ -375,30 +383,19 @@ else
 if($usertype==="startup")
 {
 
-$firstitem=0;
-
 while($row=mysqli_fetch_assoc($mentornotiresult))
 {
   
-if($firstitem===0)//this is the first item
-{
-  if($row["statuschangetime"]>=$lastloggedtime)
+  if($row["notificationread"]==0)
   {
-?>
-   <script>
+  ?>
 
-var notistatus=localStorage.getItem("notistatus");
-
-if(notistatus==="not seen")
-{
+  <script>
   document.getElementById("roundnoti").style.visibility="visible";
-}
- 
- </script>
-<?php
+  </script>
+
+  <?php
   }
-  $firstitem=1;
-}
 ?>
 
 <div class="notibox">
@@ -429,32 +426,20 @@ if($count===0)
 <?php
 }
 
-$firstitem=0;
+// $firstitem=0;
 
 while($row=mysqli_fetch_assoc($result))
 { 
-  
-  if($firstitem===0)//this is the first item
+  if($row["notificationread"]==0)
   {
-    if($row["statuschangetime"]>=$lastloggedtime)
-    {
-?>
-     <script>
+  ?>
 
-var notistatus=localStorage.getItem("notistatus");
-
-if(notistatus==="not seen")
-{
+  <script>
   document.getElementById("roundnoti").style.visibility="visible";
-}
- 
- </script>
-  
-<?php
-    }
-    $firstitem=1;
+  </script>
+
+  <?php
   }
-  
 ?>
 
 <div class="notibox">
@@ -475,6 +460,7 @@ You were enlightened by <?php echo $row["Name"]."!" ?>
 ?>
 
 </div>
+
 
 
 <script type="text/javascript">
@@ -531,7 +517,6 @@ function logout() {
 
 window.location.href="logout.php";
 }
-
 
 </script>
 

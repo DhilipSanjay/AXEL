@@ -1,3 +1,45 @@
+var incorrectemail=1;
+
+function createreqobj() {
+    var xhttp;
+    if (window.XMLHttpRequest) {
+      // code for modern browsers
+      xhttp = new XMLHttpRequest();
+      } else {
+      // code for IE6, IE5
+      xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    return xhttp;
+}
+
+function checkemail()
+{
+    var email = document.getElementById("email").value; 
+
+    var checkmail=createreqobj();
+
+    checkmail.onreadystatechange = function() {
+
+        if (this.readyState == 4 && this.status == 200) {
+            if(this.responseText==="failure")
+            {
+                document.getElementById("emailerror").style.display="block";
+                incorrectemail=1;
+            }
+
+            else
+            {
+                document.getElementById("emailerror").style.display="none";
+                incorrectemail=0;
+            }
+        }
+      };
+
+    checkmail.open("GET", "checkemail.php?email="+email, true);
+    checkmail.send();
+}
+
 function CheckedRadio() {
     var radioButtons = document.getElementsByName("radio");
     var retval = 0;
@@ -35,6 +77,11 @@ function validate_step1()
     else if(passregex.test(document.getElementById("password").value)===false)
     {
         alert('Enter a valid password!');
+    }
+
+    else if(incorrectemail===1)
+    {
+        alert('Enter a valid email address!');
     }
 
     else

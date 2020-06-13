@@ -121,6 +121,15 @@
     box-shadow: 0 3px 8px -2px #c0c0c0;
 }
 
+#membergrid .member p,#contactgrid .contact p
+{
+    margin-left:10px;
+    margin-right:10px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+
 #otherinfo .contents
 {
     margin-top:35px;
@@ -130,4 +139,103 @@
 {
     display:grid;
     grid-template-columns: 1fr;
+}
+
+@media screen and (max-width: 769px) {
+
+    #topinfo
+    {
+        flex-direction: column;
+    }
+
+    #topinfo #dp
+    {
+    width:100px;
+    overflow:hidden;
+    align-self:center;
+    height:100px;
+    display:block;
+    margin-bottom:15px;
+    }
+
+    #topinfo #dp img
+    {
+    height:100px;
+    width:100px;
+    }
+
+    #topinfo #maindetails
+    {
+        width:100%;
+        box-sizing: border-box;
+        font-size:1rem;
+    }
+
+    #topinfo #maindetails p
+    {
+        text-align:center;
+        overflow:hidden;
+        padding:10px 0; 
+        margin:2.5px !important;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+        width:100%;
+    }
+
+    #topinfo #enlightenbut
+    {
+    flex-direction: row;
+    align-items: center;
+    margin-left:0;
+    padding:10px;
+    margin-top:20px;
+    font-family:'Roboto', sans-serif;
+    font-size:0.9rem !important;
+    color:#76D7C4;
+    }
+
+    #topinfo #enlightenbut > div:nth-child(2)
+    {
+        margin-top:5px !important;
+        margin-left:20px;
+    }
+
+
+    #select
+    {
+        font-size:1rem;
+        
+    }
+
+    #otherinfo
+    {
+        width:100%;
+    }
+
+    
+    #otherinfo .contents
+    {
+        margin-top:10px;
+    }
+
+    #membergrid,#contactgrid
+    {
+        grid-template-columns:1fr;
+    }
+
+    #membergrid .member,#contactgrid .contact
+    {
+        overflow:hidden;
+    }
+
+    #membergrid .member p,#contactgrid .contact p,#otherinfo
+    {
+        font-size:1rem;
+    }
+
+    .contents > p:nth-child(1)
+    {
+        font-size:1.3rem !important;
+    }
+
 }
