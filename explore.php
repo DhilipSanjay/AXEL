@@ -21,7 +21,7 @@ $dp = $_SESSION['dp'];
 //if user type is a startup then show mentor request accepted notifications in notifications box
 if($usertype==="startup")
 {
-$mentornotiquery="select statuschangetime,mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$userid and status='accepted' order by timeelapsed limit 50";
+$mentornotiquery="select notificationread,statuschangetime,mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$userid and status='accepted' order by timeelapsed limit 50";
 $mentornotiresult=mysqli_query($conn,$mentornotiquery);
 $mentornoticount=mysqli_num_rows($mentornotiresult);
 }
