@@ -178,7 +178,9 @@ function gotodash()
   <div id="roundnoti"></div>
 
 
-  <img id="userdp" src="<?php echo $dp ?>" alt="avatar.png">
+  <div id="userdp">
+  <img src="<?php echo $dp ?>" alt="profile picture">
+    </div>
 </div>
 
 </div>
@@ -362,13 +364,13 @@ if(strcmp($row["choice"],$selectedop)===0)
 ?>
 
 <div class="selected">
-
+<span class="choice">
 <?php
 
 echo $row["choice"];
 
 ?>
-
+</span>
 <div class="countbox">
 <?php 
 
@@ -395,12 +397,12 @@ else
 
 
 <div class="polloption" pollhostid="<?php echo $pollhostid ?>" userid="<?php echo $userid ?>" poll-label="<?php echo $pollid?>" option-label="<?php echo $row["choiceid"]?>">
-
+<span class="choice">
 <?php
 echo $row["choice"];
 
 ?>
-
+</span>
 <div class="countbox">
 <?php
 

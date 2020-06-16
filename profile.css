@@ -31,9 +31,14 @@
 {
     border-radius:50%;
     width:150px;
+    background-color:#E8F8F5;
     overflow:hidden;
     align-self:flex-start;
     height:150px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    object-fit:cover;
 }
 
 #topinfo #dp img
@@ -154,14 +159,12 @@
     overflow:hidden;
     align-self:center;
     height:100px;
-    display:block;
     margin-bottom:15px;
     }
 
     #topinfo #dp img
     {
     height:100px;
-    width:100px;
     }
 
     #topinfo #maindetails

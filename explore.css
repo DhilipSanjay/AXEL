@@ -56,6 +56,8 @@
     background-color: white;
     padding: 5px;
     border-radius:8px;
+    display:flex;
+    align-items: center;
     margin-bottom:15px;
     -webkit-box-shadow: 0 3px 8px -2px #c0c0c0;
     -moz-box-shadow: 0 3px 8px -2px #c0c0c0;
@@ -76,9 +78,22 @@
 .DP
 {
     width: 65px;
+    height:65px;
     border-radius:50%;
     margin-left:15px;
+    background-color:#E8F8F5;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    object-fit:cover;
+    overflow:hidden;
 }
+
+.DP img
+{
+    height:65px;
+}
+
 .profile
 {
     padding: 10px;
@@ -126,11 +141,16 @@
 
     .DP
     {
+        width: 55px;
+        height:55px;
         position:relative;
         float:left;
-        margin-top:12.5px;
-        width: 50px;
         margin-left:10px;
+    }
+
+    .DP img
+    {
+        height:55px;
     }
 
     .username

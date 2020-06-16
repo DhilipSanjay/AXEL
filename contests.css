@@ -100,3 +100,45 @@ a
     margin-top: 10px; 
     width:100%;
 }
+
+@media screen and (max-width: 769px)
+{
+    .contest
+    {
+        font-size:1.1rem;
+        width:90%;
+    }
+
+    .description
+    {
+        font-size:1rem;
+        line-height: 1.5em;
+    }
+
+    .hostedby::before,.hostedby::after
+    {
+        width:0;
+        content:"";
+        margin:0;
+    }
+        
+    .contestfooter
+    {
+        border-top:1px solid #76D7C4;
+        padding-top:20px;
+        text-align:center !important;
+        grid-row-gap:1.2em;
+        grid-template-columns:1fr;
+        grid-template-areas:
+        'date' 
+        'participate'
+        'viewdetails';
+        font-size:1rem;
+    }
+
+    .nores
+    {
+        font-size:1rem !important;
+        margin:10px auto 25px auto !important;
+    }
+}

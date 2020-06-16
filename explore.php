@@ -178,7 +178,9 @@ function gotodash()
   <div id="roundnoti"></div>
 
 
-  <img id="userdp" src="<?php echo $dp ?>" alt="avatar.png">
+  <div id="userdp">
+  <img src="<?php echo $dp ?>" alt="profile picture">
+    </div>
 </div>
 
 </div>
@@ -262,7 +264,7 @@ $temp=0;
           $output = "";
           $output .= '<div class="queryitem" onclick= "selectuser(\''.$startup_row['userid'].'\')">'; 
           /*$output .= '<img class="DP" src= "'.$startup_row['dp'] . '" alt="defaultimgholder.png">';*/
-          $output .= '<img class="DP" src= "'.$startup_row['dp']. '" alt="defaultimgholder.png">';
+          $output .= '<div class="DP"><img src= "'.$startup_row['dp']. '" alt="defaultimgholder.png"></div>';
           $output .= '<span class="profile"><div class = "username">' .$startup_row['name'].'</div>';
           $output .= '<div class="usertype">' .$startup_row['usertype'].'</div>';
           $output .= '<div class="loc">' .$startup_row['location'].'</div></span></div>';
@@ -288,7 +290,7 @@ $temp=0;
           $output = "";
           $output .= '<div class="queryitem" onclick= "selectuser(\''.$mentor_row['userid'].'\')">'; 
           /*$output .= '<img class="DP" src= "'.$startup_row['dp'] . '" alt="defaultimgholder.png">';*/
-          $output .= '<img class="DP" src= "'.$mentor_row['dp']. '" alt="defaultimgholder.png">';
+          $output .= '<div class="DP"><img src= "'.$mentor_row['dp']. '" alt="defaultimgholder.png"></div>';
           $output .= '<span class="profile"><div class = "username">' .$mentor_row['name'].'</div>';
           $output .= '<div class="usertype">' .$mentor_row['usertype'].'</div>';
           $output .= '<div class="loc">' .$mentor_row['location'].'</div></span></div>';
@@ -313,7 +315,7 @@ $temp=0;
           $output = "";
           $output .= '<div class="queryitem" onclick= "selectuser(\''.$nearby_row['userid'].'\')">'; 
           /*$output .= '<img class="DP" src= "'.$startup_row['dp'] . '" alt="defaultimgholder.png">';*/
-          $output .= '<img class="DP" src= "'.$nearby_row['dp']. '" alt="defaultimgholder.png">';
+          $output .= '<div class="DP"><img src= "'.$nearby_row['dp']. '" alt="defaultimgholder.png"></div>';
           $output .= '<span class="profile"><div class = "username">' .$nearby_row['name'].'</div>';
           $output .= '<div class="usertype">' .$nearby_row['usertype'].'</div>';
           $output .= '<div class="loc">' .$nearby_row['location'].'</div></span></div>';

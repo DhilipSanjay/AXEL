@@ -114,21 +114,26 @@ box-sizing:border-box;
   margin-bottom:8px;
 }
 
+.queryitem2 .top
+{
+  display:flex;
+  align-items:center;
+}
+
 .queryitem2:hover{
     border: none;
 }
 
-.queryitem2 .profile
+.queryitem2 .top .profile
 {
   cursor:pointer;
 }
 
 
-.queryitem2 .chat
+.queryitem2 .top .chat
 {
-  position:absolute;
-  top:25px;
-  right:35px;
+ margin:auto;
+ margin-right:15px;
   cursor:pointer;
 }
 
@@ -163,12 +168,6 @@ box-sizing:border-box;
   border:1px solid #76D7C4;
 }
 
-.DP
-{
-    width: 40px;
-    border-radius:50%;
-}
-
 .linkholder .item:hover
 {
   background-color:#76D7C4;
@@ -182,10 +181,6 @@ box-sizing:border-box;
   font-size:1.3rem !important;
   }
 
-  .queryitem .DP
-  {
-    width:50px !important;
-  }
 
   .linkholder
   {
@@ -313,7 +308,9 @@ function gotodash()
   </svg>
   <div id="roundnoti"></div>
 
-  <img id="userdp" src="<?php echo $dp ?>" alt="avatar.png">
+  <div id="userdp">
+  <img src="<?php echo $dp ?>" alt="profile picture">
+    </div>
 </div>
 
 </div>
@@ -414,7 +411,12 @@ $exlink = mysqli_query($conn,$querylink);
 
 
 <div class="queryitem2">
-<img class="DP" src= "<?php echo $res['dp'] ?>" alt="profile picture">
+
+<div class="top">
+
+<div class="DP">
+<img src= "<?php echo $res['dp'] ?>" alt="profile picture">
+</div>
 
 <span class="profile" onclick= "selectuser(<?php echo $res['mentorid'] ?>)">
   <div class = "username"><?php echo $res['name'] ?></div>
@@ -429,6 +431,7 @@ $exlink = mysqli_query($conn,$querylink);
 </svg>
 
 </span>
+</div>
 
 <div class="linkholder">
 
@@ -500,7 +503,13 @@ $exlink = mysqli_query($conn,$querylink);
 
 
 <div class="queryitem2">
-<img class="DP" src= "<?php echo $res['dp'] ?>" alt="profile picture">
+
+<div class="top">
+
+<div class="DP">
+<img src= "<?php echo $res['dp'] ?>" alt="profile picture">
+</div>
+
 <span class="profile" onclick= "selectuser(<?php echo $res['startupid'] ?>)">
   <div class = "username"><?php echo $res['name'] ?></div>
   <div class="loc"><?php echo $res['field'] ?></div>
@@ -515,6 +524,8 @@ $exlink = mysqli_query($conn,$querylink);
 </svg>
 
 </span>
+
+</div>
 
 <div class="linkholder">
 
@@ -589,7 +600,10 @@ $startupexec = mysqli_query($conn,$startupquery);
 ?>
 
 <div class="queryitem" onclick= "selectuser(<?php echo $res['acceptorid'] ?>)">
-<img class="DP" style="width:65px" src= "<?php echo $res['dp'] ?>" alt="profile picture">
+<div class="DP">
+<img src= "<?php echo $res['dp'] ?>" alt="profile picture">
+</div>
+
 <span class="profile">
   <div class = "username"><?php echo $res['name'] ?></div>
   <div class="usertype"><?php echo $res['field'] ?></div>
@@ -638,7 +652,10 @@ $mentorexec = mysqli_query($conn,$mentorquery);
 ?>
 
 <div class="queryitem" onclick= "selectuser(<?php echo $res['acceptorid'] ?>)">
-<img class="DP" style="width:65px" src= "<?php echo $res['dp'] ?>" alt="profile picture">
+<div class="DP">
+<img src= "<?php echo $res['dp'] ?>" alt="profile picture">
+</div>
+
 <span class="profile">
   <div class = "username"><?php echo $res['name'] ?></div>
   <div class="usertype"><?php echo $res['field'] ?></div>

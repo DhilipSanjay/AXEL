@@ -214,7 +214,9 @@ function gotodash()
   <div id="roundnoti"></div>
 
 
-  <img id="userdp" src="<?php echo $sessionuserdp ?>" alt="avatar.png">
+  <div id="userdp">
+  <img src="<?php echo $sessionuserdp ?>" alt="profile picture">
+  </div>
 </div>
 
 </div>

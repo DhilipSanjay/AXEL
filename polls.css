@@ -114,6 +114,10 @@ a
     color:white;
 }
 
+#polls .polloption .choice,#polls .selected .choice
+{
+    margin-right:15px;
+}
 .nowselected
 {
     background-color:#76D7C4;

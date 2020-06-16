@@ -294,6 +294,17 @@ right:101px;
     width:36px;
     border-radius:50%;
     cursor:pointer;
+    background-color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    object-fit:cover;
+    overflow:hidden;
+}
+
+#header #otherholder #userdetails #userdp img
+{
+    height:36px;
 }
 
 #dashboard
