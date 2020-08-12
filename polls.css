@@ -108,11 +108,16 @@ a
     width:80%;
     padding:10px 0;    
     margin-top:15px;
+    text-align:left;
     border-radius:5px;
     background-color:#76D7C4;
     color:white;
 }
 
+#polls .polloption .choice,#polls .selected .choice
+{
+    margin-right:15px;
+}
 .nowselected
 {
     background-color:#76D7C4;
@@ -161,7 +166,6 @@ a
 
 #pollcreatebox
 {
-    font-size:1.1rem;
     border:2px solid #76D7C4;
     display:none;
     height:fit-content;
@@ -213,6 +217,7 @@ input[type="text"]:focus,#pollcreatebox .holder #polldesc:focus
     outline:none;
     border-color:#76D7C4;
 }
+
 .holder
 {
     min-width:90%;
@@ -231,5 +236,54 @@ input[type="text"]:focus,#pollcreatebox .holder #polldesc:focus
     {
         transform:translateY(0);
         opacity: 1;
+    }
+}
+
+@media screen and (max-width: 769px)
+{
+    #polls
+    {
+        font-size:1.1rem;
+        text-align: center;
+    }
+
+    #polls .createdby
+    {
+    font-size:1rem;
+    border-bottom:1px solid #76D7C4;
+    padding-bottom:10px;
+    }
+
+    #polls .createdby::before,#polls .createdby::after {
+    content:"";
+    height:0;
+    margin:0;
+    width:0;
+    }
+
+    #polls .polloption,#polls .selected
+    {
+        font-size: 1rem;
+        width:100%;
+        text-align:left;
+    }
+    
+    #polls .selectbut
+    {
+    font-size:0.9rem;
+    width:fit-content !important;
+    }
+
+    #pollcreatebox,#createpoll,
+    #close,input[type="text"],#pollcreatebox .holder #polldesc,.holder
+    {
+        font-size:0.9rem;
+    }
+
+    #createpoll,
+    #close
+    {
+        min-width:90%;
+        max-width:90%;
     }
 }

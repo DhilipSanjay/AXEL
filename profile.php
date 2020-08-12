@@ -30,7 +30,7 @@ $sessionuserdp = $_SESSION["dp"];
 //if user type is a startup then show mentor request accepted notifications in notifications box
 if($sessionusertype==="startup")
 {
-$mentornotiquery="select statuschangetime,mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$sessionuserid and status='accepted' order by timeelapsed limit 50";
+$mentornotiquery="select notificationread,statuschangetime,mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$sessionuserid and status='accepted' order by timeelapsed limit 50";
 $mentornotiresult=mysqli_query($conn,$mentornotiquery);
 $mentornoticount=mysqli_num_rows($mentornotiresult);
 }
@@ -214,7 +214,9 @@ function gotodash()
   <div id="roundnoti"></div>
 
 
-  <img id="userdp" src="<?php echo $sessionuserdp ?>" alt="avatar.png">
+  <div id="userdp">
+  <img src="<?php echo $sessionuserdp ?>" alt="profile picture">
+  </div>
 </div>
 
 </div>
@@ -721,7 +723,7 @@ else
 <?php 
 
 $anquery ="select puserid,postid,Name, DATE_FORMAT(createdtime,'%d %M %Y | %h:%i %p') as createdtime,
- Announcement FROM post inner join users WHERE users.userID=post.puserid and userid=$userid order by createdtime desc";
+ Announcement FROM post inner join users WHERE users.userID=post.puserid and userid=$sessionuserid order by createdtime desc";
 
 $anex = mysqli_query($conn,$anquery);
 $temp=0;
@@ -817,11 +819,11 @@ $temp++;
 
 <?php 
 
-$query="select notificationread,statuschangetime,userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$userid and status='accepted' order by timeelapsed limit 50";
+$query="select notificationread,statuschangetime,userid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from enlighten inner join users where acceptorid=userid and requestorid=$sessionuserid and status='accepted' order by timeelapsed limit 50";
 $result=mysqli_query($conn,$query);
 $count=mysqli_num_rows($result);
 
-if( ($usertype==="mentor"&&$count===0) || ($count===0&&$usertype==="startup"&&$mentornoticount===0) )
+if( ($sessionusertype==="mentor"&&$count===0) || ($count===0&&$sessionusertype==="startup"&&$mentornoticount===0) )
 {
 ?>
 <div id="nonoti" style="margin-top:20px">No notifications!</div>
@@ -831,7 +833,7 @@ if( ($usertype==="mentor"&&$count===0) || ($count===0&&$usertype==="startup"&&$m
 else
 {
 
-if($usertype==="startup")
+if($sessionusertype==="startup")
 {
 
 while($row=mysqli_fetch_assoc($mentornotiresult))

@@ -22,7 +22,7 @@ $dp = $_SESSION['dp'];
 //if user type is a startup then show mentor request accepted notifications in notifications box
 if($usertype==="startup")
 {
-$mentornotiquery="select statuschangetime,mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$userid and status='accepted' order by timeelapsed limit 50";
+$mentornotiquery="select notificationread,statuschangetime,mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$userid and status='accepted' order by timeelapsed limit 50";
 $mentornotiresult=mysqli_query($conn,$mentornotiquery);
 $mentornoticount=mysqli_num_rows($mentornotiresult);
 }
@@ -178,7 +178,9 @@ function gotodash()
   <div id="roundnoti"></div>
 
 
-  <img id="userdp" src="<?php echo $dp ?>" alt="avatar.png">
+  <div id="userdp">
+  <img src="<?php echo $dp ?>" alt="profile picture">
+    </div>
 </div>
 
 </div>
@@ -362,13 +364,13 @@ if(strcmp($row["choice"],$selectedop)===0)
 ?>
 
 <div class="selected">
-
+<span class="choice">
 <?php
 
 echo $row["choice"];
 
 ?>
-
+</span>
 <div class="countbox">
 <?php 
 
@@ -395,12 +397,12 @@ else
 
 
 <div class="polloption" pollhostid="<?php echo $pollhostid ?>" userid="<?php echo $userid ?>" poll-label="<?php echo $pollid?>" option-label="<?php echo $row["choiceid"]?>">
-
+<span class="choice">
 <?php
 echo $row["choice"];
 
 ?>
-
+</span>
 <div class="countbox">
 <?php
 
@@ -761,8 +763,7 @@ if(flag === 1)
 }
   
 }
-
-
+</script>
 <script src="dashboard.js" type="text/javascript"></script>
 </body>
 </html>

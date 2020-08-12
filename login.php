@@ -147,7 +147,7 @@ localStorage.setItem("notiupdated","false");
             <div class="login-group" style="padding-top:25px">
                 <?php if($type==="redirect") { ?>
                 
-                <span style="color:red;margin-bottom:10px">Username, password or user type is incorrect! Try again!</span>
+                <span style="color:red;margin-bottom:10px">Email, password or user type is incorrect! Try again!</span>
                 
                 <?php }
                 
@@ -208,6 +208,7 @@ localStorage.setItem("notiupdated","false");
                 </clr-checkbox-wrapper>
                 <button type="submit" name="login" style="margin-top:25px;width:100%;border:none" class="btn btn-primary loginbut">Login</button>
                 <a href="register.html"  style="margin-top:15px;width:100%;color:#76D7C4 !important" class="signup">I want to create a new account!</a>
+                <a href="index.php"  style="margin-top:5px;width:100%;color:#76D7C4 !important" class="signup">Go to homepage</a>
             </div>
         </div>
         </form>

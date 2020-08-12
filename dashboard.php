@@ -295,7 +295,9 @@ $(function() {
   </svg>
   <div id="roundnoti"></div>
 
-  <img id="userdp" src="<?php echo $dp ?>" alt="avatar.png">
+  <div id="userdp">
+  <img src="<?php echo $dp ?>" alt="profile picture">
+    </div>
 </div>
 
 </div>

@@ -19,7 +19,7 @@ if(isset($_POST['Submit']))
          
         if(mysqli_stmt_execute($stmt))
         {
-            echo "Inserted successfully";
+            // echo "Inserted successfully";
             //Fetching userid
             $userid_query = "SELECT userid FROM users WHERE email = '$email'";
             $userid_result = mysqli_query($conn, $userid_query);
@@ -48,23 +48,23 @@ if(isset($_POST['Submit']))
                         $dp_upload = "UPDATE users SET dp = '$fileDest' WHERE userid = $userid";
                         if(mysqli_query($conn, $dp_upload))
                         {
-                            echo "DP inserted successfully";
+                            // echo "DP inserted successfully";
                         }
                         else
                         {
-                            echo "Error: Could not execute the query: " . mysqli_error($conn);
+                            // echo "Error: Could not execute the query: " . mysqli_error($conn);
                             header('location:error.php');
                         }                 
                     }
                     else
                     {
-                        echo "Sorry! There was an error uploading your file!";
+                        // echo "Sorry! There was an error uploading your file!";
                         header('location:error.php');
                     }
                 }
                 else
                 {
-                    echo "Sorry! You cannot upload files of this type!";
+                    // echo "Sorry! You cannot upload files of this type!";
                     header('location:error.php');
                 }
             }
@@ -76,11 +76,12 @@ if(isset($_POST['Submit']))
                 $startup_insert = "INSERT INTO startup VALUES ($userid, '$founder', '$field')";
                 if(mysqli_query($conn, $startup_insert))
                 {
-                    echo "Startup inserted successfully";
+                    // echo "Startup inserted successfully";
                 }
                 else
                 {
-                    echo "Error: Could not execute the query: " . mysqli_error($conn);
+                    // echo "Error: Could not execute the query: " . mysqli_error($conn);
+                    header("location: error.php");
                 }
                 
                 //inserting the members of startup
@@ -103,7 +104,7 @@ if(isset($_POST['Submit']))
                         mysqli_stmt_bind_param($stmt, "iss", $userid, $member, $desgination_member);
                         if(mysqli_stmt_execute($stmt))
                         {
-                            echo "Member $member_count Inserted successfully";
+                            // echo "Member $member_count Inserted successfully";
                             $member_count++;
                             $member = "";
                             $desgination_member = "";
@@ -122,13 +123,13 @@ if(isset($_POST['Submit']))
                         }
                         else
                         {
-                            echo "Error: Could not execute the query: " . mysqli_error($conn);
+                            // echo "Error: Could not execute the query: " . mysqli_error($conn);
                         }
                     }
                 }
                 else
                 {
-                    echo "Error: Could not prepare the query: " . mysqli_error($conn);
+                    // echo "Error: Could not prepare the query: " . mysqli_error($conn);
                 }
             
             }
@@ -139,11 +140,11 @@ if(isset($_POST['Submit']))
                 $mentor_insert = "INSERT INTO mentor VALUES ($userid, '$field')";
                 if(mysqli_query($conn, $mentor_insert))
                 {
-                    echo "Mentor inserted successfully";
+                    // echo "Mentor inserted successfully";
                 }
                 else
                 {
-                    echo "Error: Could not execute the query: " . mysqli_error($conn);
+                    // echo "Error: Could not execute the query: " . mysqli_error($conn);
                 }
                 //inserting mentor qualifications
                 $qual_count = 1;
@@ -160,7 +161,7 @@ if(isset($_POST['Submit']))
                         mysqli_stmt_bind_param($stmt,"is", $userid, $qual);
                         if(mysqli_stmt_execute($stmt))
                         {
-                            echo "Qualification $qual_count Inserted successfully";
+                            // echo "Qualification $qual_count Inserted successfully";
                             $qual_count++;
                             $qual = "";
                             if(isset($_POST['qualification'.$qual_count.'']))
@@ -174,13 +175,13 @@ if(isset($_POST['Submit']))
                         }
                         else
                         {
-                            echo "Error: Could not execute the query: " . mysqli_error($conn);
+                            // echo "Error: Could not execute the query: " . mysqli_error($conn);
                         }
                     }
                 }
                 else
                 {
-                    echo "Error: Could not prepare the query: " . mysqli_error($conn);
+                    // echo "Error: Could not prepare the query: " . mysqli_error($conn);
                 }                
             }
             else if ($usertype === "general") //For general user
@@ -190,11 +191,11 @@ if(isset($_POST['Submit']))
                 //inserting into generaluser
                 if(mysqli_query($conn, $general_insert))
                 {
-                    echo "General user inserted successfully";
+                    // echo "General user inserted successfully";
                 }
                 else
                 {
-                    echo "Error: Could not execute the query: " . mysqli_error($conn);
+                    // echo "Error: Could not execute the query: " . mysqli_error($conn);
                 }
             }
             //inserting user links
@@ -212,7 +213,7 @@ if(isset($_POST['Submit']))
                 {
                     if(mysqli_stmt_execute($stmt))
                     {
-                        echo "Link $link_count Inserted successfully";
+                        // echo "Link $link_count Inserted successfully";
                         $link_count++;
                         $link = "";
                         if(isset($_POST['link'.$link_count.'']))
@@ -226,7 +227,7 @@ if(isset($_POST['Submit']))
                     }
                     else
                     {
-                        echo "Error: Could not execute the query: " . mysqli_error($conn);
+                        // echo "Error: Could not execute the query: " . mysqli_error($conn);
                     }
                 }
             }
@@ -234,18 +235,18 @@ if(isset($_POST['Submit']))
             {
                 if(mysqli_multi_query($conn, $link_insert))
                 {
-                    echo "Links inserted successfully";
+                    // echo "Links inserted successfully";
                 }
                 else
                 {
-                    echo "Error: Could not execute the query: " . mysqli_error($conn);
+                    // echo "Error: Could not execute the query: " . mysqli_error($conn);
                 }
             }
 
 
             //Sending verification email
             $subject = "Axel - Email Verification";
-            $message = "Hello $c_name, you are one step away from using Axel! <a href= 'https://localhost/AXEL/verify.php?vkey=$vkey'>Click Here</a> to verify your email address and activate your account!";
+            $message = "Hello $name, you are one step away from using Axel! <a href= 'https://localhost/AXEL/verify.php?vkey=$vkey'>Click Here</a> to verify your email address and activate your account!";
             $headers = "From: thisisourprojectx@gmail.com" . "\r\n";
             // Always set content-type when sending HTML email
             $headers .= "MIME-Version: 1.0" . "\r\n";
@@ -263,12 +264,12 @@ if(isset($_POST['Submit']))
         }
         else
         {
-            echo "Error: Could not execute the query: " . mysqli_error($conn);
+            // echo "Error: Could not execute the query: " . mysqli_error($conn);
         }
     }
     else
     {
-        echo "Error: Could not prepare the query: " . mysqli_error($conn);
+        // echo "Error: Could not prepare the query: " . mysqli_error($conn);
     }
 }
 ?>

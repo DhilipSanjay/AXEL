@@ -22,7 +22,7 @@ $dp = $_SESSION['dp'];
 //if user type is a startup then show mentor request accepted notifications in notifications box
 if($usertype==="startup")
 {
-$mentornotiquery="select statuschangetime,mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$userid and status='accepted' order by timeelapsed limit 50";
+$mentornotiquery="select notificationread,statuschangetime,mentorid,Name,SYSDATE()-statuschangetime as timeelapsed,DATE_FORMAT(statuschangetime, '%d %M %Y | %h:%i %p') as time from mentorship inner join users where mentorid=userid and startupid=$userid and status='accepted' order by timeelapsed limit 50";
 $mentornotiresult=mysqli_query($conn,$mentornotiquery);
 $mentornoticount=mysqli_num_rows($mentornotiresult);
 }
@@ -181,7 +181,9 @@ function gotodash()
   <div id="roundnoti"></div>
 
 
-  <img id="userdp" src="<?php echo $dp ?>" alt="avatar.png">
+  <div id="userdp">
+  <img src="<?php echo $dp ?>" alt="profile picture">
+    </div>
 </div>
 
 </div>
@@ -256,7 +258,7 @@ if(mysqli_num_rows($active_result)===0)
 {
 ?>
 
-<div style="font-size:1.2rem;margin:15px; animation:slidein 0.5s forwards;opacity:0;transform:translateY(-50px)">No Active Contests!</div>
+<div class="nores" style="font-size:1.2rem;margin:15px; animation:slidein 0.5s forwards;opacity:0;transform:translateY(-50px)">No Active Contests!</div>
 
 <?php
 }
@@ -283,8 +285,8 @@ Contest hosted by <a href="profile.php?userid= <?php echo $hostid ?>"><?php echo
 </div>
 
 <div class="contestfooter">
-<div><b>Date : </b><?php echo $heldon;?> </div>
-<div id="participation">
+<div style="grid-area:date"><b>Date : </b><?php echo $heldon;?> </div>
+<div id="participation" style="grid-area:participate">
 <?php
   if(mysqli_num_rows($generaluser_result) === 0)
   {
@@ -335,7 +337,7 @@ if(mysqli_num_rows($upcoming_result)===0)
 {
 ?>
 
-<div style="font-size:1.2rem;margin:15px; animation:slidein 0.5s forwards;opacity:0;transform:translateY(-50px)">No Upcoming Contests!</div>
+<div class="nores" style="font-size:1.2rem;margin:15px; animation:slidein 0.5s forwards;opacity:0;transform:translateY(-50px)">No Upcoming Contests!</div>
 
 <?php
 }
@@ -362,7 +364,7 @@ Contest hosted by <a href="profile.php?userid= <?php echo $hostid ?>"><?php echo
 </div>
 
 <div class="contestfooter">
-<div><b>Starts on : </b><?php echo $heldon;?> </div>
+<div style="grid-area:date"><b>Starts on : </b><?php echo $heldon;?> </div>
 <div style="grid-area:viewdetails;text-align:right"><a href="<?php echo $contestlink?>" target="_blank">View Details</a></div>
 </div>
 </div>
@@ -383,7 +385,7 @@ if(mysqli_num_rows($archived_result)===0)
 {
 ?>
 
-<div style="font-size:1.2rem;margin:15px; animation:slidein 0.5s forwards;opacity:0;transform:translateY(-50px)">No Archived Contests!</div>
+<div class="nores" style="font-size:1.2rem;margin:15px; animation:slidein 0.5s forwards;opacity:0;transform:translateY(-50px)">No Archived Contests!</div>
 
 <?php
 }
@@ -409,9 +411,9 @@ Contest hosted by <a href="profile.php?userid= <?php echo $hostid ?>"><?php echo
 </div>
 
 <div class="contestfooter">
-<div><b>Held on : </b><?php echo $heldon;?> </div>
+<div style="grid-area:date"><b>Held on : </b><?php echo $heldon;?> </div>
 
-<div id="participation">
+<div id="participation" style="grid-area:participate">
 <?php
   if(!(mysqli_num_rows($generaluser_result) === 0))
   {
